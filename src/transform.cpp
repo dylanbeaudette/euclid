@@ -53,7 +53,7 @@ transform2_p create_transform_2_identity(int n) {
 }
 
 [[cpp11::register]]
-transform2_p create_transform_2_matrix(cpp11::list_of<cpp11::doubles_matrix> matrices) {
+transform2_p create_transform_2_matrix(cpp11::list_of< cpp11::doubles_matrix<> > matrices) {
   std::vector<Aff_transformation_2> vec;
   vec.reserve(matrices.size());
   for (int i = 0; i < matrices.size(); ++i) {
@@ -137,7 +137,7 @@ transform3_p create_transform_3_identity(int n) {
 }
 
 [[cpp11::register]]
-transform3_p create_transform_3_matrix(cpp11::list_of<cpp11::doubles_matrix> matrices) {
+transform3_p create_transform_3_matrix(cpp11::list_of< cpp11::doubles_matrix<> > matrices) {
   std::vector<Aff_transformation_3> vec;
   vec.reserve(matrices.size());
   for (int i = 0; i < matrices.size(); ++i) {

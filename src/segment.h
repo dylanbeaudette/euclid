@@ -81,7 +81,7 @@ public:
     }
   }
 
-  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+  cpp11::writable::doubles_matrix<> distance_matrix(const geometry_vector_base& other) const {
     if (other.dimensions() != dimensions()) {
       cpp11::stop("Only geometries of the same dimensionality can intersect");
     }
@@ -190,7 +190,7 @@ public:
     }
   }
 
-  cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const {
+  cpp11::writable::doubles_matrix<> distance_matrix(const geometry_vector_base& other) const {
     if (other.dimensions() != dimensions()) {
       cpp11::stop("Only geometries of the same dimensionality can intersect");
     }

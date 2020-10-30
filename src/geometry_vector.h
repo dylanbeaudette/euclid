@@ -52,7 +52,7 @@ public:
   virtual ~geometry_vector_base() = default;
 
   // Conversion
-  virtual cpp11::writable::doubles_matrix as_numeric() const = 0;
+  virtual cpp11::writable::doubles_matrix<> as_numeric() const = 0;
   virtual cpp11::writable::strings format() const = 0;
   virtual std::vector<double> get_row(size_t i, size_t j) const = 0;
 
@@ -98,7 +98,7 @@ public:
   virtual cpp11::writable::doubles area() const = 0;
   virtual cpp11::writable::doubles volume() const = 0;
   virtual std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const = 0;
-  virtual cpp11::writable::doubles_matrix distance_matrix(const geometry_vector_base& other) const = 0;
+  virtual cpp11::writable::doubles_matrix<> distance_matrix(const geometry_vector_base& other) const = 0;
 
   // Common
   virtual cpp11::external_pointer<geometry_vector_base> transform(const transform_vector_base& affine) const = 0;
@@ -252,10 +252,10 @@ public:
   const std::vector<T>& get_storage() const { return _storage; }
 
   // Conversion
-  cpp11::writable::doubles_matrix as_numeric() const {
+  cpp11::writable::doubles_matrix<> as_numeric() const {
     cpp11::writable::strings colnames = def_names();
     size_t ncols = colnames.size();
-    cpp11::writable::doubles_matrix result(long_length(), ncols);
+    cpp11::writable::doubles_matrix<> result(long_length(), ncols);
 
     size_t ii = 0;
     for (size_t i = 0; i < size(); ++i) {

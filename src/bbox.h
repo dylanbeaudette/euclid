@@ -63,7 +63,7 @@ public:
   virtual ~bbox_vector_base() = default;
 
   // Conversion
-  virtual cpp11::writable::doubles_matrix as_numeric() const = 0;
+  virtual cpp11::writable::doubles_matrix<> as_numeric() const = 0;
   virtual cpp11::writable::strings format() const = 0;
 
   // Equality
@@ -127,9 +127,9 @@ public:
   const std::vector<T>& get_storage() const { return _storage; }
 
   // Conversion
-  cpp11::writable::doubles_matrix as_numeric() const {
+  cpp11::writable::doubles_matrix<> as_numeric() const {
     size_t ncols = dim * 2;
-    cpp11::writable::doubles_matrix result(size(), ncols);
+    cpp11::writable::doubles_matrix<> result(size(), ncols);
 
     for (size_t k = 0; k < size(); ++k) {
       bool is_na = !_storage[k];

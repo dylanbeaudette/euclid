@@ -169,7 +169,7 @@ bool geometry_any_na(geometry_vector_base_p geometries) {
 }
 
 [[cpp11::register]]
-cpp11::writable::doubles_matrix geometry_to_matrix(geometry_vector_base_p geometries) {
+cpp11::writable::doubles_matrix<> geometry_to_matrix(geometry_vector_base_p geometries) {
   if (geometries.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }

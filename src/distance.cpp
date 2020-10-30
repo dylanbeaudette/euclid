@@ -11,6 +11,6 @@ exact_numeric_p geometry_squared_distance(geometry_vector_base_p geo1, geometry_
 }
 
 [[cpp11::register]]
-cpp11::writable::doubles_matrix geometry_distance_matrix(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
+cpp11::writable::doubles_matrix<> geometry_distance_matrix(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
   return geo1->distance_matrix(*geo2);
 }

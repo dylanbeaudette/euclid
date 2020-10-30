@@ -158,7 +158,7 @@ bool bbox_any_na(bbox_vector_base_p bboxes) {
 }
 
 [[cpp11::register]]
-cpp11::writable::doubles_matrix bbox_to_matrix(bbox_vector_base_p bboxes) {
+cpp11::writable::doubles_matrix<> bbox_to_matrix(bbox_vector_base_p bboxes) {
   if (bboxes.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }

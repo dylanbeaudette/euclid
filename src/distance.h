@@ -37,8 +37,8 @@ inline std::vector<Exact_number> unknown_squared_distance_impl(size_t size) {
 }
 
 template<typename T, typename U>
-inline cpp11::writable::doubles_matrix distance_matrix_impl(const std::vector<T>& geo1, const std::vector<U>& geo2) {
-  cpp11::writable::doubles_matrix res(geo1.size(), geo2.size());
+inline cpp11::writable::doubles_matrix<> distance_matrix_impl(const std::vector<T>& geo1, const std::vector<U>& geo2) {
+  cpp11::writable::doubles_matrix<> res(geo1.size(), geo2.size());
   for (size_t i = 0; i < geo1.size(); ++i) {
     for (size_t j = 0; j < geo2.size(); ++j) {
       if (invalid_geo(geo1[i]) || invalid_geo(geo2[j])) {
@@ -51,8 +51,8 @@ inline cpp11::writable::doubles_matrix distance_matrix_impl(const std::vector<T>
   return res;
 }
 
-inline cpp11::writable::doubles_matrix unknown_distance_matrix_impl(size_t nrow, size_t ncol) {
-  cpp11::writable::doubles_matrix res(nrow, ncol);
+inline cpp11::writable::doubles_matrix<> unknown_distance_matrix_impl(size_t nrow, size_t ncol) {
+  cpp11::writable::doubles_matrix<> res(nrow, ncol);
   for (size_t i = 0; i < nrow; ++i) {
     for (size_t j = 0; j < ncol; ++j) {
       res(i, j) = R_NaReal;

@@ -3,6 +3,7 @@
 
 #include "euclid_types.h"
 #include "cpp11/declarations.hpp"
+#include <R_ext/Visibility.h>
 
 // bbox.cpp
 bbox2_p create_bbox_2(cpp11::doubles xmin, cpp11::doubles ymin, cpp11::doubles xmax, cpp11::doubles ymax);
@@ -103,7 +104,7 @@ extern "C" SEXP _euclid_bbox_any_na(SEXP bboxes) {
   END_CPP11
 }
 // bbox.cpp
-cpp11::writable::doubles_matrix bbox_to_matrix(bbox_vector_base_p bboxes);
+cpp11::writable::doubles_matrix<> bbox_to_matrix(bbox_vector_base_p bboxes);
 extern "C" SEXP _euclid_bbox_to_matrix(SEXP bboxes) {
   BEGIN_CPP11
     return cpp11::as_sexp(bbox_to_matrix(cpp11::as_cpp<cpp11::decay_t<bbox_vector_base_p>>(bboxes)));
@@ -390,7 +391,7 @@ extern "C" SEXP _euclid_geometry_squared_distance(SEXP geo1, SEXP geo2) {
   END_CPP11
 }
 // distance.cpp
-cpp11::writable::doubles_matrix geometry_distance_matrix(geometry_vector_base_p geo1, geometry_vector_base_p geo2);
+cpp11::writable::doubles_matrix<> geometry_distance_matrix(geometry_vector_base_p geo1, geometry_vector_base_p geo2);
 extern "C" SEXP _euclid_geometry_distance_matrix(SEXP geo1, SEXP geo2) {
   BEGIN_CPP11
     return cpp11::as_sexp(geometry_distance_matrix(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo1), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geo2)));
@@ -747,7 +748,7 @@ extern "C" SEXP _euclid_geometry_any_na(SEXP geometries) {
   END_CPP11
 }
 // geometry_common.cpp
-cpp11::writable::doubles_matrix geometry_to_matrix(geometry_vector_base_p geometries);
+cpp11::writable::doubles_matrix<> geometry_to_matrix(geometry_vector_base_p geometries);
 extern "C" SEXP _euclid_geometry_to_matrix(SEXP geometries) {
   BEGIN_CPP11
     return cpp11::as_sexp(geometry_to_matrix(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
@@ -1685,10 +1686,10 @@ extern "C" SEXP _euclid_create_transform_2_identity(SEXP n) {
   END_CPP11
 }
 // transform.cpp
-transform2_p create_transform_2_matrix(cpp11::list_of<cpp11::doubles_matrix> matrices);
+transform2_p create_transform_2_matrix(cpp11::list_of< cpp11::doubles_matrix<> > matrices);
 extern "C" SEXP _euclid_create_transform_2_matrix(SEXP matrices) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_transform_2_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::list_of<cpp11::doubles_matrix>>>(matrices)));
+    return cpp11::as_sexp(create_transform_2_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::list_of< cpp11::doubles_matrix<> >>>(matrices)));
   END_CPP11
 }
 // transform.cpp
@@ -1720,10 +1721,10 @@ extern "C" SEXP _euclid_create_transform_3_identity(SEXP n) {
   END_CPP11
 }
 // transform.cpp
-transform3_p create_transform_3_matrix(cpp11::list_of<cpp11::doubles_matrix> matrices);
+transform3_p create_transform_3_matrix(cpp11::list_of< cpp11::doubles_matrix<> > matrices);
 extern "C" SEXP _euclid_create_transform_3_matrix(SEXP matrices) {
   BEGIN_CPP11
-    return cpp11::as_sexp(create_transform_3_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::list_of<cpp11::doubles_matrix>>>(matrices)));
+    return cpp11::as_sexp(create_transform_3_matrix(cpp11::as_cpp<cpp11::decay_t<cpp11::list_of< cpp11::doubles_matrix<> >>>(matrices)));
   END_CPP11
 }
 // transform.cpp
@@ -2127,311 +2128,6 @@ extern "C" SEXP _euclid_vector_3_cumsum(SEXP x) {
 }
 
 extern "C" {
-/* .Call calls */
-extern SEXP _euclid_bbox_any_duplicated(SEXP);
-extern SEXP _euclid_bbox_any_na(SEXP);
-extern SEXP _euclid_bbox_assign(SEXP, SEXP, SEXP);
-extern SEXP _euclid_bbox_combine(SEXP, SEXP);
-extern SEXP _euclid_bbox_copy(SEXP);
-extern SEXP _euclid_bbox_cumsum(SEXP);
-extern SEXP _euclid_bbox_dimension(SEXP);
-extern SEXP _euclid_bbox_duplicated(SEXP);
-extern SEXP _euclid_bbox_format(SEXP);
-extern SEXP _euclid_bbox_is_equal(SEXP, SEXP);
-extern SEXP _euclid_bbox_is_na(SEXP);
-extern SEXP _euclid_bbox_length(SEXP);
-extern SEXP _euclid_bbox_match(SEXP, SEXP);
-extern SEXP _euclid_bbox_overlaps(SEXP, SEXP);
-extern SEXP _euclid_bbox_plus(SEXP, SEXP);
-extern SEXP _euclid_bbox_subset(SEXP, SEXP);
-extern SEXP _euclid_bbox_sum(SEXP, SEXP);
-extern SEXP _euclid_bbox_to_matrix(SEXP);
-extern SEXP _euclid_bbox_unique(SEXP);
-extern SEXP _euclid_create_bbox_2(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_bbox_3(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_circle_2_2_point(SEXP, SEXP);
-extern SEXP _euclid_create_circle_2_3_point(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_circle_2_center_radius(SEXP, SEXP);
-extern SEXP _euclid_create_circle_2_empty();
-extern SEXP _euclid_create_circle_3_3_point(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_circle_3_center_radius_plane(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_circle_3_center_radius_vec(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_circle_3_empty();
-extern SEXP _euclid_create_circle_3_sphere_plane(SEXP, SEXP);
-extern SEXP _euclid_create_circle_3_sphere_sphere(SEXP, SEXP);
-extern SEXP _euclid_create_direction_2_empty();
-extern SEXP _euclid_create_direction_2_line(SEXP);
-extern SEXP _euclid_create_direction_2_ray(SEXP);
-extern SEXP _euclid_create_direction_2_segment(SEXP);
-extern SEXP _euclid_create_direction_2_vec(SEXP);
-extern SEXP _euclid_create_direction_2_xy(SEXP, SEXP);
-extern SEXP _euclid_create_direction_3_empty();
-extern SEXP _euclid_create_direction_3_line(SEXP);
-extern SEXP _euclid_create_direction_3_ray(SEXP);
-extern SEXP _euclid_create_direction_3_segment(SEXP);
-extern SEXP _euclid_create_direction_3_vec(SEXP);
-extern SEXP _euclid_create_direction_3_xyz(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_exact_numeric(SEXP);
-extern SEXP _euclid_create_iso_cube_bbox(SEXP);
-extern SEXP _euclid_create_iso_cube_empty();
-extern SEXP _euclid_create_iso_cube_minmax(SEXP, SEXP, SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_iso_cube_pq(SEXP, SEXP);
-extern SEXP _euclid_create_iso_rect_bbox(SEXP);
-extern SEXP _euclid_create_iso_rect_empty();
-extern SEXP _euclid_create_iso_rect_minmax(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_iso_rect_pq(SEXP, SEXP);
-extern SEXP _euclid_create_line_2_a_b_c(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_line_2_empty();
-extern SEXP _euclid_create_line_2_p_d(SEXP, SEXP);
-extern SEXP _euclid_create_line_2_p_q(SEXP, SEXP);
-extern SEXP _euclid_create_line_2_p_v(SEXP, SEXP);
-extern SEXP _euclid_create_line_2_ray(SEXP);
-extern SEXP _euclid_create_line_2_seg(SEXP);
-extern SEXP _euclid_create_line_3_empty();
-extern SEXP _euclid_create_line_3_p_d(SEXP, SEXP);
-extern SEXP _euclid_create_line_3_p_q(SEXP, SEXP);
-extern SEXP _euclid_create_line_3_p_v(SEXP, SEXP);
-extern SEXP _euclid_create_line_3_ray(SEXP);
-extern SEXP _euclid_create_line_3_seg(SEXP);
-extern SEXP _euclid_create_plane_abcd(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_plane_circle(SEXP);
-extern SEXP _euclid_create_plane_empty();
-extern SEXP _euclid_create_plane_pd(SEXP, SEXP);
-extern SEXP _euclid_create_plane_pl(SEXP, SEXP);
-extern SEXP _euclid_create_plane_pqr(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_plane_pr(SEXP, SEXP);
-extern SEXP _euclid_create_plane_ps(SEXP, SEXP);
-extern SEXP _euclid_create_plane_pv(SEXP, SEXP);
-extern SEXP _euclid_create_plane_triangle(SEXP);
-extern SEXP _euclid_create_point_2_empty();
-extern SEXP _euclid_create_point_2_vec(SEXP);
-extern SEXP _euclid_create_point_2_wp(SEXP);
-extern SEXP _euclid_create_point_2_x_y(SEXP, SEXP);
-extern SEXP _euclid_create_point_3_empty();
-extern SEXP _euclid_create_point_3_vec(SEXP);
-extern SEXP _euclid_create_point_3_wp(SEXP);
-extern SEXP _euclid_create_point_3_x_y_z(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_point_w_2_empty();
-extern SEXP _euclid_create_point_w_2_p_w(SEXP, SEXP);
-extern SEXP _euclid_create_point_w_2_x_y_w(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_point_w_3_empty();
-extern SEXP _euclid_create_point_w_3_p_w(SEXP, SEXP);
-extern SEXP _euclid_create_point_w_3_x_y_z_w(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_ray_2_empty();
-extern SEXP _euclid_create_ray_2_p_d(SEXP, SEXP);
-extern SEXP _euclid_create_ray_2_p_l(SEXP, SEXP);
-extern SEXP _euclid_create_ray_2_p_q(SEXP, SEXP);
-extern SEXP _euclid_create_ray_2_p_v(SEXP, SEXP);
-extern SEXP _euclid_create_ray_3_empty();
-extern SEXP _euclid_create_ray_3_p_d(SEXP, SEXP);
-extern SEXP _euclid_create_ray_3_p_l(SEXP, SEXP);
-extern SEXP _euclid_create_ray_3_p_q(SEXP, SEXP);
-extern SEXP _euclid_create_ray_3_p_v(SEXP, SEXP);
-extern SEXP _euclid_create_segment_2_empty();
-extern SEXP _euclid_create_segment_2_p_q(SEXP, SEXP);
-extern SEXP _euclid_create_segment_2_p_v(SEXP, SEXP);
-extern SEXP _euclid_create_segment_3_empty();
-extern SEXP _euclid_create_segment_3_p_q(SEXP, SEXP);
-extern SEXP _euclid_create_segment_3_p_v(SEXP, SEXP);
-extern SEXP _euclid_create_sphere_2_point(SEXP, SEXP);
-extern SEXP _euclid_create_sphere_3_point(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_sphere_4_point(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_sphere_center_radius(SEXP, SEXP);
-extern SEXP _euclid_create_sphere_circle(SEXP);
-extern SEXP _euclid_create_sphere_empty();
-extern SEXP _euclid_create_tetrahedron_4points(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_tetrahedron_empty();
-extern SEXP _euclid_create_transform_2_identity(SEXP);
-extern SEXP _euclid_create_transform_2_matrix(SEXP);
-extern SEXP _euclid_create_transform_2_rotate(SEXP);
-extern SEXP _euclid_create_transform_2_scale(SEXP);
-extern SEXP _euclid_create_transform_2_translate(SEXP);
-extern SEXP _euclid_create_transform_3_identity(SEXP);
-extern SEXP _euclid_create_transform_3_matrix(SEXP);
-extern SEXP _euclid_create_transform_3_scale(SEXP);
-extern SEXP _euclid_create_transform_3_translate(SEXP);
-extern SEXP _euclid_create_triangle_2_3points(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_triangle_2_empty();
-extern SEXP _euclid_create_triangle_3_3points(SEXP, SEXP, SEXP);
-extern SEXP _euclid_create_triangle_3_empty();
-extern SEXP _euclid_create_vector_2_direction(SEXP);
-extern SEXP _euclid_create_vector_2_empty();
-extern SEXP _euclid_create_vector_2_line(SEXP);
-extern SEXP _euclid_create_vector_2_point(SEXP);
-extern SEXP _euclid_create_vector_2_ray(SEXP);
-extern SEXP _euclid_create_vector_2_segment(SEXP);
-extern SEXP _euclid_create_vector_2_x_y(SEXP, SEXP);
-extern SEXP _euclid_create_vector_3_direction(SEXP);
-extern SEXP _euclid_create_vector_3_empty();
-extern SEXP _euclid_create_vector_3_line(SEXP);
-extern SEXP _euclid_create_vector_3_point(SEXP);
-extern SEXP _euclid_create_vector_3_ray(SEXP);
-extern SEXP _euclid_create_vector_3_segment(SEXP);
-extern SEXP _euclid_create_vector_3_x_y_z(SEXP, SEXP, SEXP);
-extern SEXP _euclid_direction_2_between(SEXP, SEXP, SEXP);
-extern SEXP _euclid_direction_2_cummax(SEXP);
-extern SEXP _euclid_direction_2_cummin(SEXP);
-extern SEXP _euclid_direction_2_greater(SEXP, SEXP);
-extern SEXP _euclid_direction_2_less(SEXP, SEXP);
-extern SEXP _euclid_direction_2_max(SEXP, SEXP);
-extern SEXP _euclid_direction_2_min(SEXP, SEXP);
-extern SEXP _euclid_direction_2_negate(SEXP);
-extern SEXP _euclid_direction_2_rank(SEXP);
-extern SEXP _euclid_direction_2_sort(SEXP, SEXP, SEXP);
-extern SEXP _euclid_direction_3_negate(SEXP);
-extern SEXP _euclid_exact_numeric_abs(SEXP);
-extern SEXP _euclid_exact_numeric_any_duplicated(SEXP);
-extern SEXP _euclid_exact_numeric_any_na(SEXP);
-extern SEXP _euclid_exact_numeric_assign(SEXP, SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_combine(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_cummax(SEXP);
-extern SEXP _euclid_exact_numeric_cummin(SEXP);
-extern SEXP _euclid_exact_numeric_cumprod(SEXP);
-extern SEXP _euclid_exact_numeric_cumsum(SEXP);
-extern SEXP _euclid_exact_numeric_diff(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_divided(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_duplicated(SEXP);
-extern SEXP _euclid_exact_numeric_greater(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_is_equal(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_is_na(SEXP);
-extern SEXP _euclid_exact_numeric_length(SEXP);
-extern SEXP _euclid_exact_numeric_less(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_match(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_max(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_min(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_minus(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_plus(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_prod(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_rank(SEXP);
-extern SEXP _euclid_exact_numeric_sign(SEXP);
-extern SEXP _euclid_exact_numeric_sort(SEXP, SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_subset(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_sum(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_times(SEXP, SEXP);
-extern SEXP _euclid_exact_numeric_to_numeric(SEXP);
-extern SEXP _euclid_exact_numeric_uni_minus(SEXP);
-extern SEXP _euclid_exact_numeric_unique(SEXP);
-extern SEXP _euclid_geometry_any_duplicated(SEXP);
-extern SEXP _euclid_geometry_any_na(SEXP);
-extern SEXP _euclid_geometry_approx_area(SEXP);
-extern SEXP _euclid_geometry_approx_length(SEXP);
-extern SEXP _euclid_geometry_approx_volume(SEXP);
-extern SEXP _euclid_geometry_assign(SEXP, SEXP, SEXP);
-extern SEXP _euclid_geometry_barycenter_2(SEXP, SEXP);
-extern SEXP _euclid_geometry_barycenter_3(SEXP, SEXP, SEXP);
-extern SEXP _euclid_geometry_barycenter_4(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_geometry_bbox(SEXP);
-extern SEXP _euclid_geometry_bisector(SEXP, SEXP);
-extern SEXP _euclid_geometry_cardinality(SEXP);
-extern SEXP _euclid_geometry_centroid_1(SEXP);
-extern SEXP _euclid_geometry_centroid_3(SEXP, SEXP, SEXP);
-extern SEXP _euclid_geometry_centroid_4(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_geometry_combine(SEXP, SEXP);
-extern SEXP _euclid_geometry_constant_in(SEXP, SEXP);
-extern SEXP _euclid_geometry_copy(SEXP);
-extern SEXP _euclid_geometry_definition(SEXP, SEXP, SEXP);
-extern SEXP _euclid_geometry_definition_names(SEXP);
-extern SEXP _euclid_geometry_dimension(SEXP);
-extern SEXP _euclid_geometry_distance_matrix(SEXP, SEXP);
-extern SEXP _euclid_geometry_do_intersect(SEXP, SEXP);
-extern SEXP _euclid_geometry_duplicated(SEXP);
-extern SEXP _euclid_geometry_equidistant_line(SEXP, SEXP, SEXP);
-extern SEXP _euclid_geometry_format(SEXP);
-extern SEXP _euclid_geometry_has_point_inside(SEXP, SEXP);
-extern SEXP _euclid_geometry_has_point_on(SEXP, SEXP);
-extern SEXP _euclid_geometry_has_point_on_negative(SEXP, SEXP);
-extern SEXP _euclid_geometry_has_point_on_positive(SEXP, SEXP);
-extern SEXP _euclid_geometry_has_point_outside(SEXP, SEXP);
-extern SEXP _euclid_geometry_intersection(SEXP, SEXP);
-extern SEXP _euclid_geometry_is_degenerate(SEXP);
-extern SEXP _euclid_geometry_is_equal(SEXP, SEXP);
-extern SEXP _euclid_geometry_is_na(SEXP);
-extern SEXP _euclid_geometry_length(SEXP);
-extern SEXP _euclid_geometry_map_to_plane(SEXP, SEXP);
-extern SEXP _euclid_geometry_match(SEXP, SEXP);
-extern SEXP _euclid_geometry_normal(SEXP);
-extern SEXP _euclid_geometry_parallel(SEXP, SEXP);
-extern SEXP _euclid_geometry_primitive_type(SEXP);
-extern SEXP _euclid_geometry_project_to_line(SEXP, SEXP);
-extern SEXP _euclid_geometry_project_to_plane(SEXP, SEXP);
-extern SEXP _euclid_geometry_radical_geometry(SEXP, SEXP);
-extern SEXP _euclid_geometry_squared_distance(SEXP, SEXP);
-extern SEXP _euclid_geometry_subset(SEXP, SEXP);
-extern SEXP _euclid_geometry_to_matrix(SEXP);
-extern SEXP _euclid_geometry_transform(SEXP, SEXP);
-extern SEXP _euclid_geometry_unique(SEXP);
-extern SEXP _euclid_geometry_vertex(SEXP, SEXP);
-extern SEXP _euclid_point_2_add_vector(SEXP, SEXP);
-extern SEXP _euclid_point_2_cummax(SEXP);
-extern SEXP _euclid_point_2_cummin(SEXP);
-extern SEXP _euclid_point_2_greater(SEXP, SEXP);
-extern SEXP _euclid_point_2_less(SEXP, SEXP);
-extern SEXP _euclid_point_2_max(SEXP, SEXP);
-extern SEXP _euclid_point_2_min(SEXP, SEXP);
-extern SEXP _euclid_point_2_rank(SEXP);
-extern SEXP _euclid_point_2_sort(SEXP, SEXP, SEXP);
-extern SEXP _euclid_point_2_sub_point(SEXP, SEXP);
-extern SEXP _euclid_point_2_sub_vector(SEXP, SEXP);
-extern SEXP _euclid_point_3_add_vector(SEXP, SEXP);
-extern SEXP _euclid_point_3_cummax(SEXP);
-extern SEXP _euclid_point_3_cummin(SEXP);
-extern SEXP _euclid_point_3_greater(SEXP, SEXP);
-extern SEXP _euclid_point_3_less(SEXP, SEXP);
-extern SEXP _euclid_point_3_max(SEXP, SEXP);
-extern SEXP _euclid_point_3_min(SEXP, SEXP);
-extern SEXP _euclid_point_3_rank(SEXP);
-extern SEXP _euclid_point_3_sort(SEXP, SEXP, SEXP);
-extern SEXP _euclid_point_3_sub_point(SEXP, SEXP);
-extern SEXP _euclid_point_3_sub_vector(SEXP, SEXP);
-extern SEXP _euclid_point_collinear(SEXP, SEXP, SEXP);
-extern SEXP _euclid_point_coplanar(SEXP, SEXP, SEXP, SEXP);
-extern SEXP _euclid_point_ordered(SEXP, SEXP, SEXP);
-extern SEXP _euclid_point_ordered_along(SEXP);
-extern SEXP _euclid_point_turns(SEXP);
-extern SEXP _euclid_point_turns_left(SEXP, SEXP, SEXP);
-extern SEXP _euclid_point_turns_right(SEXP, SEXP, SEXP);
-extern SEXP _euclid_ray_2_negate(SEXP);
-extern SEXP _euclid_ray_3_negate(SEXP);
-extern SEXP _euclid_segment_2_negate(SEXP);
-extern SEXP _euclid_segment_3_negate(SEXP);
-extern SEXP _euclid_transform_any_duplicated(SEXP);
-extern SEXP _euclid_transform_any_na(SEXP);
-extern SEXP _euclid_transform_assign(SEXP, SEXP, SEXP);
-extern SEXP _euclid_transform_combine(SEXP, SEXP);
-extern SEXP _euclid_transform_copy(SEXP);
-extern SEXP _euclid_transform_cumprod(SEXP);
-extern SEXP _euclid_transform_definition(SEXP, SEXP, SEXP);
-extern SEXP _euclid_transform_dimension(SEXP);
-extern SEXP _euclid_transform_duplicated(SEXP);
-extern SEXP _euclid_transform_format(SEXP);
-extern SEXP _euclid_transform_inverse(SEXP);
-extern SEXP _euclid_transform_is_equal(SEXP, SEXP);
-extern SEXP _euclid_transform_is_na(SEXP);
-extern SEXP _euclid_transform_is_reflecting(SEXP);
-extern SEXP _euclid_transform_length(SEXP);
-extern SEXP _euclid_transform_match(SEXP, SEXP);
-extern SEXP _euclid_transform_multiply(SEXP, SEXP);
-extern SEXP _euclid_transform_prod(SEXP, SEXP);
-extern SEXP _euclid_transform_subset(SEXP, SEXP);
-extern SEXP _euclid_transform_to_array(SEXP);
-extern SEXP _euclid_transform_unique(SEXP);
-extern SEXP _euclid_vector_2_add_vector(SEXP, SEXP);
-extern SEXP _euclid_vector_2_cumsum(SEXP);
-extern SEXP _euclid_vector_2_divide_numeric(SEXP, SEXP);
-extern SEXP _euclid_vector_2_dot_vector(SEXP, SEXP);
-extern SEXP _euclid_vector_2_minus_vector(SEXP, SEXP);
-extern SEXP _euclid_vector_2_negate(SEXP);
-extern SEXP _euclid_vector_2_sum(SEXP, SEXP);
-extern SEXP _euclid_vector_2_times_numeric(SEXP, SEXP);
-extern SEXP _euclid_vector_3_add_vector(SEXP, SEXP);
-extern SEXP _euclid_vector_3_cumsum(SEXP);
-extern SEXP _euclid_vector_3_divide_numeric(SEXP, SEXP);
-extern SEXP _euclid_vector_3_dot_vector(SEXP, SEXP);
-extern SEXP _euclid_vector_3_minus_vector(SEXP, SEXP);
-extern SEXP _euclid_vector_3_negate(SEXP);
-extern SEXP _euclid_vector_3_sum(SEXP, SEXP);
-extern SEXP _euclid_vector_3_times_numeric(SEXP, SEXP);
-
 static const R_CallMethodDef CallEntries[] = {
     {"_euclid_bbox_any_duplicated",                 (DL_FUNC) &_euclid_bbox_any_duplicated,                 1},
     {"_euclid_bbox_any_na",                         (DL_FUNC) &_euclid_bbox_any_na,                         1},
@@ -2742,8 +2438,9 @@ static const R_CallMethodDef CallEntries[] = {
 
 void export_euclid_api(DllInfo* dll);
 
-extern "C" void R_init_euclid(DllInfo* dll){
+extern "C" attribute_visible void R_init_euclid(DllInfo* dll){
   R_registerRoutines(dll, NULL, CallEntries, NULL, NULL);
   R_useDynamicSymbols(dll, FALSE);
   export_euclid_api(dll);
+  R_forceSymbols(dll, TRUE);
 }
