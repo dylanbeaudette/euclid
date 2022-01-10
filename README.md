@@ -5,11 +5,9 @@
 
 <!-- badges: start -->
 
+[![R-CMD-check](https://github.com/thomasp85/euclid/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/euclid/actions)
 [![Codecov test
 coverage](https://codecov.io/gh/thomasp85/euclid/branch/master/graph/badge.svg)](https://codecov.io/gh/thomasp85/euclid?branch=master)
-[![R build
-status](https://github.com/thomasp85/euclid/workflows/R-CMD-check/badge.svg)](https://github.com/thomasp85/euclid/actions)
-
 <!-- badges: end -->
 
 The purpose of euclid is to provide a new unified foundation for
@@ -48,48 +46,48 @@ and 3 dimensional geometric objects. The following types are present:
 
 ### 2 and 3 dimensions
 
-  - Circles
+-   Circles
 
-  - Directions
+-   Directions
 
-  - Lines
+-   Lines
 
-  - Points
+-   Points
 
-  - Weighted Points
+-   Weighted Points
 
-  - Rays
+-   Rays
 
-  - Segments
+-   Segments
 
-  - Triangles
+-   Triangles
 
-  - Vectors
+-   Vectors
 
 ### 2 dimensions
 
-  - Iso rectangles
+-   Iso rectangles
 
 ### 3 dimensions
 
-  - Iso cubes
+-   Iso cubes
 
-  - Planes
+-   Planes
 
-  - Spheres
+-   Spheres
 
-  - Tetrahedrons
+-   Tetrahedrons
 
 ### Special vector types
 
 In addition to the geometric data types, euclid also provides these
 primitive vector types:
 
-  - Exact numerics
+-   Exact numerics
 
-  - Bounding boxes
+-   Bounding boxes
 
-  - Affine transformation matrices
+-   Affine transformation matrices
 
 ## Example
 
@@ -160,7 +158,6 @@ euclid_plot(p[p %is_inside% t], cex = 3)
 <img src="man/figures/README-unnamed-chunk-3-1.png" width="100%" />
 
 ``` r
-
 # Area of t (cannot be given exact for all geometries so is returned as numerics)
 approx_area(t)
 #> [1] -4.531123
