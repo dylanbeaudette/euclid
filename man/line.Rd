@@ -30,7 +30,7 @@ in the opposite direction as well.
 }
 \section{Constructors}{
 
-\strong{2 dimensional rays}
+\strong{2 dimensional line}
 \itemize{
 \item Providing 3 numerics will create lines with the given line equation
 \item Providing two points will construct lines going through those
@@ -42,7 +42,7 @@ point and extending in the given direction.
 \item Providing a segment will construct the supporting line for the segment
 }
 
-\strong{3 dimensional rays}
+\strong{3 dimensional line}
 \itemize{
 \item Providing two points will construct lines going through those
 \item Providing a point and a vector will construct lines going through the point

@@ -57,6 +57,18 @@ as_tetrahedron.default <- function(x) {
 #' @export
 as_tetrahedron.euclid_tetrahedron <- function(x) x
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_tetrahedron <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  tetrahedron(
+    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
+    seq(vertex(from, 2), vertex(to, 2), length.out, along.with),
+    seq(vertex(from, 3), vertex(to, 3), length.out, along.with),
+    seq(vertex(from, 4), vertex(to, 4), length.out, along.with)
+  )
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_tetrahedron_empty <- function() {

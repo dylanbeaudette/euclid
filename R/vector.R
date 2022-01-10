@@ -234,6 +234,16 @@ geometry_math_cumsum.euclid_vector <- function(x) {
   }
 }
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_vector <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  if (dim(from) != dim(to)) {
+    rlang::abort("`from` and `to` must have the same number of dimensions")
+  }
+  vec(seq(as_point(from), as_point(to), length.out, along.with))
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_vector_empty <- function(dim) {

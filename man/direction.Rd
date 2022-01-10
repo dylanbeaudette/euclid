@@ -29,7 +29,7 @@ a \code{euclid_direction} vector
 }
 \description{
 Directions are vectors where you have forgot about the length. They are used
-mutch in the same way as normalised vectors (vectors with a magnitude of 1),
+much in the same way as normalised vectors (vectors with a magnitude of 1),
 but since vectors cannot be normalized while maintaining exactness it is
 preferable to simply have a data type where you ignore the magnitude. The
 direction can be flipped by taking the negative. 2 dimensional directions can

@@ -93,6 +93,21 @@ as_plane.default <- function(x) {
 #' @export
 as_plane.euclid_plane <- function(x) x
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_plane <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  if (parallel(from, to)) {
+    from_p <- vertex(from)
+    to_p <- intersection_point(line(from_p, normal(from)), to)
+    return(plane(seq(from_p, to_p, length.out, along.with), normal(from)))
+  }
+  plane(
+    vertex(intersection_line(from, to)),
+    seq(normal(from), normal(to), length.out, along.with)
+  )
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_plane_empty <- function() {

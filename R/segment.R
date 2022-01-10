@@ -104,6 +104,19 @@ geometry_op_minus.euclid_segment <- function(e1, e2) {
   }
 }
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_segment <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  if (dim(from) != dim(to)) {
+    rlang::abort("`from` and `to` must have the same number of dimensions")
+  }
+  segment(
+    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
+    seq(vertex(from, 2), vertex(to, 2), length.out, along.with)
+  )
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_segment_empty <- function(dim) {

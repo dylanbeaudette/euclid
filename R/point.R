@@ -257,6 +257,25 @@ range.euclid_point <- function(..., na.rm = FALSE) {
   input <- do.call(c, list(...))
   c(min(input, na.rm = na.rm), max(input, na.rm = na.rm))
 }
+#' @export
+seq.euclid_point <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  if (dim(from) != dim(to)) {
+    rlang::abort("`from` and `to` must have the same number of dimensions")
+  }
+  if (!is.null(along.with)) {
+    length.out = length(along.with)
+  }
+  if (is.null(length.out)) {
+    rlang::abort("Either `length.out` or `along.with` must be provided")
+  }
+  x <- seq(parameter(from, "x"), parameter(to, "x"), length.out = length.out)
+  y <- seq(parameter(from, "y"), parameter(to, "y"), length.out = length.out)
+  if (dim(from) == 2) {
+    return(point(x, y))
+  }
+  z <- seq(parameter(from, "z"), parameter(to, "z"), length.out = length.out)
+  point(x, y, z)
+}
 
 # Internal constructors ---------------------------------------------------
 

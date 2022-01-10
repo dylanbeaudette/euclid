@@ -82,6 +82,26 @@ as_point.euclid_point_w <- function(x) {
   point(x)
 }
 
+
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_point_w <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  if (dim(from) != dim(to)) {
+    rlang::abort("`from` and `to` must have the same number of dimensions")
+  }
+  if (!is.null(along.with)) {
+    length.out = length(along.with)
+  }
+  if (is.null(length.out)) {
+    rlang::abort("Either `length.out` or `along.with` must be provided")
+  }
+  weighted_point(
+    seq(vertex(from), vertex(to), length.out = length.out),
+    seq(parameter(from, "w"), parameter(to, "w"), length.out = length.out)
+  )
+}
+
 # Internal constructors ---------------------------------------------------
 
 new_point_w_empty <- function(dim) {

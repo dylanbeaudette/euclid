@@ -287,3 +287,28 @@ Summary.euclid_exact_numeric <- function(..., na.rm) {
   )
   restore_euclid_vector(res, input)
 }
+
+#' @export
+seq.euclid_exact_numeric <- function(from, to, by = 1, length.out = NULL, along.with = NULL, ...) {
+  if (is.na(from)) {
+    rlang::abort("`from` must be a finite number")
+  }
+  if (!is.null(along.with)) {
+    length.out <- length(along.with)
+  }
+  if (missing(to)) {
+    if (is.null(length.out)) {
+      rlang::abort("Either `to`, or `length.out`/`along.with` must be given")
+    }
+    to <- from + by * (length.out - 1)
+  }
+  if (is.na(to)) {
+    rlang::abort("`to` must be a finite number")
+  }
+  dif <- to - from
+  if (!is.null(length.out)) {
+    by <- dif / (length.out - 1)
+  }
+  n <- floor(as.numeric(dif / by))
+  from + (seq_len(n + 1) - 1) * by
+}

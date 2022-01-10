@@ -1,7 +1,7 @@
 #' Vector of directions
 #'
 #' Directions are vectors where you have forgot about the length. They are used
-#' mutch in the same way as normalised vectors (vectors with a magnitude of 1),
+#' much in the same way as normalised vectors (vectors with a magnitude of 1),
 #' but since vectors cannot be normalized while maintaining exactness it is
 #' preferable to simply have a data type where you ignore the magnitude. The
 #' direction can be flipped by taking the negative. 2 dimensional directions can
@@ -207,6 +207,33 @@ xtfrm.euclid_direction <- function(x) {
 range.euclid_direction <- function(..., na.rm = FALSE) {
   input <- do.call(c, list(...))
   c(min(input, na.rm = na.rm), max(input, na.rm = na.rm))
+}
+#' @export
+seq.euclid_direction <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  if (dim(from) != dim(to)) {
+    rlang::abort("`from` and `to` must have the same number of dimensions")
+  }
+  if (!is.null(along.with)) {
+    length.out <- length(along.with)
+  }
+  dif <- approx_angle(from, to)
+  if (!is.null(length.out)) {
+    by <- dif / length.out
+  } else {
+    rlang::abort("Either `length.out` or `along.with` must be given")
+  }
+  n <- floor(as.numeric(dif / by))
+  steps <- seq(0, 1, length.out = n)
+  from_vec <- as_vec(from)
+  from_length <- approx_length(from_vec)
+  from_vec <- from_vec / from_length
+  to_vec <- as_vec(to)
+  to_length <- approx_length(to_vec)
+  to_vec <- to_vec / to_length
+  angles <- from_vec * sin((1-steps) * dif) / sin(dif) + to_vec * sin(steps * dif) / sin(dif)
+  angles <- as_direction(angles * seq(from_length, to_length, length.out = n))
+  angles[c(1, n)] <- c(from, to)
+  angles
 }
 
 # Internal Constructors ---------------------------------------------------

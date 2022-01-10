@@ -8,7 +8,7 @@
 \alias{\%overlaps\%}
 \title{Create a vector of bounding boxes}
 \usage{
-bbox(...)
+bbox(..., default_dim = 2)
 
 is_bbox(x)
 
@@ -22,6 +22,8 @@ x \%overlaps\% y
 \item{...}{Either a vector of geometries or a range of numeric vectors (4 for
 2D bounding boxes and 6 for 3D) interpreted in the order xmin, ymin, zmin,
 xmax, ymax, zmax.}
+
+\item{default_dim}{The dimensionality when constructing an empty vector}
 
 \item{x, y}{vectors of bounding boxes or geometries}
 }

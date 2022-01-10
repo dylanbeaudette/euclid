@@ -29,6 +29,9 @@
 #' - Providing a point, a numeric, and a vector will construct a circle centered
 #'   on the point with the squared radius given by the numeric and the
 #'   orientation orthogonal to the vector
+#' - Providing a point, a numeric, and a direction will construct a circle
+#'   centered on the point with the squared radius given by the numeric and the
+#'   orientation orthogonal to the direction
 #' - Providing two spheres will construct a circle given by the intersection of
 #'   the two spheres. The spheres must intersect
 #' - Providing a sphere and a plane will construct a circle given by the
@@ -91,6 +94,7 @@ circle <- function(..., default_dim = 2) {
   numbers <- inputs[vapply(inputs, is_exact_numeric, logical(1))]
   planes <- inputs[vapply(inputs, is_plane, logical(1))]
   vectors <- inputs[vapply(inputs, is_vec, logical(1))]
+  directions <- inputs[vapply(inputs, is_direction, logical(1))]
   spheres <- inputs[vapply(inputs, is_sphere, logical(1))]
 
   if (length(points) == 3) {
@@ -101,6 +105,8 @@ circle <- function(..., default_dim = 2) {
     new_circle_from_point_number_plane(points[[1]], numbers[[1]], planes[[1]])
   } else if (length(points) == 1 && length(numbers) == 1 && length(vectors) == 1) {
     new_circle_from_point_number_vec(points[[1]], numbers[[1]], vectors[[1]])
+  } else if (length(points) == 1 && length(numbers) == 1 && length(directions) == 1) {
+    new_circle_from_point_number_vec(points[[1]], numbers[[1]], as_vec(directions[[1]]))
   } else if (length(points) == 1 && length(numbers) == 1) {
     new_circle_from_point_number(points[[1]], numbers[[1]])
   } else if (length(spheres) == 2) {
@@ -136,6 +142,24 @@ as_sphere.euclid_circle3 <- function(x) {
 #' @export
 as_plane.euclid_circle3 <- function(x) {
   plane(x)
+}
+
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_circle2 <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  circle(
+    seq(vertex(from), vertex(to), length.out, along.with),
+    seq(parameter(from, "r2"), parameter(to, "r2"), length.out = length.out, along.with = along.with)
+  )
+}
+#' @export
+seq.euclid_circle3 <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  circle(
+    seq(vertex(from), vertex(to), length.out, along.with),
+    seq(parameter(from, "r2"), parameter(to, "r2"), length.out = length.out, along.with = along.with),
+    seq(normal(from), normal(to), length.out, along.with)
+  )
 }
 
 # Internal Constructors ---------------------------------------------------

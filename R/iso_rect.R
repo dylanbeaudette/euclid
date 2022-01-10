@@ -82,6 +82,16 @@ as_iso_rect.default <- function(x) {
 #' @export
 as_iso_rect.euclid_iso_rect <- function(x) x
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_iso_rect <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  iso_rect(
+    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
+    seq(vertex(from, 3), vertex(to, 3), length.out, along.with)
+  )
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_iso_rect_empty <- function() {

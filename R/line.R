@@ -12,7 +12,7 @@
 #' @return An `euclid_line` vector
 #'
 #' @section Constructors:
-#' **2 dimensional rays**
+#' **2 dimensional line**
 #' - Providing 3 numerics will create lines with the given line equation
 #' - Providing two points will construct lines going through those
 #' - Providing a point and a vector will construct lines going through the point
@@ -22,7 +22,7 @@
 #' - Providing a ray will construct the supporting line for the ray
 #' - Providing a segment will construct the supporting line for the segment
 #'
-#' **3 dimensional rays**
+#' **3 dimensional line**
 #' - Providing two points will construct lines going through those
 #' - Providing a point and a vector will construct lines going through the point
 #'   and extending in the direction of the vector.
@@ -100,6 +100,42 @@ as_direction.euclid_line <- function(x) {
 #' @export
 as_vec.euclid_line <- function(x) {
   vec(x)
+}
+
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_line <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  if (dim(from) != dim(to)) {
+    rlang::abort("`from` and `to` must have the same number of dimensions")
+  }
+  int <- intersection(from, to)[[1]]
+  if (is_line(int)) {
+    if (!is.null(along.with)) length.out <- length(along.with)
+    return(rep_len(from, length.out))
+  }
+  if (is.null(int)) {
+    dir <- as_direction(from)
+    if (dim(from) == 2) {
+      points <- intersection_point(line(point(0, 0), normal(dir)), c(from, to))
+      return(line(seq(points[1], points[2], length.out, along.with), dir))
+    } else {
+      if (parallel(from, to)) {
+        from_p <- vertex(from)
+        to_p <- intersection_point(to, plane(from_p, dir))
+        return(line(seq(from_p, to_p, length.out, along.with), dir))
+      } else {
+        norm <- normal(as_vec(from), as_vec(to))
+        from_p <- intersection_point(from, project(to, plane(vertex(from), norm)))
+        to_p <- intersection_point(line(from_p, norm), to)
+        return(line(
+          seq(from_p, to_p, length.out, along.with),
+          seq(as_direction(from), as_direction(to), length.out, along.with)
+        ))
+      }
+    }
+  }
+  line(int, seq(as_direction(from), as_direction(to), length.out, along.with))
 }
 
 # Internal Constructors ---------------------------------------------------

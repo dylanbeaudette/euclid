@@ -70,6 +70,20 @@ as_plane.euclid_triangle <- function(x) {
   plane(x)
 }
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_triangle <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  if (dim(from) != dim(to)) {
+    rlang::abort("`from` and `to` must have the same number of dimensions")
+  }
+  triangle(
+    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
+    seq(vertex(from, 2), vertex(to, 2), length.out, along.with),
+    seq(vertex(from, 3), vertex(to, 3), length.out, along.with)
+  )
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_triangle_empty <- function(dim) {

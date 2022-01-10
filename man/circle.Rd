@@ -50,6 +50,9 @@ orientation given by the plane. The point must lie on the plane
 \item Providing a point, a numeric, and a vector will construct a circle centered
 on the point with the squared radius given by the numeric and the
 orientation orthogonal to the vector
+\item Providing a point, a numeric, and a direction will construct a circle
+centered on the point with the squared radius given by the numeric and the
+orientation orthogonal to the direction
 \item Providing two spheres will construct a circle given by the intersection of
 the two spheres. The spheres must intersect
 \item Providing a sphere and a plane will construct a circle given by the

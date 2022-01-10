@@ -72,6 +72,16 @@ as_iso_cube.default <- function(x) {
 #' @export
 as_iso_cube.euclid_iso_cube <- function(x) x
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_iso_cube <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  iso_cube(
+    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
+    seq(vertex(from, 8), vertex(to, 8), length.out, along.with)
+  )
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_iso_cube_empty <- function() {

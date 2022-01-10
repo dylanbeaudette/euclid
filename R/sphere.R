@@ -82,6 +82,16 @@ as_sphere.default <- function(x) {
 #' @export
 as_sphere.euclid_sphere <- function(x) x
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_sphere <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  sphere(
+    seq(vertex(from), vertex(to), length.out, along.with),
+    seq(parameter(from, "r2"), parameter(to, "r2"), length.out, along.with)
+  )
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_sphere_empty <- function() {

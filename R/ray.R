@@ -120,6 +120,16 @@ geometry_op_minus.euclid_ray <- function(e1, e2) {
   }
 }
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+seq.euclid_ray <- function(from, to, length.out = NULL, along.with = NULL, ...) {
+  ray(
+    seq(vertex(from), vertex(to), length.out, along.with),
+    seq(as_direction(from), as_direction(to), length.out, along.with)
+  )
+}
+
 # Internal Constructors ---------------------------------------------------
 
 new_ray_empty <- function(dim) {

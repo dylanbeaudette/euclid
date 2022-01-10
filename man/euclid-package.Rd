@@ -8,10 +8,7 @@
 \description{
 \if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
 
-Provides a rich framework for doing computation geometry by 
-    interfacing with the 'CGAL' library. The 'euclid' package provides new 
-    vector types for standard geometric objects and supports exact computations
-    on them.
+Provides a rich framework for doing computation geometry by interfacing with the 'CGAL' library. The 'euclid' package provides new vector types for standard geometric objects and supports exact computations on them.
 }
 \seealso{
 Useful links:

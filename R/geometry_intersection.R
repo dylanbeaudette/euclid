@@ -71,6 +71,7 @@ intersection_type_safe <- function(x, y, pred, val) {
   overlaps <- intersection(x, y)
   res <- rep(val[NA], length.out = length(overlaps))
   keep <- vapply(overlaps, pred, logical(1))
+  if (all(!keep)) return(res)
   res[keep] <- do.call(c, overlaps[keep])
   res
 }
