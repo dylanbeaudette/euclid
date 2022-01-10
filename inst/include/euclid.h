@@ -227,8 +227,8 @@ SEXP create_point_2_vec(std::vector<Point_2>& val) {
   return fn(val);
 }
 SEXP create_point_3_vec(std::vector<Point_3>& val) {
-  typedef SEXP fn_ptr(std::vector<Bbox_2>&);
-  static fn_ptr *fn = (fn_ptr*) R_GetCCallable("euclid", "create_bbox_2_vec");
+  typedef SEXP fn_ptr(std::vector<Point_3>&);
+  static fn_ptr *fn = (fn_ptr*) R_GetCCallable("euclid", "create_point_3_vec");
   return fn(val);
 }
 SEXP create_ray_2_vec(std::vector<Ray_2>& val) {
