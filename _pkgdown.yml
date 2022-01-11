@@ -123,3 +123,10 @@ reference:
   - bisector
   - equidistant_line
   - radical
+- title: Plotting
+  desc: >
+    Geometry and drawing goes hand in hand. Euclid provides direct support for
+    both base and grid graphics when it comes to 2D geometries. 3D geometries is
+    not supported at the moment, but will be in the future.
+  content:
+  - euclid_plot
