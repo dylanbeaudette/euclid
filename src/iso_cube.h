@@ -70,14 +70,14 @@ public:
 
   std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
     if (other.dimensions() != dimensions()) {
-      cpp11::stop("Only geometries of the same dimensionality can intersect");
+      cpp11::stop("Only geometries of the same dimensionality allowed");
     }
     return unknown_squared_distance_impl(std::max(size(), other.size()));
   }
 
   cpp11::writable::doubles_matrix<> distance_matrix(const geometry_vector_base& other) const {
     if (other.dimensions() != dimensions()) {
-      cpp11::stop("Only geometries of the same dimensionality can intersect");
+      cpp11::stop("Only geometries of the same dimensionality allowed");
     }
     return unknown_distance_matrix_impl(size(), other.size());
   }

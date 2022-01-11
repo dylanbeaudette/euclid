@@ -74,7 +74,7 @@ public:
 
   std::vector<Exact_number> squared_distance(const geometry_vector_base& other) const {
     if (other.dimensions() != dimensions()) {
-      cpp11::stop("Only geometries of the same dimensionality can intersect");
+      cpp11::stop("Only geometries of the same dimensionality allowed");
     }
     switch (other.geometry_type()) {
     case LINE: return squared_distance_impl(get_vector_of_geo<Line_3>(other), _storage);
@@ -88,7 +88,7 @@ public:
 
   cpp11::writable::doubles_matrix<> distance_matrix(const geometry_vector_base& other) const {
     if (other.dimensions() != dimensions()) {
-      cpp11::stop("Only geometries of the same dimensionality can intersect");
+      cpp11::stop("Only geometries of the same dimensionality allowed");
     }
     switch (other.geometry_type()) {
     case LINE: return distance_matrix_impl(get_vector_of_geo<Line_3>(other), _storage);
