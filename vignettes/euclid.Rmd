@@ -139,10 +139,10 @@ parameter(tri, 'x')
 This doesn't look like a standard R vector. It isn't! The output is an exact
 numeric, which is a new type of numeric vector introduced with euclid. The
 reason for the inclusion of this is that floating points can cause all types of
-issues with compounding impressions. Normally this is not an issue in
-programming (until it is), but in computational geometry it is. Imagine creating
-a plane based on three points in 3D space, only to find that one of the points
-doesn't lie on the plane... not fun!
+issues with compounding imprecision. Normally this is not an issue in
+programming (until it is), but in computational geometry it is an absolute
+nightmare to deal with. Imagine creating a plane based on three points in 3D
+space, only to find that one of the points doesn't lie on that plane... not fun!
 
 ```{r}
 # Floating point issues at play
@@ -166,7 +166,10 @@ Everything in euclid is based on exact numbers and thus doesn't exhibit any
 issues related to floating point numbers, as long as you don't convert back and
 forth between euclid and R types. In the case exact results are not possible,
 euclid will sometimes provide a function prefixed with `approx_*` that returns
-standard numerics (e.g. `approx_area()`).
+standard numerics (e.g. `approx_area()`). Approx in this sense shouldn't mean
+that it is only calculating an approximation, but simply that the answer cannot
+be given exact, i.e. the result of `approx_area()` is true down to the precision
+of the numeric type (`r .Machine$double.eps`).
 
 ## Working with geometries
 
