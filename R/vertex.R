@@ -23,6 +23,8 @@
 #'
 #' @export
 #'
+#' @family Geometry methods
+#'
 #' @examples
 #' # Get the source vertex in a segment
 #' s <- segment(point(3, 6), point(1, -7))

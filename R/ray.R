@@ -26,6 +26,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Curves
+#'
 #' @examples
 #' # Construction
 #' p <- point(sample(10, 3), sample(10, 3))

@@ -57,3 +57,25 @@ circ <- circle(p[1], as_vec(p[2]), 6)
 sphere(circ)
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{direction}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{tetrahedron}()},
+\code{\link{triangle}()},
+\code{\link{vec}()},
+\code{\link{weighted_point}()}
+
+Other Volumes: 
+\code{\link{iso_cube}()},
+\code{\link{tetrahedron}()}
+}
+\concept{Geometries}
+\concept{Volumes}

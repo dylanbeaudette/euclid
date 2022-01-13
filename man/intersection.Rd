@@ -78,3 +78,8 @@ intersection(l, t)
 intersection_segment(l, t)
 
 }
+\seealso{
+Other Intersections: 
+\code{\link{has_intersection}()}
+}
+\concept{Intersections}

@@ -15,6 +15,8 @@
 #' @rdname geometry_measures
 #' @name geometry_measures
 #'
+#' @family Measures
+#'
 #' @examples
 #'
 #' approx_length(vec(point(1:4, 4:7)))
@@ -77,6 +79,8 @@ approx_radius <- function(x) {
 #'
 #' @export
 #'
+#' @family Measures
+#'
 #' @examples
 #' # Calculate distances between lines and rays in 3D
 #' p <- point(sample(100, 20), sample(100, 20), sample(100, 20))
@@ -129,6 +133,8 @@ approx_distance_matrix <- function(x, y) {
 #' @return A numeric vector given angular difference in radians
 #'
 #' @export
+#'
+#' @family Measures
 #'
 #' @examples
 #' # Angle between two lines

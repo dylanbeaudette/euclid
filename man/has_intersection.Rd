@@ -37,3 +37,19 @@ t \%is_intersecting\% l
 l \%is_intersecting\% circle(point(7, 4), 9)
 
 }
+\seealso{
+Other Intersections: 
+\code{\link{intersection}()}
+
+Other Predicates: 
+\code{\link{collinear}()},
+\code{\link{constant_in}},
+\code{\link{geometry_class}},
+\code{\link{geometry_turns}},
+\code{\link{in_order}()},
+\code{\link{is_degenerate}()},
+\code{\link{location_predicates}},
+\code{\link{parallel}()}
+}
+\concept{Intersections}
+\concept{Predicates}

@@ -31,6 +31,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Arrows
+#'
 #' @examples
 #' # Constructions
 #' d <- direction(sample(10, 3), sample(10, 3))

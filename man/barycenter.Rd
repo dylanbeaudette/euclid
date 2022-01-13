@@ -32,3 +32,14 @@ plot(p, cex = as.numeric(parameter(p, "w") / 8))
 euclid_plot(bc, pch = 16, col = "firebrick", cex = 3)
 
 }
+\seealso{
+Other Locations: 
+\code{\link{bisector}()},
+\code{\link{centroid}()},
+\code{\link{circumcenter}()},
+\code{\link{equidistant_line}()},
+\code{\link{point}()},
+\code{\link{radical}()},
+\code{\link{weighted_point}()}
+}
+\concept{Locations}

@@ -88,3 +88,30 @@ rank(p)
 p[1:2] < p[3:4]
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{direction}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()},
+\code{\link{triangle}()},
+\code{\link{vec}()},
+\code{\link{weighted_point}()}
+
+Other Locations: 
+\code{\link{barycenter}()},
+\code{\link{bisector}()},
+\code{\link{centroid}()},
+\code{\link{circumcenter}()},
+\code{\link{equidistant_line}()},
+\code{\link{radical}()},
+\code{\link{weighted_point}()}
+}
+\concept{Geometries}
+\concept{Locations}

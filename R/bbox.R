@@ -19,6 +19,8 @@
 #'
 #' @export
 #'
+#' @family non-geometry vectors
+#'
 #' @examples
 #' # Construction
 #' bbox(10, -2, 15, 0)

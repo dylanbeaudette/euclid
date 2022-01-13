@@ -51,3 +51,25 @@ s <- sphere(point(5, 9, 2), 13)
 iso_cube(bbox(s))
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{direction}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()},
+\code{\link{triangle}()},
+\code{\link{vec}()},
+\code{\link{weighted_point}()}
+
+Other Volumes: 
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()}
+}
+\concept{Geometries}
+\concept{Volumes}

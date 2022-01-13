@@ -73,3 +73,24 @@ sort(d)
 between(d[1], d[2], d[3])
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()},
+\code{\link{triangle}()},
+\code{\link{vec}()},
+\code{\link{weighted_point}()}
+
+Other Arrows: 
+\code{\link{vec}()}
+}
+\concept{Arrows}
+\concept{Geometries}

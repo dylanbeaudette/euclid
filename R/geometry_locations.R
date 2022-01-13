@@ -10,6 +10,8 @@
 #'
 #' @export
 #'
+#' @family Locations
+#'
 #' @examples
 #' # Circumcenter of triangle
 #' t <- triangle(point(1, 1), point(5, -2), point(6, 4))
@@ -76,6 +78,8 @@ circumcenter <- function(...) {
 #'
 #' @export
 #'
+#' @family Locations
+#'
 #' @examples
 #' p <- weighted_point(
 #'   x = c(4, 0, -3),
@@ -116,6 +120,8 @@ barycenter <- function(x, y, z = NULL, t = NULL) {
 #'
 #' @export
 #'
+#' @family Locations
+#'
 #' @examples
 #' b <- bisector(point(4, -2), point(7, 5))
 #' b
@@ -139,6 +145,8 @@ bisector <- function(x, y) {
 #' @return a vector of points
 #'
 #' @export
+#'
+#' @family Locations
 #'
 #' @examples
 #' p <- point(c(1, 5, 6), c(1, -2, 4))
@@ -187,6 +195,8 @@ centroid <- function(x, y = NULL, z = NULL, t = NULL) {
 #'
 #' @export
 #'
+#' @family Locations
+#'
 #' @examples
 #' equidistant_line(
 #'   point(3, 7, 2),
@@ -229,6 +239,8 @@ equidistant_line <- function(x, y, z = NULL) {
 #' @return A vector of lines or planes depending on the input
 #'
 #' @export
+#'
+#' @family Locations
 #'
 #' @examples
 #' c1 <- circle(point(3, 6), 12)

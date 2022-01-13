@@ -49,3 +49,9 @@ vertex(s, c(1, 2))
 vertex(line(4, 7, -1))
 
 }
+\seealso{
+Other Geometry methods: 
+\code{\link{euclid_geometry}},
+\code{\link{parameter}()}
+}
+\concept{Geometry methods}

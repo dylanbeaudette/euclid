@@ -30,3 +30,9 @@ support <- p[sample(10, 3)]
 map_to(p, plane(support[1], support[2], support[3]))
 
 }
+\seealso{
+Other Projections: 
+\code{\link{normal}()},
+\code{\link{project}()}
+}
+\concept{Projections}

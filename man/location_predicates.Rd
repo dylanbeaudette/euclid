@@ -84,3 +84,15 @@ plot(l, xlim = c(1, 10), ylim = c(1, 10))
 euclid_plot(p[p \%is_on_positive_side\% l], pch = 16, col = "firebrick")
 euclid_plot(p[p \%is_on_negative_side\% l], pch = 16, col = "steelblue")
 }
+\seealso{
+Other Predicates: 
+\code{\link{collinear}()},
+\code{\link{constant_in}},
+\code{\link{geometry_class}},
+\code{\link{geometry_turns}},
+\code{\link{has_intersection}()},
+\code{\link{in_order}()},
+\code{\link{is_degenerate}()},
+\code{\link{parallel}()}
+}
+\concept{Predicates}

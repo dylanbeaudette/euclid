@@ -30,3 +30,14 @@ equidistant_line(
 equidistant_line(point(2, 5), point(3, 2)) == bisector(point(2, 5), point(3, 2))
 
 }
+\seealso{
+Other Locations: 
+\code{\link{barycenter}()},
+\code{\link{bisector}()},
+\code{\link{centroid}()},
+\code{\link{circumcenter}()},
+\code{\link{point}()},
+\code{\link{radical}()},
+\code{\link{weighted_point}()}
+}
+\concept{Locations}

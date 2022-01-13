@@ -117,3 +117,9 @@ t2 <- transform(t, trans)
 plot(c(t, t2), col = c("grey", "firebrick"), border = NA)
 
 }
+\seealso{
+Other non-geometry vectors: 
+\code{\link{bbox}()},
+\code{\link{exact_numeric}()}
+}
+\concept{non-geometry vectors}

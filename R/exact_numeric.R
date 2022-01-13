@@ -22,6 +22,8 @@
 #'
 #' @export
 #'
+#' @family non-geometry vectors
+#'
 #' @examples
 #' # Standard use
 #' exact_numeric(runif(5))

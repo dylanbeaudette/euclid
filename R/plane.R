@@ -30,6 +30,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Surfaces
+#'
 #' @examples
 #' # Construction
 #' p <- plane(sample(10, 2), sample(10, 2), sample(10, 2), sample(10, 2))

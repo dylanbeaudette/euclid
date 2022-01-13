@@ -32,6 +32,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Locations
+#'
 #' @examples
 #' num1 <- exact_numeric(runif(5))
 #' num2 <- exact_numeric(runif(5))

@@ -61,3 +61,30 @@ p
 weighted_point(p, 1:5)
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{direction}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()},
+\code{\link{triangle}()},
+\code{\link{vec}()}
+
+Other Locations: 
+\code{\link{barycenter}()},
+\code{\link{bisector}()},
+\code{\link{centroid}()},
+\code{\link{circumcenter}()},
+\code{\link{equidistant_line}()},
+\code{\link{point}()},
+\code{\link{radical}()}
+}
+\concept{Geometries}
+\concept{Locations}

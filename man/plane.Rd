@@ -54,3 +54,26 @@ p <- plane(sample(10, 2), sample(10, 2), sample(10, 2), sample(10, 2))
 p
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{direction}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()},
+\code{\link{triangle}()},
+\code{\link{vec}()},
+\code{\link{weighted_point}()}
+
+Other Surfaces: 
+\code{\link{circle}()},
+\code{\link{iso_rect}()},
+\code{\link{triangle}()}
+}
+\concept{Geometries}
+\concept{Surfaces}

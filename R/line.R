@@ -33,6 +33,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Curves
+#'
 #' @examples
 #' # Construction
 #' l <- line(sample(10, 2), sample(10, 2), sample(10, 2))

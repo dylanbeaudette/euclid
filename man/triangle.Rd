@@ -51,3 +51,26 @@ t <- triangle(p[1:2], p[3:4], p[5:6])
 as_plane(t)
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{direction}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()},
+\code{\link{vec}()},
+\code{\link{weighted_point}()}
+
+Other Surfaces: 
+\code{\link{circle}()},
+\code{\link{iso_rect}()},
+\code{\link{plane}()}
+}
+\concept{Geometries}
+\concept{Surfaces}

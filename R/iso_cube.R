@@ -22,6 +22,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Volumes
+#'
 #' @examples
 #' # Construction
 #' p <- point(sample(10, 2), sample(10, 2), sample(10, 2))

@@ -70,3 +70,9 @@ euclid_plot(boxes)
 as.matrix(boxes)
 
 }
+\seealso{
+Other non-geometry vectors: 
+\code{\link{affine_transformation}},
+\code{\link{exact_numeric}()}
+}
+\concept{non-geometry vectors}

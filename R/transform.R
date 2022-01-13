@@ -42,6 +42,8 @@
 #' @rdname affine_transformation
 #' @name affine_transformation
 #'
+#' @family non-geometry vectors
+#'
 #' @examples
 #' # Rotate triangle around its centroid and then around the center
 #' p <- point(sample(10, 3), sample(10, 3))

@@ -19,6 +19,8 @@
 #'
 #' @export
 #'
+#' @family Projections
+#'
 #' @examples
 #' # Project a collection of segments to a line
 #' p <- point(sample(100, 8), sample(100, 8))
@@ -71,6 +73,8 @@ project <- function(x, target) {
 #'
 #' @export
 #'
+#' @family Projections
+#'
 #' @examples
 #' # Map a 3D point cloud to a plane defined by three random points
 #' p <- point(sample(10), sample(10), sample(10))
@@ -105,6 +109,8 @@ map_to <- function(x, target) {
 #' @return A vector of directions with the same dimensionality as the input
 #'
 #' @export
+#'
+#' @family Projections
 #'
 #' @examples
 #' # Get normals to a vector of directions

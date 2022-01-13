@@ -26,3 +26,14 @@ plot(c(point(4, -2), point(7, 5)), pch = 16, cex = 2)
 euclid_plot(b, col = "firebrick")
 
 }
+\seealso{
+Other Locations: 
+\code{\link{barycenter}()},
+\code{\link{centroid}()},
+\code{\link{circumcenter}()},
+\code{\link{equidistant_line}()},
+\code{\link{point}()},
+\code{\link{radical}()},
+\code{\link{weighted_point}()}
+}
+\concept{Locations}

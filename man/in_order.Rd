@@ -33,3 +33,15 @@ in_order(p[1:10], p[11:20], p[21:30])
 in_order_along(p)
 
 }
+\seealso{
+Other Predicates: 
+\code{\link{collinear}()},
+\code{\link{constant_in}},
+\code{\link{geometry_class}},
+\code{\link{geometry_turns}},
+\code{\link{has_intersection}()},
+\code{\link{is_degenerate}()},
+\code{\link{location_predicates}},
+\code{\link{parallel}()}
+}
+\concept{Predicates}

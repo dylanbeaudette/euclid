@@ -31,6 +31,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Arrows
+#'
 #' @examples
 #'
 #' # Create vectors from points:

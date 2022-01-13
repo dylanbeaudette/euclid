@@ -39,3 +39,9 @@ distance_squared(l, r)
 approx_distance_matrix(l, r)
 
 }
+\seealso{
+Other Measures: 
+\code{\link{approx_angle}()},
+\code{\link{geometry_measures}}
+}
+\concept{Measures}

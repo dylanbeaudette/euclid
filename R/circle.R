@@ -40,6 +40,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Surfaces
+#'
 #' @examples
 #' ## 2 Dimensions
 #'

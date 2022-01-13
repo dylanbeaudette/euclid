@@ -43,3 +43,15 @@ circ <- circle(point(3, -1), 0)
 is_degenerate(circ)
 
 }
+\seealso{
+Other Predicates: 
+\code{\link{collinear}()},
+\code{\link{constant_in}},
+\code{\link{geometry_class}},
+\code{\link{geometry_turns}},
+\code{\link{has_intersection}()},
+\code{\link{in_order}()},
+\code{\link{location_predicates}},
+\code{\link{parallel}()}
+}
+\concept{Predicates}

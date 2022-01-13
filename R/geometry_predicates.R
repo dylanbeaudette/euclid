@@ -24,6 +24,8 @@
 #'
 #' @export
 #'
+#' @family Predicates
+#'
 #' @examples
 #' # A line without direction
 #' l <- line(point(0, 5), vec(0, 0))
@@ -73,6 +75,8 @@ is_degenerate <- function(x) {
 #'
 #' @rdname location_predicates
 #' @name location_predicates
+#'
+#' @family Predicates
 #'
 #' @examples
 #' p <- point(sample(10, 50, TRUE), sample(10, 50, TRUE))
@@ -158,6 +162,8 @@ has_on_negative_side <- function(x, y) {
 #' @rdname constant_in
 #' @name constant_in
 #'
+#' @family Predicates
+#'
 #' @examples
 #' # Check for horizontal vector
 #' v <- vec(1, -2:2)
@@ -232,6 +238,8 @@ has_constant_z <- function(x) {
 #' @rdname geometry_class
 #' @name geometry_class
 #'
+#' @family Predicates
+#'
 #' @examples
 #' l <- line(3, 8, 1)
 #' is_surface(l)
@@ -269,6 +277,8 @@ is_location <- function(x) is_point(x) || is_weighted_point(x)
 #' @return a logical vector giving the parallelity of the input
 #'
 #' @export
+#'
+#' @family Predicates
 #'
 #' @examples
 #' # Are two triangles parallel (only meaningful in 3D)
@@ -317,6 +327,8 @@ parallel <- function(x, y) {
 #' @return A logical vector
 #'
 #' @export
+#'
+#' @family Predicates
 #'
 #' @examples
 #' # Collinear points
@@ -377,6 +389,8 @@ coplanar <- function(x, y, z = NULL, t = NULL) {
 #'
 #' @rdname geometry_turns
 #' @name geometry_turns
+#'
+#' @family Predicates
 #'
 #' @examples
 #' p <- point(sample(20, 12), sample(20, 12))
@@ -442,6 +456,8 @@ turn_along <- function(x) {
 #' @return A logical vector
 #'
 #' @export
+#'
+#' @family Predicates
 #'
 #' @examples
 #' p <- point(1:30, 1:30)

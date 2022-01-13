@@ -32,3 +32,15 @@ coplanar(
 )
 
 }
+\seealso{
+Other Predicates: 
+\code{\link{constant_in}},
+\code{\link{geometry_class}},
+\code{\link{geometry_turns}},
+\code{\link{has_intersection}()},
+\code{\link{in_order}()},
+\code{\link{is_degenerate}()},
+\code{\link{location_predicates}},
+\code{\link{parallel}()}
+}
+\concept{Predicates}

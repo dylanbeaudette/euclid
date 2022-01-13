@@ -50,6 +50,8 @@ vectors:
 \item \code{\link[=str]{str()}} - provides a condensed view of the vector
 \item \code{\link[=length]{length()}} - gives the number of geometries in the vector
 \item \code{\link[=rep]{rep()}} - replicates elements in the vector
+\item \code{\link[=seq]{seq()}} - interpolate between two geometries of the same type and
+dimensionality
 \item \code{\link[=dim]{dim()}} - gives the dimensionality of the geometry (2 or 3)
 \item [\code{[}] and [\code{[[}] - extract elements from the vector
 \item [\verb{[<-}] and [\verb{[[<-}] - assigns elements into the vector. Since \code{NA} values
@@ -86,3 +88,9 @@ as.list(p)
 transform(p, affine_rotate(pi/3))
 
 }
+\seealso{
+Other Geometry methods: 
+\code{\link{parameter}()},
+\code{\link{vertex}()}
+}
+\concept{Geometry methods}

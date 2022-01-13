@@ -19,6 +19,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Volumes
+#'
 #' @examples
 #' p <- point(sample(8), sample(8), sample(8))
 #' tetrahedron(p[1:2], p[3:4], p[5:6], p[7:8])

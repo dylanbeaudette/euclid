@@ -37,3 +37,9 @@ normal(t) == normal(as_plane(t))
 normal(vec(5, 2, -7), vec(-1, 4, 9))
 
 }
+\seealso{
+Other Projections: 
+\code{\link{map_to}()},
+\code{\link{project}()}
+}
+\concept{Projections}

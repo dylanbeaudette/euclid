@@ -48,3 +48,14 @@ radical(
 )
 
 }
+\seealso{
+Other Locations: 
+\code{\link{barycenter}()},
+\code{\link{bisector}()},
+\code{\link{centroid}()},
+\code{\link{circumcenter}()},
+\code{\link{equidistant_line}()},
+\code{\link{point}()},
+\code{\link{weighted_point}()}
+}
+\concept{Locations}

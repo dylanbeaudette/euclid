@@ -43,3 +43,15 @@ has_constant_y(v)
 is_constant_in(vec(2, 0, -5), c("x", "y", "z"))
 
 }
+\seealso{
+Other Predicates: 
+\code{\link{collinear}()},
+\code{\link{geometry_class}},
+\code{\link{geometry_turns}},
+\code{\link{has_intersection}()},
+\code{\link{in_order}()},
+\code{\link{is_degenerate}()},
+\code{\link{location_predicates}},
+\code{\link{parallel}()}
+}
+\concept{Predicates}

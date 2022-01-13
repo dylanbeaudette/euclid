@@ -42,3 +42,25 @@ p <- point(sample(8), sample(8), sample(8))
 tetrahedron(p[1:2], p[3:4], p[5:6], p[7:8])
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{direction}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{triangle}()},
+\code{\link{vec}()},
+\code{\link{weighted_point}()}
+
+Other Volumes: 
+\code{\link{iso_cube}()},
+\code{\link{sphere}()}
+}
+\concept{Geometries}
+\concept{Volumes}

@@ -65,3 +65,9 @@ identical(
 )
 
 }
+\seealso{
+Other non-geometry vectors: 
+\code{\link{affine_transformation}},
+\code{\link{bbox}()}
+}
+\concept{non-geometry vectors}

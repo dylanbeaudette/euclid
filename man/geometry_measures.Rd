@@ -38,3 +38,9 @@ approx_area(circle(point(0, 0), 5:9))
 approx_volume(sphere(point(0, 0, 0), 5:9))
 
 }
+\seealso{
+Other Measures: 
+\code{\link{approx_angle}()},
+\code{\link{distance_squared}()}
+}
+\concept{Measures}

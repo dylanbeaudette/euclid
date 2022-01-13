@@ -30,6 +30,8 @@
 #' - [str()] - provides a condensed view of the vector
 #' - [length()] - gives the number of geometries in the vector
 #' - [rep()] - replicates elements in the vector
+#' - [seq()] - interpolate between two geometries of the same type and
+#'   dimensionality
 #' - [dim()] - gives the dimensionality of the geometry (2 or 3)
 #' - [`[`] and [`[[`] - extract elements from the vector
 #' - [`[<-`] and [`[[<-`] - assigns elements into the vector. Since `NA` values
@@ -51,6 +53,8 @@
 #'
 #' @name euclid_geometry
 #' @rdname euclid_geometry
+#'
+#' @family Geometry methods
 #'
 #' @examples
 #' p <- point(sample(10, 4), sample(10, 4))

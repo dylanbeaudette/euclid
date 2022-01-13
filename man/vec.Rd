@@ -82,3 +82,24 @@ as_direction(v1)
 as_affine_transformation(v1)
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{circle}()},
+\code{\link{direction}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()},
+\code{\link{triangle}()},
+\code{\link{weighted_point}()}
+
+Other Arrows: 
+\code{\link{direction}()}
+}
+\concept{Arrows}
+\concept{Geometries}

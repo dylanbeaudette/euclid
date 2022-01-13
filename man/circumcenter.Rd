@@ -35,3 +35,14 @@ euclid_plot(circumcenter(t), cex = 3, col = "firebrick", lwd = 2)
 euclid_plot(vertex(circ), cex = 1.5, col = "steelblue", lwd = 2)
 
 }
+\seealso{
+Other Locations: 
+\code{\link{barycenter}()},
+\code{\link{bisector}()},
+\code{\link{centroid}()},
+\code{\link{equidistant_line}()},
+\code{\link{point}()},
+\code{\link{radical}()},
+\code{\link{weighted_point}()}
+}
+\concept{Locations}

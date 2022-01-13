@@ -26,6 +26,9 @@
 #'
 #' @export
 #'
+#' @family Geometries
+#' @family Locations
+#'
 #' @examples
 #' # Construction
 #' wp <- weighted_point(sample(5), sample(5), runif(5))

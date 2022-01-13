@@ -43,3 +43,15 @@ euclid_plot(p[-c(1, 12)][turn_along(p) == 1], pch = 16, col = "firebrick")
 euclid_plot(p[-c(1, 12)][turn_along(p) == -1], pch = 16, col = "steelblue")
 
 }
+\seealso{
+Other Predicates: 
+\code{\link{collinear}()},
+\code{\link{constant_in}},
+\code{\link{geometry_class}},
+\code{\link{has_intersection}()},
+\code{\link{in_order}()},
+\code{\link{is_degenerate}()},
+\code{\link{location_predicates}},
+\code{\link{parallel}()}
+}
+\concept{Predicates}

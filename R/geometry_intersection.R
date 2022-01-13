@@ -24,6 +24,8 @@
 #'
 #' @export
 #'
+#' @family Intersections
+#'
 #' @examples
 #' # Example of the difference in output
 #' t <- triangle(point(0, 0), point(1, 1), point(0, 1))
@@ -136,6 +138,9 @@ intersection_triangle <- function(x, y) {
 #' @return a logical vector
 #'
 #' @export
+#'
+#' @family Intersections
+#' @family Predicates
 #'
 #' @examples
 #' # Example of the predicate

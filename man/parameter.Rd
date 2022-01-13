@@ -55,3 +55,9 @@ m <- affine_rotate(c(pi/2, pi/3))
 parameter(m, 1, 2)
 
 }
+\seealso{
+Other Geometry methods: 
+\code{\link{euclid_geometry}},
+\code{\link{vertex}()}
+}
+\concept{Geometry methods}

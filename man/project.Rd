@@ -47,3 +47,9 @@ project(line(point(3, 7, -3), point(-2, 6, 0)),
         plane(point(0, 0, 0), vec(1, 0, 0)))
 
 }
+\seealso{
+Other Projections: 
+\code{\link{map_to}()},
+\code{\link{normal}()}
+}
+\concept{Projections}

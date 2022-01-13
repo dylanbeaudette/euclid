@@ -27,3 +27,9 @@ approx_angle(line(3, 7, -1), line(-5, 4, 2))
 approx_angle(plane(-4, 1, 19, -4), vec(5, -7, 2))
 
 }
+\seealso{
+Other Measures: 
+\code{\link{distance_squared}()},
+\code{\link{geometry_measures}}
+}
+\concept{Measures}

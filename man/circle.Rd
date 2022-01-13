@@ -105,3 +105,26 @@ as_plane(circ)
 as_sphere(circ)
 
 }
+\seealso{
+Other Geometries: 
+\code{\link{direction}()},
+\code{\link{iso_cube}()},
+\code{\link{iso_rect}()},
+\code{\link{line}()},
+\code{\link{plane}()},
+\code{\link{point}()},
+\code{\link{ray}()},
+\code{\link{segment}()},
+\code{\link{sphere}()},
+\code{\link{tetrahedron}()},
+\code{\link{triangle}()},
+\code{\link{vec}()},
+\code{\link{weighted_point}()}
+
+Other Surfaces: 
+\code{\link{iso_rect}()},
+\code{\link{plane}()},
+\code{\link{triangle}()}
+}
+\concept{Geometries}
+\concept{Surfaces}

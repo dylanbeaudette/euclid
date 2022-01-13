@@ -32,3 +32,14 @@ euclid_plot(centroid(t), pch = 16, cex = 2, col = "firebrick")
 centroid(p[1], p[2], p[3])
 
 }
+\seealso{
+Other Locations: 
+\code{\link{barycenter}()},
+\code{\link{bisector}()},
+\code{\link{circumcenter}()},
+\code{\link{equidistant_line}()},
+\code{\link{point}()},
+\code{\link{radical}()},
+\code{\link{weighted_point}()}
+}
+\concept{Locations}

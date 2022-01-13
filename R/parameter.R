@@ -20,6 +20,8 @@
 #'
 #' @export
 #'
+#' @family Geometry methods
+#'
 #' @examples
 #' # Get squared radius of circle
 #' circ <- circle(point(4, 7), 25)
