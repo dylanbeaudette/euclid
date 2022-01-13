@@ -1714,6 +1714,20 @@ extern "C" SEXP _euclid_create_transform_2_scale(SEXP fac) {
   END_CPP11
 }
 // transform.cpp
+transform2_p create_transform_2_scale2(exact_numeric_p x_fac, exact_numeric_p y_fac);
+extern "C" SEXP _euclid_create_transform_2_scale2(SEXP x_fac, SEXP y_fac) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_transform_2_scale2(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y_fac)));
+  END_CPP11
+}
+// transform.cpp
+transform2_p create_transform_2_shear(exact_numeric_p x_fac, exact_numeric_p y_fac);
+extern "C" SEXP _euclid_create_transform_2_shear(SEXP x_fac, SEXP y_fac) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_transform_2_shear(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y_fac)));
+  END_CPP11
+}
+// transform.cpp
 transform3_p create_transform_3_identity(int n);
 extern "C" SEXP _euclid_create_transform_3_identity(SEXP n) {
   BEGIN_CPP11
@@ -1739,6 +1753,20 @@ transform3_p create_transform_3_scale(exact_numeric_p fac);
 extern "C" SEXP _euclid_create_transform_3_scale(SEXP fac) {
   BEGIN_CPP11
     return cpp11::as_sexp(create_transform_3_scale(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(fac)));
+  END_CPP11
+}
+// transform.cpp
+transform3_p create_transform_3_scale2(exact_numeric_p x_fac, exact_numeric_p y_fac, exact_numeric_p z_fac);
+extern "C" SEXP _euclid_create_transform_3_scale2(SEXP x_fac, SEXP y_fac, SEXP z_fac) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_transform_3_scale2(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z_fac)));
+  END_CPP11
+}
+// transform.cpp
+transform3_p create_transform_3_shear(exact_numeric_p xy_fac, exact_numeric_p xz_fac, exact_numeric_p yx_fac, exact_numeric_p yz_fac, exact_numeric_p zx_fac, exact_numeric_p zy_fac);
+extern "C" SEXP _euclid_create_transform_3_shear(SEXP xy_fac, SEXP xz_fac, SEXP yx_fac, SEXP yz_fac, SEXP zx_fac, SEXP zy_fac) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_transform_3_shear(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(xy_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(xz_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(yx_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(yz_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(zx_fac), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(zy_fac)));
   END_CPP11
 }
 // transform.cpp
@@ -2246,10 +2274,14 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_create_transform_2_matrix",           (DL_FUNC) &_euclid_create_transform_2_matrix,           1},
     {"_euclid_create_transform_2_rotate",           (DL_FUNC) &_euclid_create_transform_2_rotate,           1},
     {"_euclid_create_transform_2_scale",            (DL_FUNC) &_euclid_create_transform_2_scale,            1},
+    {"_euclid_create_transform_2_scale2",           (DL_FUNC) &_euclid_create_transform_2_scale2,           2},
+    {"_euclid_create_transform_2_shear",            (DL_FUNC) &_euclid_create_transform_2_shear,            2},
     {"_euclid_create_transform_2_translate",        (DL_FUNC) &_euclid_create_transform_2_translate,        1},
     {"_euclid_create_transform_3_identity",         (DL_FUNC) &_euclid_create_transform_3_identity,         1},
     {"_euclid_create_transform_3_matrix",           (DL_FUNC) &_euclid_create_transform_3_matrix,           1},
     {"_euclid_create_transform_3_scale",            (DL_FUNC) &_euclid_create_transform_3_scale,            1},
+    {"_euclid_create_transform_3_scale2",           (DL_FUNC) &_euclid_create_transform_3_scale2,           3},
+    {"_euclid_create_transform_3_shear",            (DL_FUNC) &_euclid_create_transform_3_shear,            6},
     {"_euclid_create_transform_3_translate",        (DL_FUNC) &_euclid_create_transform_3_translate,        1},
     {"_euclid_create_triangle_2_3points",           (DL_FUNC) &_euclid_create_triangle_2_3points,           3},
     {"_euclid_create_triangle_2_empty",             (DL_FUNC) &_euclid_create_triangle_2_empty,             0},

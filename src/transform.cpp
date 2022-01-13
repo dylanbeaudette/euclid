@@ -124,6 +124,42 @@ transform2_p create_transform_2_scale(exact_numeric_p fac) {
 }
 
 [[cpp11::register]]
+transform2_p create_transform_2_scale2(exact_numeric_p x_fac, exact_numeric_p y_fac) {
+  std::vector<Aff_transformation_2> vec;
+  size_t output_size = std::max(x_fac->size(), y_fac->size());
+  vec.reserve(output_size);
+  for (int i = 0; i < output_size; ++i) {
+    if (!(*x_fac)[i % x_fac->size()] || !(*y_fac)[i % y_fac->size()]) {
+      vec.push_back(Aff_transformation_2::NA_value());
+    } else {
+      vec.emplace_back((*x_fac)[i % x_fac->size()], 0.0, 0.0, (*y_fac)[i % y_fac->size()]);
+    }
+  }
+
+  transform2 *result(new transform2(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+transform2_p create_transform_2_shear(exact_numeric_p x_fac, exact_numeric_p y_fac) {
+  std::vector<Aff_transformation_2> vec;
+  size_t output_size = std::max(x_fac->size(), y_fac->size());
+  vec.reserve(output_size);
+  for (int i = 0; i < output_size; ++i) {
+    if (!(*x_fac)[i % x_fac->size()] || !(*y_fac)[i % y_fac->size()]) {
+      vec.push_back(Aff_transformation_2::NA_value());
+    } else {
+      vec.emplace_back(1.0, (*x_fac)[i % x_fac->size()], (*y_fac)[i % y_fac->size()], 1.0);
+    }
+  }
+
+  transform2 *result(new transform2(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
 transform3_p create_transform_3_identity(int n) {
   std::vector<Aff_transformation_3> vec;
   vec.reserve(n);
@@ -190,6 +226,51 @@ transform3_p create_transform_3_scale(exact_numeric_p fac) {
   return {result};
 }
 
+[[cpp11::register]]
+transform3_p create_transform_3_scale2(exact_numeric_p x_fac, exact_numeric_p y_fac, exact_numeric_p z_fac) {
+  std::vector<Aff_transformation_3> vec;
+  size_t output_size = std::max(std::max(x_fac->size(), y_fac->size()), z_fac->size());
+  vec.reserve(output_size);
+  for (int i = 0; i < output_size; ++i) {
+    if (!(*x_fac)[i % x_fac->size()] || !(*y_fac)[i % y_fac->size()] || !(*z_fac)[i % z_fac->size()]) {
+      vec.push_back(Aff_transformation_3::NA_value());
+    } else {
+      vec.emplace_back((*x_fac)[i % x_fac->size()], 0.0, 0.0,
+                       0.0, (*y_fac)[i % y_fac->size()], 0.0,
+                       0.0, 0.0, (*z_fac)[i % z_fac->size()]);
+    }
+  }
+
+  transform3 *result(new transform3(vec));
+
+  return {result};
+}
+
+[[cpp11::register]]
+transform3_p create_transform_3_shear(exact_numeric_p xy_fac, exact_numeric_p xz_fac,
+                                      exact_numeric_p yx_fac, exact_numeric_p yz_fac,
+                                      exact_numeric_p zx_fac, exact_numeric_p zy_fac) {
+  std::vector<Aff_transformation_3> vec;
+  size_t output_size = std::max(xy_fac->size(), xz_fac->size());
+  output_size = std::max(output_size, std::max(yx_fac->size(), yz_fac->size()));
+  output_size = std::max(output_size, std::max(zx_fac->size(), zy_fac->size()));
+  vec.reserve(output_size);
+  for (int i = 0; i < output_size; ++i) {
+    if (!(*xy_fac)[i % xy_fac->size()] || !(*xz_fac)[i % xz_fac->size()] ||
+        !(*yx_fac)[i % yx_fac->size()] || !(*yz_fac)[i % yz_fac->size()] ||
+        !(*zx_fac)[i % zx_fac->size()] || !(*zy_fac)[i % zy_fac->size()]) {
+      vec.push_back(Aff_transformation_3::NA_value());
+    } else {
+      vec.emplace_back(1.0, (*xy_fac)[i % xy_fac->size()], (*xz_fac)[i % xz_fac->size()],
+                       (*yx_fac)[i % yx_fac->size()], 1.0, (*yz_fac)[i % yz_fac->size()],
+                       (*zx_fac)[i % zx_fac->size()], (*zy_fac)[i % zy_fac->size()], 1.0);
+    }
+  }
+
+  transform3 *result(new transform3(vec));
+
+  return {result};
+}
 
 [[cpp11::register]]
 int transform_length(transform_vector_base_p transforms) {

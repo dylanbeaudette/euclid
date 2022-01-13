@@ -17,13 +17,21 @@
 #' a direction, or be defining specific angles of rotation for yaw, pitch, and
 #' roll.
 #'
+#' @note Circles and spheres only transforms correctly with euclidean
+#' transformations (i.e. translation, rotations, and reflection) as well as
+#' scaling by the same factor along all dimensions (as provided by
+#' `affine_scaling()`). Shearing and stretching/squeezing will only affect the
+#' location of the center, not the circularity of the geometry.
+#'
 #' @param dim The dimensionality of the transformation matrix
-#' @param x An object that can be converted to an affine transformation matrix
+#' @param mat An object that can be converted to an affine transformation matrix
 #' vector. Matrices and arrays can be converted provided they have the correct
 #' dimensions. List of matrices can be converted provided that all matrices have
 #' the same dimensions and that the dimensions is correct
 #' @param vec A vector of vectors or an object convertible to one
 #' @param fac A scaling factor to apply
+#' @param x,y,z,xy,xz,yx,yz,zx,zy Scaling and shearing factors for each separate
+#' dimension/plane, or flags to indicate whether to reflect on the given axis
 #' @param rho An angle in radians to rotate (counterclockwise)
 #' @param axis For 3 dimensional rotation, which axis to rotate around
 #' @param direction A direction vector or an object convertible to one
@@ -63,28 +71,28 @@ affine_identity <- function(dim = 2L) {
 }
 #' @rdname affine_transformation
 #' @export
-affine_matrix <- function(x) {
-  if (is.matrix(x)) {
-    x <- list(x)
-  } else if (is.array(x)) {
-    x_dim <- dim(x)
+affine_matrix <- function(mat) {
+  if (is.matrix(mat)) {
+    mat <- list(mat)
+  } else if (is.array(mat)) {
+    x_dim <- dim(mat)
     if (length(dim) == 2) {
-      x <- list(as.matrix(x))
+      mat <- list(as.matrix(mat))
     } else {
       if (length(x_dim) != 3) {
         abort("Only 3-dimensional arrays can be converted to transformation matrices")
       }
       m_size <- prod(x_dim[1:2])
-      n <- length(x) / m_size
-      x <- split(x, rep(n, each = m_size))
-      x <- lapply(x, matrix, nrow = x_dim[1], ncol = x_dim[2])
+      n <- length(mat) / m_size
+      mat <- split(mat, rep(n, each = m_size))
+      mat <- lapply(mat, matrix, nrow = x_dim[1], ncol = x_dim[2])
     }
   }
-  if (!all(vapply(x, is.matrix, logical(1)) || vapply(x, anyNA, logical(1)))) {
+  if (!all(vapply(mat, is.matrix, logical(1)) || vapply(mat, anyNA, logical(1)))) {
     abort("`x` must be a list of matrices or an object convertible to it")
   }
-  dimensionality <- max(vapply(x, ncol, integer(1)))
-  x <- lapply(x, function(x) {
+  dimensionality <- max(vapply(mat, ncol, integer(1)))
+  mat <- lapply(mat, function(x) {
     mode(x) <- "numeric"
     if (anyNA(x)) {
       return(matrix(NA_real_, ncol = dimensionality, nrow = dimensionality))
@@ -106,9 +114,9 @@ affine_matrix <- function(x) {
     x
   })
   if (dimensionality == 3) {
-    new_affine_transformation2(create_transform_2_matrix(x))
+    new_affine_transformation2(create_transform_2_matrix(mat))
   } else {
-    new_affine_transformation3(create_transform_3_matrix(x))
+    new_affine_transformation3(create_transform_3_matrix(mat))
   }
 }
 #' @rdname affine_transformation
@@ -129,6 +137,49 @@ affine_scale <- function(fac, dim = 2L) {
     new_affine_transformation2(create_transform_2_scale(get_ptr(fac)))
   } else {
     new_affine_transformation3(create_transform_3_scale(get_ptr(fac)))
+  }
+}
+#' @rdname affine_transformation
+#' @export
+affine_scale2 <- function(x = 1, y = 1, z = NA, dim = NA) {
+  x <- as_exact_numeric(x)
+  y <- as_exact_numeric(y)
+  if (!is.na(z)) dim <- 3
+  if (is.na(dim)) dim <- 2
+  if (dim == 2) {
+    new_affine_transformation2(create_transform_2_scale2(get_ptr(x), get_ptr(y)))
+  } else {
+    z <- as_exact_numeric(if (is.na(z)) 1 else z)
+    new_affine_transformation3(create_transform_3_scale2(get_ptr(x), get_ptr(y), get_ptr(z)))
+  }
+}
+#' @rdname affine_transformation
+#' @export
+affine_shear <- function(x = NA, y = NA, xy = NA, xz = NA, yx = NA, yz = NA, zx = NA, zy = NA) {
+  if (!is.na(x) || !is.na(y)) {
+    x <- as_exact_numeric(if (is.na(x)) 0 else x)
+    y <- as_exact_numeric(if (is.na(y)) 0 else y)
+    new_affine_transformation2(create_transform_2_shear(get_ptr(x), get_ptr(y)))
+  } else {
+    xy <- as_exact_numeric(if (is.na(xy)) 0 else xy)
+    xz <- as_exact_numeric(if (is.na(xz)) 0 else xz)
+    yx <- as_exact_numeric(if (is.na(yx)) 0 else yx)
+    yz <- as_exact_numeric(if (is.na(yz)) 0 else yz)
+    zx <- as_exact_numeric(if (is.na(zx)) 0 else zx)
+    zy <- as_exact_numeric(if (is.na(zy)) 0 else zy)
+    new_affine_transformation3(create_transform_3_shear(get_ptr(xy), get_ptr(xz), get_ptr(yx), get_ptr(yz), get_ptr(zx), get_ptr(zy)))
+  }
+}
+#' @rdname affine_transformation
+#' @export
+affine_reflect <- function(x = FALSE, y = FALSE, z = FALSE, dim = 2L) {
+  x <- as_exact_numeric(if (x) -1 else 1)
+  y <- as_exact_numeric(if (y) -1 else 1)
+  z <- as_exact_numeric(if (z) -1 else 1)
+  if (dim == 2) {
+    new_affine_transformation2(create_transform_2_scale2(get_ptr(x), get_ptr(y)))
+  } else {
+    new_affine_transformation3(create_transform_3_scale2(get_ptr(x), get_ptr(y), get_ptr(z)))
   }
 }
 #' @rdname affine_transformation

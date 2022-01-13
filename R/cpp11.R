@@ -976,6 +976,14 @@ create_transform_2_scale <- function(fac) {
   .Call(`_euclid_create_transform_2_scale`, fac)
 }
 
+create_transform_2_scale2 <- function(x_fac, y_fac) {
+  .Call(`_euclid_create_transform_2_scale2`, x_fac, y_fac)
+}
+
+create_transform_2_shear <- function(x_fac, y_fac) {
+  .Call(`_euclid_create_transform_2_shear`, x_fac, y_fac)
+}
+
 create_transform_3_identity <- function(n) {
   .Call(`_euclid_create_transform_3_identity`, n)
 }
@@ -990,6 +998,14 @@ create_transform_3_translate <- function(trans) {
 
 create_transform_3_scale <- function(fac) {
   .Call(`_euclid_create_transform_3_scale`, fac)
+}
+
+create_transform_3_scale2 <- function(x_fac, y_fac, z_fac) {
+  .Call(`_euclid_create_transform_3_scale2`, x_fac, y_fac, z_fac)
+}
+
+create_transform_3_shear <- function(xy_fac, xz_fac, yx_fac, yz_fac, zx_fac, zy_fac) {
+  .Call(`_euclid_create_transform_3_shear`, xy_fac, xz_fac, yx_fac, yz_fac, zx_fac, zy_fac)
 }
 
 transform_length <- function(transforms) {

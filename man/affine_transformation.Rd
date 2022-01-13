@@ -6,6 +6,9 @@
 \alias{affine_matrix}
 \alias{affine_translate}
 \alias{affine_scale}
+\alias{affine_scale2}
+\alias{affine_shear}
+\alias{affine_reflect}
 \alias{affine_rotate}
 \alias{is_affine_transformation}
 \alias{as_affine_transformation}
@@ -15,11 +18,26 @@
 \usage{
 affine_identity(dim = 2L)
 
-affine_matrix(x)
+affine_matrix(mat)
 
 affine_translate(vec)
 
 affine_scale(fac, dim = 2L)
+
+affine_scale2(x = 1, y = 1, z = NA, dim = NA)
+
+affine_shear(
+  x = NA,
+  y = NA,
+  xy = NA,
+  xz = NA,
+  yx = NA,
+  yz = NA,
+  zx = NA,
+  zy = NA
+)
+
+affine_reflect(x = FALSE, y = FALSE, z = FALSE, dim = 2L)
 
 affine_rotate(rho, axis = NA, direction = NA, yaw = NA, pitch = NA, roll = NA)
 
@@ -34,7 +52,7 @@ is_reflecting(x)
 \arguments{
 \item{dim}{The dimensionality of the transformation matrix}
 
-\item{x}{An object that can be converted to an affine transformation matrix
+\item{mat}{An object that can be converted to an affine transformation matrix
 vector. Matrices and arrays can be converted provided they have the correct
 dimensions. List of matrices can be converted provided that all matrices have
 the same dimensions and that the dimensions is correct}
@@ -42,6 +60,9 @@ the same dimensions and that the dimensions is correct}
 \item{vec}{A vector of vectors or an object convertible to one}
 
 \item{fac}{A scaling factor to apply}
+
+\item{x, y, z, xy, xz, yx, yz, zx, zy}{Scaling and shearing factors for each separate
+dimension/plane, or flags to indicate whether to reflect on the given axis}
 
 \item{rho}{An angle in radians to rotate (counterclockwise)}
 
@@ -71,6 +92,13 @@ while maintaining exactness as sine and cosine cannot be calculate to
 exactness. 3 dimensional rotation can either be done around an axis, around
 a direction, or be defining specific angles of rotation for yaw, pitch, and
 roll.
+}
+\note{
+Circles and spheres only transforms correctly with euclidean
+transformations (i.e. translation, rotations, and reflection) as well as
+scaling by the same factor along all dimensions (as provided by
+\code{affine_scaling()}). Shearing and stretching/squeezing will only affect the
+location of the center, not the circularity of the geometry.
 }
 \examples{
 # Rotate triangle around its centroid and then around the center
