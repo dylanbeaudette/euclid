@@ -337,5 +337,6 @@ plot(c(tri, tri_scaled2), lty = c(2, 1))
 There are more things we haven't discussed, as some of it are specific to
 certain geometries, such as querying whether a direction lies between two other
 directions, or adding vectors together, or sorting point, or interpolating
-between geometries, or... you get the idea. Please consult the thorough
-documentation to dive deeper into the possibilities of euclid
+between geometries, or getting bounding boxes, or... you get the idea. Please
+consult the thorough documentation to dive deeper into the possibilities of
+euclid
