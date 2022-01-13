@@ -39,11 +39,11 @@
 #'
 vertex <- function(x, which = 1L) {
   if (!is_geometry(x)) {
-    rlang::abort("`vertex()` is only defined for geometries")
+    abort("`vertex()` is only defined for geometries")
   }
   which <- rep_len(as.integer(which), length(x))
   if (any(which > cardinality(x))) {
-    rlang::abort("`which` cannot be larger than the cardinality of the geometry")
+    abort("`which` cannot be larger than the cardinality of the geometry")
   }
   which <- which - 1L
   new_geometry_vector(geometry_vertex(get_ptr(x), which))

@@ -45,26 +45,26 @@ parameter <- function(x, ...) {
 parameter.euclid_geometry <- function(x, which, element = NA, ...) {
   def_names <- definition_names(x)
   if (length(which) != 1) {
-    rlang::abort("It is only possible to select a single parameter at a time")
+    abort("It is only possible to select a single parameter at a time")
   }
   if (is.character(which)) {
     index <- match(which, def_names)
     if (is.na(index)) {
-      rlang::abort(paste0(which, " does not name a parameter in the geometry"))
+      abort(paste0(which, " does not name a parameter in the geometry"))
     }
   } else {
     index <- as.integer(which)
     if (is.na(index)) {
-      rlang::abort(paste0("`which` must be either a character or a value convertible to an integer"))
+      abort(paste0("`which` must be either a character or a value convertible to an integer"))
     }
   }
   if (index < 1 || index > length(def_names)) {
-    rlang::abort("`which` must match one of the definitions of the geometry")
+    abort("`which` must match one of the definitions of the geometry")
   }
   if (!anyNA(element)) {
     element <- rep_len(element, length(x))
     if (any(element > cardinality(x))) {
-      rlang::abort("Trying to use an element index larger than the geometry cardinality")
+      abort("Trying to use an element index larger than the geometry cardinality")
     }
   } else {
     element <- NA_integer_
@@ -85,7 +85,7 @@ parameter.euclid_affine_transformation <- function(x, i, j, ...) {
     j <- rep_len(j, n)
   }
   if (length(x) != length(i) || length(x) != length(j)) {
-    rlang::abort("`x`, `i`, and `j` must be either scalars or of the same length")
+    abort("`x`, `i`, and `j` must be either scalars or of the same length")
   }
   new_exact_numeric(transform_definition(get_ptr(x), as.integer(i) - 1L, as.integer(j) - 1L))
 }

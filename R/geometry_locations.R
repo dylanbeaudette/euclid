@@ -31,7 +31,7 @@ circumcenter <- function(...) {
   inputs <- validate_constructor_input(...)
 
   if (length(inputs) == 0) {
-    rlang::abort("Geometries must be provided")
+    abort("Geometries must be provided")
   }
 
   points <- inputs[vapply(inputs, is_point, logical(1))]
@@ -92,7 +92,7 @@ barycenter <- function(x, y, z = NULL, t = NULL) {
   if (!is_weighted_point(x) || !is_weighted_point(y) ||
       (!is.null(z) && !is_weighted_point(z)) ||
       (!is.null(t) && !is_weighted_point(t))) {
-    rlang::abort("Barycenter can only be calculated from weighted points")
+    abort("Barycenter can only be calculated from weighted points")
   }
   if (is.null(z)) {
     new_geometry_vector(geometry_barycenter_2(get_ptr(x), get_ptr(y)))
@@ -157,17 +157,17 @@ centroid <- function(x, y = NULL, z = NULL, t = NULL) {
     new_geometry_vector(geometry_centroid_1(get_ptr(x)))
   } else if (is.null(z)) {
     if (!is_point(x) || !is_point(y)) {
-      rlang::abort("`x` and `y` must be points")
+      abort("`x` and `y` must be points")
     }
     x + (y - x) / 2
   } else if (is.null(t)) {
     if (!is_point(x) || !is_point(y) || !is_point(z)) {
-      rlang::abort("`x`, `y`, and `z` must be points")
+      abort("`x`, `y`, and `z` must be points")
     }
     new_geometry_vector(geometry_centroid_3(get_ptr(x), get_ptr(y), get_ptr(z)))
   } else {
     if (!is_point(x) || !is_point(y) || !is_point(z) || !is_point(t)) {
-      rlang::abort("`x`, `y`, `z`, and `t` must be points")
+      abort("`x`, `y`, `z`, and `t` must be points")
     }
     new_geometry_vector(geometry_centroid_4(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(t)))
   }
@@ -201,13 +201,13 @@ equidistant_line <- function(x, y, z = NULL) {
   if (is.null(z)) {
     if (!is_point(x) || !is_point(y) ||
         dim(x) != 2 || dim(y) != 2) {
-      rlang::abort("`x` and `y` must be points in 2 dimensions")
+      abort("`x` and `y` must be points in 2 dimensions")
     }
     bisector(x, y)
   } else {
     if (!is_point(x) || !is_point(y) || !is_point(z) ||
         dim(x) != 3 || dim(y) != 3 || dim(z) != 3) {
-      rlang::abort("`x`, `y`, and `z` must be points in 3 dimensions")
+      abort("`x`, `y`, and `z` must be points in 3 dimensions")
     }
     new_geometry_vector(geometry_equidistant_line(get_ptr(x), get_ptr(y), get_ptr(z)))
   }

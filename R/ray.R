@@ -71,7 +71,7 @@ ray <- function(..., default_dim = 2) {
   } else if (length(points) == 1 && length(lines) == 1) {
     new_ray_from_point_line(points[[1]], lines[[1]])
   } else {
-    rlang::abort("Don't know how to construct rays from the given input")
+    abort("Don't know how to construct rays from the given input")
   }
 }
 #' @rdname ray
@@ -87,7 +87,7 @@ as_ray <- function(x) {
 }
 #' @export
 as_ray.default <- function(x) {
-  rlang::abort("Don't know how to convert the input to rays")
+  abort("Don't know how to convert the input to rays")
 }
 #' @export
 as_ray.euclid_ray <- function(x) x
@@ -111,7 +111,7 @@ as_line.euclid_ray <- function(x) {
 #' @export
 geometry_op_minus.euclid_ray <- function(e1, e2) {
   if (!missing(e2)) {
-    rlang::abort("Rays cannot be subtracted, only negated")
+    abort("Rays cannot be subtracted, only negated")
   }
   if (dim(e1) == 2) {
     restore_euclid_vector(ray_2_negate(get_ptr(e1)), e1)

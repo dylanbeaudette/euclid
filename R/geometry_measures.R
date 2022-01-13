@@ -27,7 +27,7 @@ NULL
 #' @export
 approx_length <- function(x) {
   if (!is_geometry(x)) {
-    rlang::abort("`approx_length()` is only defined for geometries")
+    abort("`approx_length()` is only defined for geometries")
   }
   geometry_approx_length(get_ptr(x))
 }
@@ -35,7 +35,7 @@ approx_length <- function(x) {
 #' @export
 approx_area <- function(x) {
   if (!is_geometry(x)) {
-    rlang::abort("`approx_area()` is only defined for geometries")
+    abort("`approx_area()` is only defined for geometries")
   }
   geometry_approx_area(get_ptr(x))
 }
@@ -43,7 +43,7 @@ approx_area <- function(x) {
 #' @export
 approx_volume <- function(x) {
   if (!is_geometry(x)) {
-    rlang::abort("`approx_volume()` is only defined for geometries")
+    abort("`approx_volume()` is only defined for geometries")
   }
   geometry_approx_volume(get_ptr(x))
 }
@@ -51,7 +51,7 @@ approx_volume <- function(x) {
 #' @export
 approx_radius <- function(x) {
   if (!is_geometry(x)) {
-    rlang::abort("`approx_radius()` is only defined for geometries")
+    abort("`approx_radius()` is only defined for geometries")
   }
   if (!is_circle(x) || !is_sphere(x)) {
     rep(NA_real_, length(x))
@@ -91,7 +91,7 @@ approx_radius <- function(x) {
 #'
 distance_squared <- function(x, y) {
   if (!is_geometry(x) || !is_geometry(y)) {
-    rlang::abort("distance can only be calculated between two geometries")
+    abort("distance can only be calculated between two geometries")
   }
   if (is_weighted_point(x)) {
     x <- as_point(x)
@@ -105,7 +105,7 @@ distance_squared <- function(x, y) {
 #' @export
 approx_distance_matrix <- function(x, y) {
   if (!is_geometry(x) || !is_geometry(y)) {
-    rlang::abort("distance can only be calculated between two geometries")
+    abort("distance can only be calculated between two geometries")
   }
   if (is_weighted_point(x)) {
     x <- as_point(x)
@@ -140,7 +140,7 @@ approx_distance_matrix <- function(x, y) {
 approx_angle <- function(x, y) {
   check_geometry_input(x, y, .name = "approx_angle()")
   if (is_volume(x) || is_location(x) || is_volume(y) || is_location(y)) {
-    rlang::abort("`x` and `y` must be curves, surfaces, or arrows")
+    abort("`x` and `y` must be curves, surfaces, or arrows")
   }
   if (dim(x) != 2) {
     mod <- 0

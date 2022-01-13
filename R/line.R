@@ -72,7 +72,7 @@ line <- function(..., default_dim = 2) {
   } else if (length(points) == 1 && length(directions) == 1) {
     new_line_from_pd(points[[1]], directions[[1]])
   } else {
-    rlang::abort("Don't know how to construct lines from the given input")
+    abort("Don't know how to construct lines from the given input")
   }
 }
 #' @rdname line
@@ -88,7 +88,7 @@ as_line <- function(x) {
 }
 #' @export
 as_line.default <- function(x) {
-  rlang::abort("Don't know how to convert the input to lines")
+  abort("Don't know how to convert the input to lines")
 }
 #' @export
 as_line.euclid_line <- function(x) x
@@ -107,7 +107,7 @@ as_vec.euclid_line <- function(x) {
 #' @export
 seq.euclid_line <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   if (dim(from) != dim(to)) {
-    rlang::abort("`from` and `to` must have the same number of dimensions")
+    abort("`from` and `to` must have the same number of dimensions")
   }
   int <- intersection(from, to)[[1]]
   if (is_line(int)) {

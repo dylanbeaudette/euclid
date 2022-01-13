@@ -89,7 +89,7 @@ vec <- function(..., default_dim = 2) {
   } else if (length(numbers) == 3) {
     new_vector_from_xyz(numbers[[1]], numbers[[2]], numbers[[3]])
   } else {
-    rlang::abort("Don't know how to construct vectors from the given input")
+    abort("Don't know how to construct vectors from the given input")
   }
 }
 #' @rdname vec
@@ -105,7 +105,7 @@ as_vec <- function(x) {
 }
 #' @export
 as_vec.default <- function(x) {
-  rlang::abort("Don't know how to convert the input to vectors")
+  abort("Don't know how to convert the input to vectors")
 }
 #' @export
 as_vec.euclid_vector <- function(x) x
@@ -128,10 +128,10 @@ as_direction.euclid_vector <- function(x) {
 #' @export
 geometry_op_plus.euclid_vector <- function(e1, e2) {
   if (!is_vec(e1) || !is_vec(e2)) {
-    rlang::abort("`+` is only defined for addition with another vector")
+    abort("`+` is only defined for addition with another vector")
   }
   if (dim(e1) != dim(e2)) {
-    rlang::abort("`e1` and `e2` must have the same number of dimensions")
+    abort("`e1` and `e2` must have the same number of dimensions")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     return(new_vector_empty(dim(e1)))
@@ -152,10 +152,10 @@ geometry_op_minus.euclid_vector <- function(e1, e2) {
     }
   } else {
     if (!is_vec(e1) || !is_vec(e2)) {
-      rlang::abort("`-` is only defined for subtraction with another vector")
+      abort("`-` is only defined for subtraction with another vector")
     }
     if (dim(e1) != dim(e2)) {
-      rlang::abort("`e1` and `e2` must have the same number of dimensions")
+      abort("`e1` and `e2` must have the same number of dimensions")
     }
     if (length(e1) == 0 || length(e2) == 0) {
       return(new_vector_empty(dim(e1)))
@@ -174,7 +174,7 @@ geometry_op_multiply.euclid_vector <- function(e1, e2) {
   }
   if (is_vec(e1) && is_vec(e2)) {
     if (dim(e1) != dim(e2)) {
-      rlang::abort("Dimensionality of vectors must match when taking the inner product")
+      abort("Dimensionality of vectors must match when taking the inner product")
     }
     if (dim(e1) == 2) {
       new_exact_numeric(vector_2_dot_vector(get_ptr(e1), get_ptr(e2)))
@@ -199,7 +199,7 @@ geometry_op_multiply.euclid_vector <- function(e1, e2) {
 #' @export
 geometry_op_divide.euclid_vector <- function(e1, e2) {
   if (!is_vec(e1)) {
-    rlang::abort("Vector must be the nominator in division")
+    abort("Vector must be the nominator in division")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     return(new_vector_empty(dim(e1)))
@@ -239,7 +239,7 @@ geometry_math_cumsum.euclid_vector <- function(x) {
 #' @export
 seq.euclid_vector <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   if (dim(from) != dim(to)) {
-    rlang::abort("`from` and `to` must have the same number of dimensions")
+    abort("`from` and `to` must have the same number of dimensions")
   }
   vec(seq(as_point(from), as_point(to), length.out, along.with))
 }

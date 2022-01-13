@@ -59,7 +59,7 @@ intersection <- function(x, y) {
     }
   }
   if (!is_geometry(x) || !is_geometry(y)) {
-    rlang::abort("intersection can only be calculated between two geometries")
+    abort("intersection can only be calculated between two geometries")
   }
   lapply(geometry_intersection(get_ptr(x), get_ptr(y)), function(g) {
     if (is.null(g)) return(g)
@@ -165,7 +165,7 @@ has_intersection <- function(x, y) {
     }
   }
   if (!is_geometry(x) || !is_geometry(y)) {
-    rlang::abort("intersection can only be calculated between two geometries")
+    abort("intersection can only be calculated between two geometries")
   }
   if (is_weighted_point(x)) {
     x <- as_point(x)

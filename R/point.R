@@ -86,7 +86,7 @@ point <- function(..., default_dim = 2) {
   } else if (length(numbers) == 3) {
     new_point_from_xyz(numbers[[1]], numbers[[2]], numbers[[3]])
   } else {
-    rlang::abort("Don't know how to construct points from the given input")
+    abort("Don't know how to construct points from the given input")
   }
 }
 #' @rdname point
@@ -103,7 +103,7 @@ as_point <- function(x) {
 }
 #' @export
 as_point.default <- function(x) {
-  rlang::abort("Don't know how to convert the input to points")
+  abort("Don't know how to convert the input to points")
 }
 #' @export
 as_point.euclid_point <- function(x) x
@@ -118,10 +118,10 @@ as_vec.euclid_point <- function(x) {
 #' @export
 geometry_op_plus.euclid_point <- function(e1, e2) {
   if (!is_vec(e2)) {
-    rlang::abort("`+` is only defined for vectors")
+    abort("`+` is only defined for vectors")
   }
   if (dim(e1) != dim(e2)) {
-    rlang::abort("`e1` and `e2` must have the same number of dimensions")
+    abort("`e1` and `e2` must have the same number of dimensions")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     return(new_point_empty(dim(e1)))
@@ -135,10 +135,10 @@ geometry_op_plus.euclid_point <- function(e1, e2) {
 #' @export
 geometry_op_minus.euclid_point <- function(e1, e2) {
   if (!is_vec(e2) && !is_point(e2)) {
-    rlang::abort("`-` is only defined for vectors and points")
+    abort("`-` is only defined for vectors and points")
   }
   if (dim(e1) != dim(e2)) {
-    rlang::abort("`e1` and `e2` must have the same number of dimensions")
+    abort("`e1` and `e2` must have the same number of dimensions")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     if (is_point(e2)) {
@@ -164,10 +164,10 @@ geometry_op_minus.euclid_point <- function(e1, e2) {
 #' @export
 geometry_op_less.euclid_point <- function(e1, e2) {
   if (!is_point(e2)) {
-    rlang::abort("`<` is only defined for points")
+    abort("`<` is only defined for points")
   }
   if (dim(e1) != dim(e2)) {
-    rlang::abort("`e1` and `e2` must have the same number of dimensions")
+    abort("`e1` and `e2` must have the same number of dimensions")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     return(logical(0))
@@ -181,10 +181,10 @@ geometry_op_less.euclid_point <- function(e1, e2) {
 #' @export
 geometry_op_greater.euclid_point <- function(e1, e2) {
   if (!is_point(e2)) {
-    rlang::abort("`>` is only defined for points")
+    abort("`>` is only defined for points")
   }
   if (dim(e1) != dim(e2)) {
-    rlang::abort("`e1` and `e2` must have the same number of dimensions")
+    abort("`e1` and `e2` must have the same number of dimensions")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     return(logical(0))
@@ -260,13 +260,13 @@ range.euclid_point <- function(..., na.rm = FALSE) {
 #' @export
 seq.euclid_point <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   if (dim(from) != dim(to)) {
-    rlang::abort("`from` and `to` must have the same number of dimensions")
+    abort("`from` and `to` must have the same number of dimensions")
   }
   if (!is.null(along.with)) {
     length.out = length(along.with)
   }
   if (is.null(length.out)) {
-    rlang::abort("Either `length.out` or `along.with` must be provided")
+    abort("Either `length.out` or `along.with` must be provided")
   }
   x <- seq(parameter(from, "x"), parameter(to, "x"), length.out = length.out)
   y <- seq(parameter(from, "y"), parameter(to, "y"), length.out = length.out)

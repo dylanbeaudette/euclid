@@ -35,7 +35,7 @@
 #'
 is_degenerate <- function(x) {
   if (!is_geometry(x)) {
-    rlang::abort("`is_degenerate` is only defined for geometries")
+    abort("`is_degenerate` is only defined for geometries")
   }
   geometry_is_degenerate(get_ptr(x))
 }
@@ -172,17 +172,17 @@ NULL
 #' @export
 is_constant_in <- function(x, axis) {
   if (!is_geometry(x)) {
-    rlang::abort("`is_constant_in()` is only defined for geometries")
+    abort("`is_constant_in()` is only defined for geometries")
   }
   if (is.character(axis)) {
     axis <- match(axis, c("x", "y", "z"))
     if (anyNA(axis)) {
-      rlang::abort("`axis` must be one of `x`, `y`, or `z`")
+      abort("`axis` must be one of `x`, `y`, or `z`")
     }
   }
   axis <- as.integer(axis - 1)
   if (any(axis < 0 | axis >= dim(x))) {
-    rlang::abort("`axis` must enumerate an axis in the geometries coordinate system")
+    abort("`axis` must enumerate an axis in the geometries coordinate system")
   }
   geometry_constant_in(get_ptr(x), axis)
 }
@@ -190,7 +190,7 @@ is_constant_in <- function(x, axis) {
 #' @export
 has_constant_x <- function(x) {
   if (!is_geometry(x)) {
-    rlang::abort("`has_constant_x()` is only defined for geometries")
+    abort("`has_constant_x()` is only defined for geometries")
   }
   geometry_constant_in(get_ptr(x), 0L)
 }
@@ -198,7 +198,7 @@ has_constant_x <- function(x) {
 #' @export
 has_constant_y <- function(x) {
   if (!is_geometry(x)) {
-    rlang::abort("`has_constant_y()` is only defined for geometries")
+    abort("`has_constant_y()` is only defined for geometries")
   }
   geometry_constant_in(get_ptr(x), 1L)
 }
@@ -206,10 +206,10 @@ has_constant_y <- function(x) {
 #' @export
 has_constant_z <- function(x) {
   if (!is_geometry(x)) {
-    rlang::abort("`has_constant_z()` is only defined for geometries")
+    abort("`has_constant_z()` is only defined for geometries")
   }
   if (dim(x) != 3) {
-    rlang::abort("`has_constant_z()` is only defined for 3 dimensional geometries")
+    abort("`has_constant_z()` is only defined for 3 dimensional geometries")
   }
   geometry_constant_in(get_ptr(x), 2L)
 }
@@ -398,7 +398,7 @@ turns_left <- function(x, y, z) {
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)
   if (!is_point(x) || !is_point(y) || !is_point(z)) {
-    rlang::abort("`turns_left()` is only defined for 2D points")
+    abort("`turns_left()` is only defined for 2D points")
   }
   point_turns_left(get_ptr(x), get_ptr(y), get_ptr(z))
 }
@@ -410,7 +410,7 @@ turns_right <- function(x, y, z) {
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)
   if (!is_point(x) || !is_point(y) || !is_point(z) || dim(x) != 2) {
-    rlang::abort("`turns_right()` is only defined for 2D points")
+    abort("`turns_right()` is only defined for 2D points")
   }
   point_turns_right(get_ptr(x), get_ptr(y), get_ptr(z))
 }
@@ -419,10 +419,10 @@ turns_right <- function(x, y, z) {
 turn_along <- function(x) {
   if (is_weighted_point(x)) x <- as_point(x)
   if (!is_point(x) || dim(x) != 2) {
-    rlang::abort("`turn_along()` is only defined for 2D points")
+    abort("`turn_along()` is only defined for 2D points")
   }
   if (length(x) < 3) {
-    rlang::abort("`turn_along()` needs at least 3 points")
+    abort("`turn_along()` needs at least 3 points")
   }
   point_turns(get_ptr(x))
 }
@@ -457,7 +457,7 @@ in_order <- function(x, y, z) {
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)
   if (!is_point(x) || !is_point(y) || !is_point(z)) {
-    rlang::abort("`in_order()` is only defined for points")
+    abort("`in_order()` is only defined for points")
   }
   point_ordered(get_ptr(x), get_ptr(y), get_ptr(z))
 }
@@ -466,10 +466,10 @@ in_order <- function(x, y, z) {
 in_order_along <- function(x) {
   if (is_weighted_point(x)) x <- as_point(x)
   if (!is_point(x)) {
-    rlang::abort("`in_order_along()` is only defined for points")
+    abort("`in_order_along()` is only defined for points")
   }
   if (length(x) < 3) {
-    rlang::abort("`in_order_along()` needs at least 3 points")
+    abort("`in_order_along()` needs at least 3 points")
   }
   point_ordered_along(get_ptr(x))
 }

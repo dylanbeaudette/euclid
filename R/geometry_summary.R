@@ -3,28 +3,28 @@ geometry_summary_sum <- function(x, na_rm) {
 }
 #' @export
 geometry_summary_sum.default <- function(x, na_rm) {
-  rlang::abort("The provided geometry does not support `sum()`")
+  abort("The provided geometry does not support `sum()`")
 }
 geometry_summary_prod <- function(x, na_rm) {
   UseMethod("geometry_summary_prod")
 }
 #' @export
 geometry_summary_prod.default <- function(x, na_rm) {
-  rlang::abort("The provided geometry does not support `prod()`")
+  abort("The provided geometry does not support `prod()`")
 }
 geometry_summary_min <- function(x, na_rm) {
   UseMethod("geometry_summary_min")
 }
 #' @export
 geometry_summary_min.default <- function(x, na_rm) {
-  rlang::abort("The provided geometry does not support `min()`")
+  abort("The provided geometry does not support `min()`")
 }
 geometry_summary_max <- function(x, na_rm) {
   UseMethod("geometry_summary_max")
 }
 #' @export
 geometry_summary_max.default <- function(x, na_rm) {
-  rlang::abort("The provided geometry does not support `max()`")
+  abort("The provided geometry does not support `max()`")
 }
 
 #' @export

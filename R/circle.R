@@ -114,7 +114,7 @@ circle <- function(..., default_dim = 2) {
   } else if (length(spheres) == 1 && length(planes) == 1) {
     new_circle_from_sphere_plane(spheres[[1]], planes[[1]])
   } else {
-    rlang::abort("Don't know how to construct circles from the given input")
+    abort("Don't know how to construct circles from the given input")
   }
 }
 #' @rdname circle
@@ -130,7 +130,7 @@ as_circle <- function(x) {
 }
 #' @export
 as_circle.default <- function(x) {
-  rlang::abort("Don't know how to convert the input to circles")
+  abort("Don't know how to convert the input to circles")
 }
 #' @export
 as_circle.euclid_circle <- function(x) x
@@ -173,7 +173,7 @@ new_circle_empty <- function(dim) {
 }
 new_circle_from_point_number <- function(center, r) {
   if (dim(center) != 2) {
-    rlang::abort("Circles in 3 dimensions cannot be constructed from center and radius")
+    abort("Circles in 3 dimensions cannot be constructed from center and radius")
   }
   new_geometry_vector(create_circle_2_center_radius(get_ptr(center), get_ptr(r)))
 }
@@ -192,7 +192,7 @@ new_circle_from_3_points <- function(p, q, r) {
 }
 new_circle_from_2_points <- function(p, q) {
   if (dim(p) != 2) {
-    rlang::abort("Circles in 3 dimensions cannot be constructed from 2 points")
+    abort("Circles in 3 dimensions cannot be constructed from 2 points")
   }
   new_geometry_vector(create_circle_2_2_point(get_ptr(p), get_ptr(q)))
 }

@@ -56,7 +56,7 @@ weighted_point <- function(..., default_dim = 2) {
   } else if (length(numbers) == 4) {
     new_point_w_from_xyzw(numbers[[1]], numbers[[2]], numbers[[3]], numbers[[4]])
   } else {
-    rlang::abort("Don't know how to construct weighted points from the given input")
+    abort("Don't know how to construct weighted points from the given input")
   }
 }
 #' @rdname weighted_point
@@ -72,7 +72,7 @@ as_weighted_point <- function(x) {
 }
 #' @export
 as_weighted_point.default <- function(x) {
-  rlang::abort("Don't know how to convert the input to weighted points")
+  abort("Don't know how to convert the input to weighted points")
 }
 #' @export
 as_weighted_point.euclid_point_w <- function(x) x
@@ -88,13 +88,13 @@ as_point.euclid_point_w <- function(x) {
 #' @export
 seq.euclid_point_w <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   if (dim(from) != dim(to)) {
-    rlang::abort("`from` and `to` must have the same number of dimensions")
+    abort("`from` and `to` must have the same number of dimensions")
   }
   if (!is.null(along.with)) {
     length.out = length(along.with)
   }
   if (is.null(length.out)) {
-    rlang::abort("Either `length.out` or `along.with` must be provided")
+    abort("Either `length.out` or `along.with` must be provided")
   }
   weighted_point(
     seq(vertex(from), vertex(to), length.out = length.out),

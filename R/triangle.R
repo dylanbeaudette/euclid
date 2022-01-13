@@ -43,7 +43,7 @@ triangle <- function(..., default_dim = 2) {
   if (length(points) == 3) {
     new_triangle_from_3_points(points[[1]], points[[2]], points[[3]])
   } else {
-    rlang::abort("Don't know how to construct triangles from the given input")
+    abort("Don't know how to construct triangles from the given input")
   }
 }
 #' @rdname triangle
@@ -60,7 +60,7 @@ as_triangle <- function(x) {
 }
 #' @export
 as_triangle.default <- function(x) {
-  rlang::abort("Don't know how to convert the input to triangles")
+  abort("Don't know how to convert the input to triangles")
 }
 #' @export
 as_triangle.euclid_triangle <- function(x) x
@@ -75,7 +75,7 @@ as_plane.euclid_triangle <- function(x) {
 #' @export
 seq.euclid_triangle <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   if (dim(from) != dim(to)) {
-    rlang::abort("`from` and `to` must have the same number of dimensions")
+    abort("`from` and `to` must have the same number of dimensions")
   }
   triangle(
     seq(vertex(from, 1), vertex(to, 1), length.out, along.with),

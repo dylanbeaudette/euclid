@@ -3,28 +3,28 @@ geometry_math_cumsum <- function(x) {
 }
 #' @export
 geometry_math_cumsum.default <- function(x) {
-  rlang::abort("The provided geometry does not support `cumsum()`")
+  abort("The provided geometry does not support `cumsum()`")
 }
 geometry_math_cumprod <- function(x) {
   UseMethod("geometry_math_cumprod")
 }
 #' @export
 geometry_math_cumprod.default <- function(x) {
-  rlang::abort("The provided geometry does not support `cumprod()`")
+  abort("The provided geometry does not support `cumprod()`")
 }
 geometry_math_cummin <- function(x) {
   UseMethod("geometry_math_cummin")
 }
 #' @export
 geometry_math_cummin.default <- function(x) {
-  rlang::abort("The provided geometry does not support `cummin()`")
+  abort("The provided geometry does not support `cummin()`")
 }
 geometry_math_cummax <- function(x) {
   UseMethod("geometry_math_cummax")
 }
 #' @export
 geometry_math_cummax.default <- function(x) {
-  rlang::abort("The provided geometry does not support `cummax()`")
+  abort("The provided geometry does not support `cummax()`")
 }
 
 #' @export

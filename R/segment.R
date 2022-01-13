@@ -56,7 +56,7 @@ segment <- function(..., default_dim = 2) {
   } else if (length(points) == 1 && length(vectors) == 1) {
     new_segment_from_point_vector(points[[1]], vectors[[1]])
   } else {
-    rlang::abort("Don't know how to construct segments from the given input")
+    abort("Don't know how to construct segments from the given input")
   }
 }
 #' @rdname ray
@@ -72,7 +72,7 @@ as_segment <- function(x) {
 }
 #' @export
 as_segment.default <- function(x) {
-  rlang::abort("Don't know how to convert the input to segments")
+  abort("Don't know how to convert the input to segments")
 }
 #' @export
 as_segment.euclid_segment <- function(x) x
@@ -95,7 +95,7 @@ as_line.euclid_segment <- function(x) {
 #' @export
 geometry_op_minus.euclid_segment <- function(e1, e2) {
   if (!missing(e2)) {
-    rlang::abort("Segments cannot be subtracted, only negated")
+    abort("Segments cannot be subtracted, only negated")
   }
   if (dim(e1) == 2) {
     restore_euclid_vector(segment_2_negate(get_ptr(e1)), e1)
@@ -109,7 +109,7 @@ geometry_op_minus.euclid_segment <- function(e1, e2) {
 #' @export
 seq.euclid_segment <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   if (dim(from) != dim(to)) {
-    rlang::abort("`from` and `to` must have the same number of dimensions")
+    abort("`from` and `to` must have the same number of dimensions")
   }
   segment(
     seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
