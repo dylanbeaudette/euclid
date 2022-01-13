@@ -33,5 +33,8 @@ Imports:
 URL: https://r-euclid.com, https://github.com/thomasp85/euclid
 BugReports: https://github.com/thomasp85/euclid/issues
 Suggests: 
+    knitr,
     covr,
-    testthat
+    testthat,
+    rmarkdown
+VignetteBuilder: knitr
