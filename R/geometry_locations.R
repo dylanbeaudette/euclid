@@ -89,7 +89,7 @@ circumcenter <- function(...) {
 #' bc <- barycenter(p[1], p[2], p[3])
 #' bc
 #'
-#' plot(p, cex = as.numeric(parameter(p, "w") / 8))
+#' plot(p, cex = as.numeric(def(p, "w") / 8))
 #' euclid_plot(bc, pch = 16, col = "firebrick", cex = 3)
 #'
 barycenter <- function(x, y, z = NULL, t = NULL) {

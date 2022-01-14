@@ -58,7 +58,7 @@ approx_radius <- function(x) {
   if (!is_circle(x) || !is_sphere(x)) {
     rep(NA_real_, length(x))
   }
-  sqrt(as.numeric(parameter(x, "r2")))
+  sqrt(as.numeric(def(x, "r2")))
 }
 
 #' Calculate distances between geometries

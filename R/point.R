@@ -271,12 +271,12 @@ seq.euclid_point <- function(from, to, length.out = NULL, along.with = NULL, ...
   if (is.null(length.out)) {
     abort("Either `length.out` or `along.with` must be provided")
   }
-  x <- seq(parameter(from, "x"), parameter(to, "x"), length.out = length.out)
-  y <- seq(parameter(from, "y"), parameter(to, "y"), length.out = length.out)
+  x <- seq(def(from, "x"), def(to, "x"), length.out = length.out)
+  y <- seq(def(from, "y"), def(to, "y"), length.out = length.out)
   if (dim(from) == 2) {
     return(point(x, y))
   }
-  z <- seq(parameter(from, "z"), parameter(to, "z"), length.out = length.out)
+  z <- seq(def(from, "z"), def(to, "z"), length.out = length.out)
   point(x, y, z)
 }
 

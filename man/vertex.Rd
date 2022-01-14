@@ -51,7 +51,7 @@ vertex(line(4, 7, -1))
 }
 \seealso{
 Other Geometry methods: 
-\code{\link{euclid_geometry}},
-\code{\link{parameter}()}
+\code{\link{def}()},
+\code{\link{euclid_geometry}}
 }
 \concept{Geometry methods}

@@ -91,7 +91,7 @@ as_sphere.euclid_sphere <- function(x) x
 seq.euclid_sphere <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   sphere(
     seq(vertex(from), vertex(to), length.out, along.with),
-    seq(parameter(from, "r2"), parameter(to, "r2"), length.out, along.with)
+    seq(def(from, "r2"), def(to, "r2"), length.out, along.with)
   )
 }
 

@@ -101,7 +101,7 @@ seq.euclid_point_w <- function(from, to, length.out = NULL, along.with = NULL, .
   }
   weighted_point(
     seq(vertex(from), vertex(to), length.out = length.out),
-    seq(parameter(from, "w"), parameter(to, "w"), length.out = length.out)
+    seq(def(from, "w"), def(to, "w"), length.out = length.out)
   )
 }
 

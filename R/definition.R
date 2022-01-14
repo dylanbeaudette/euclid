@@ -25,34 +25,34 @@
 #' @examples
 #' # Get squared radius of circle
 #' circ <- circle(point(4, 7), 25)
-#' parameter(circ, "r2")
+#' def(circ, "r2")
 #'
 #' # Get all the x values from the source of segments
 #' s <- segment(point(sample(10, 4), sample(10, 4)),
 #'              point(sample(10, 4), sample(10, 4)))
-#' parameter(s, "x", 1L)
+#' def(s, "x", 1L)
 #'
 #' # Get y for all subelements
-#' parameter(s, "y")
+#' def(s, "y")
 #'
 #' # Extract cell values from transformation matrices
 #' m <- affine_rotate(c(pi/2, pi/3))
-#' parameter(m, 1, 2)
+#' def(m, 1, 2)
 #'
-parameter <- function(x, ...) {
-  UseMethod("parameter")
+def <- function(x, ...) {
+  UseMethod("def")
 }
-#' @rdname parameter
+#' @rdname def
 #' @export
-parameter.euclid_geometry <- function(x, which, element = NA, ...) {
+def.euclid_geometry <- function(x, which, element = NA, ...) {
   def_names <- definition_names(x)
   if (length(which) != 1) {
-    abort("It is only possible to select a single parameter at a time")
+    abort("It is only possible to select a single definition at a time")
   }
   if (is.character(which)) {
     index <- match(which, def_names)
     if (is.na(index)) {
-      abort(paste0(which, " does not name a parameter in the geometry"))
+      abort(paste0(which, " does not name a definition of the geometry"))
     }
   } else {
     index <- as.integer(which)
@@ -73,9 +73,9 @@ parameter.euclid_geometry <- function(x, which, element = NA, ...) {
   }
   new_exact_numeric(geometry_definition(get_ptr(x), index - 1L, element - 1L))
 }
-#' @rdname parameter
+#' @rdname def
 #' @export
-parameter.euclid_affine_transformation <- function(x, i, j, ...) {
+def.euclid_affine_transformation <- function(x, i, j, ...) {
   n <- max(length(x), length(i), length(j))
   if (length(x) == 1) {
     x <- rep_len(x, n)
@@ -90,4 +90,9 @@ parameter.euclid_affine_transformation <- function(x, i, j, ...) {
     abort("`x`, `i`, and `j` must be either scalars or of the same length")
   }
   new_exact_numeric(transform_definition(get_ptr(x), as.integer(i) - 1L, as.integer(j) - 1L))
+}
+#' @rdname def
+#' @export
+definition_names <- function(x) {
+  geometry_definition_names(get_ptr(x))
 }

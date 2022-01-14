@@ -5,7 +5,6 @@
 \alias{is_geometry}
 \alias{geometry_type}
 \alias{cardinality}
-\alias{definition_names}
 \title{Vector of geometries}
 \usage{
 is_geometry(x)
@@ -13,8 +12,6 @@ is_geometry(x)
 geometry_type(x)
 
 cardinality(x)
-
-definition_names(x)
 }
 \arguments{
 \item{x}{An \code{euclid_geometry} object}
@@ -90,7 +87,7 @@ transform(p, affine_rotate(pi/3))
 }
 \seealso{
 Other Geometry methods: 
-\code{\link{parameter}()},
+\code{\link{def}()},
 \code{\link{vertex}()}
 }
 \concept{Geometry methods}

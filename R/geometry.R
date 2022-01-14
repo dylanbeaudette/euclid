@@ -120,11 +120,6 @@ cardinality <- function(x) {
   }
   geometry_cardinality(get_ptr(x))
 }
-#' @rdname euclid_geometry
-#' @export
-definition_names <- function(x) {
-  geometry_definition_names(get_ptr(x))
-}
 #' @export
 as.matrix.euclid_geometry <- function(x, ...) {
   geometry_to_matrix(get_ptr(x))

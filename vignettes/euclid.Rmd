@@ -52,7 +52,7 @@ rely on their positions. This might seem odd in the case of points where using
 approach doesn't scale.
 
 A vector can, as with points, be created from a set of `x` and `y` coordinates,
-but you could also created it from a vector of points:
+but you could also create it from a vector of points:
 
 ```{r}
 v <- vec(p)
@@ -86,13 +86,13 @@ different ways in which they can be created.
 While the geometries in euclid are atomic, they still encode information that
 can be extracted. For instance, you might be interested in getting the `y`
 coordinates of the points in a vector. Such information can be accessed with
-`parameter()`:
+`def()`, short for *definition*:
 
 ```{r}
-parameter(p, 'y')
+def(p, 'y')
 ```
 
-The parameter names of each geometry can be accessed with `definition_names()`:
+The definition names of each geometry can be accessed with `definition_names()`:
 
 ```{r}
 definition_names(circ)
@@ -117,7 +117,7 @@ vertex(tri, 3)
 ```
 
 A last choice is to convert the vertex to a matrix. This will put all the
-parameters in a separate column and create as many rows as the cardinality of
+definitions in a separate column and create as many rows as the cardinality of
 the geometry for each element in the vector:
 
 ```{r}
@@ -125,15 +125,14 @@ as.matrix(tri)
 ```
 
 One thing to note with this last approach is that the output will be given in
-standard R numerics, whereas `parameter()` will output something else... read
-on!
+standard R numerics, whereas `def()` will output something else... read on!
 
 ## A note on exactness
 
-You might have paused at the output of `parameter()`:
+You might have paused at the output of `def()`:
 
 ```{r}
-parameter(tri, 'x')
+def(tri, 'x')
 ```
 
 This doesn't look like a standard R vector. It isn't! The output is an exact
