@@ -23,7 +23,7 @@ point2_p create_point_2_x_y(exact_numeric_p x, exact_numeric_p y) {
       vec.push_back(Point_2::NA_value());
       continue;
     }
-    vec.emplace_back((*x)[i], (*y)[i]);
+    vec.emplace_back(Kernel::FT((*x)[i]), Kernel::FT((*y)[i]));
   }
   point2 *result(new point2(vec));
 
@@ -152,7 +152,7 @@ point3_p create_point_3_x_y_z(exact_numeric_p x, exact_numeric_p y, exact_numeri
       vec.push_back(Point_3::NA_value());
       continue;
     }
-    vec.emplace_back((*x)[i], (*y)[i], (*z)[i]);
+    vec.emplace_back(Kernel::FT((*x)[i]), Kernel::FT((*y)[i]), Kernel::FT((*z)[i]));
   }
   point3 *result(new point3(vec));
 

@@ -18,10 +18,10 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.1.2
 LinkingTo: 
     cpp11 (>= 0.2.3),
-    cgal4h,
+    cgalh,
     BH
 SystemRequirements: 
-    C++11,
+    C++14,
     gmp,
     mpfr
 Imports: 

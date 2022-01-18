@@ -20,7 +20,7 @@ point_w2_p create_point_w_2_x_y_w(exact_numeric_p x, exact_numeric_p y, exact_nu
       vec.push_back(Weighted_point_2::NA_value());
       continue;
     }
-    vec.emplace_back(Point_2((*x)[i], (*y)[i]), (*w)[i]);
+    vec.emplace_back(Point_2(Kernel::FT((*x)[i]), Kernel::FT((*y)[i])), (*w)[i]);
   }
   point_w2 *result(new point_w2(vec));
 
@@ -59,7 +59,7 @@ point_w3_p create_point_w_3_x_y_z_w(exact_numeric_p x, exact_numeric_p y, exact_
       vec.push_back(Weighted_point_3::NA_value());
       continue;
     }
-    vec.emplace_back(Point_3((*x)[i], (*y)[i], (*z)[i]), (*w)[i]);
+    vec.emplace_back(Point_3(Kernel::FT((*x)[i]), Kernel::FT((*y)[i]), Kernel::FT((*z)[i])), (*w)[i]);
   }
   point_w3 *result(new point_w3(vec));
 
