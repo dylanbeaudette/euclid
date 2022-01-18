@@ -1,6 +1,6 @@
 validate_constructor_input <- function(..., .convert_numerics = TRUE) {
   inputs <- lapply(list(...), function(x) {
-    if (.convert_numerics && !is_geometry(x) && is.numeric(x)) {
+    if (.convert_numerics && !is_base_geometry(x) && is.numeric(x)) {
       x <- as_exact_numeric(x)
     }
     x
@@ -25,7 +25,7 @@ validate_constructor_input <- function(..., .convert_numerics = TRUE) {
 check_geometry_input <- function(..., .name) {
   input <- list(...)
   input <- input[!vapply(input, is.null, logical(1))]
-  if (!all(vapply(input, is_geometry, logical(1)))) {
+  if (!all(vapply(input, is_base_geometry, logical(1)))) {
     abort(paste0("`", .name, "` is only defined for geometries"))
   }
   if (length(unique(vapply(input, dim, integer(1)))) != 1) {

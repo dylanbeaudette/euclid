@@ -54,7 +54,7 @@ bbox <- function(..., default_dim = 2) {
   if (...length() == 0) {
     return(new_bbox_empty(default_dim))
   }
-  if (is_geometry(..1)) {
+  if (is_base_geometry(..1)) {
     bboxes <- geometry_bbox(get_ptr(..1))
     if (dim(..1) == 2) {
       return(new_bbox2(bboxes))

@@ -62,7 +62,7 @@ segment <- function(..., default_dim = 2) {
     abort("Don't know how to construct segments from the given input")
   }
 }
-#' @rdname ray
+#' @rdname segment
 #' @export
 is_segment <- function(x) inherits(x, "euclid_segment")
 

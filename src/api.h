@@ -9,7 +9,7 @@ cpp11::external_pointer<T> get_ext_pointer(SEXP val) {
     cpp11::stop("Provided object not an euclid class");
   }
   SEXP pointer = VECTOR_ELT(val, 0);
-  if (TYPEOF(val) != EXTPTRSXP) {
+  if (TYPEOF(pointer) != EXTPTRSXP) {
     cpp11::stop("Provided object not an euclid class");
   }
   cpp11::external_pointer<T> ex_p(pointer);

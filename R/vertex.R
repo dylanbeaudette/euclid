@@ -40,7 +40,7 @@
 #' vertex(line(4, 7, -1))
 #'
 vertex <- function(x, which = 1L) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`vertex()` is only defined for geometries")
   }
   which <- rep_len(as.integer(which), length(x))

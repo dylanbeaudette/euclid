@@ -99,25 +99,35 @@ get_class <- function(type, dim) {
   )
 }
 
+is_base_geometry <- function(x) inherits(x, "euclid_geometry")
+
 #' @rdname euclid_geometry
 #' @export
-is_geometry <- function(x) inherits(x, "euclid_geometry")
+is_geometry <- function(x) {
+  UseMethod("is_geometry")
+}
+#' @export
+is_geometry.default <- function(x) FALSE
+#' @export
+is_geometry.euclid_geometry <- function(x) TRUE
 
 #' @rdname euclid_geometry
 #' @export
 geometry_type <- function(x) {
-  if (!is_geometry(x)) {
-    abort("`x` must be an `euclid_geometry` vector")
-  }
+  UseMethod("geometry_type")
+}
+#' @export
+geometry_type.euclid_geometry <- function(x) {
   geometry_primitive_type(get_ptr(x))
 }
 
 #' @rdname euclid_geometry
 #' @export
 cardinality <- function(x) {
-  if (!is_geometry(x)) {
-    abort("Cardinality can only be calculated for euclid geometry objects")
-  }
+  UseMethod("cardinality")
+}
+#' @export
+cardinality.euclid_geometry <- function(x) {
   geometry_cardinality(get_ptr(x))
 }
 #' @export
@@ -186,7 +196,7 @@ dim.euclid_geometry <- function(x) {
 }
 #' @export
 `[<-.euclid_geometry` <- function(x, i, j, ..., value) {
-  if (!is_geometry(value)) {
+  if (!is_base_geometry(value)) {
     abort("Only geometries can be assigned to geometry vectors")
   }
   if (is.numeric(i) && all(i >= 0)) {

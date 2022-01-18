@@ -28,7 +28,7 @@ NULL
 #' @rdname geometry_measures
 #' @export
 approx_length <- function(x) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`approx_length()` is only defined for geometries")
   }
   geometry_approx_length(get_ptr(x))
@@ -36,7 +36,7 @@ approx_length <- function(x) {
 #' @rdname geometry_measures
 #' @export
 approx_area <- function(x) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`approx_area()` is only defined for geometries")
   }
   geometry_approx_area(get_ptr(x))
@@ -44,7 +44,7 @@ approx_area <- function(x) {
 #' @rdname geometry_measures
 #' @export
 approx_volume <- function(x) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`approx_volume()` is only defined for geometries")
   }
   geometry_approx_volume(get_ptr(x))
@@ -52,7 +52,7 @@ approx_volume <- function(x) {
 #' @rdname geometry_measures
 #' @export
 approx_radius <- function(x) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`approx_radius()` is only defined for geometries")
   }
   if (!is_circle(x) || !is_sphere(x)) {
@@ -94,7 +94,7 @@ approx_radius <- function(x) {
 #' approx_distance_matrix(l, r)
 #'
 distance_squared <- function(x, y) {
-  if (!is_geometry(x) || !is_geometry(y)) {
+  if (!is_base_geometry(x) || !is_base_geometry(y)) {
     abort("distance can only be calculated between two geometries")
   }
   if (is_weighted_point(x)) {
@@ -108,7 +108,7 @@ distance_squared <- function(x, y) {
 #' @rdname distance_squared
 #' @export
 approx_distance_matrix <- function(x, y) {
-  if (!is_geometry(x) || !is_geometry(y)) {
+  if (!is_base_geometry(x) || !is_base_geometry(y)) {
     abort("distance can only be calculated between two geometries")
   }
   if (is_weighted_point(x)) {

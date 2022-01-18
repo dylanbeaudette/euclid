@@ -60,7 +60,7 @@ intersection <- function(x, y) {
       y <- as_iso_cube(y)
     }
   }
-  if (!is_geometry(x) || !is_geometry(y)) {
+  if (!is_base_geometry(x) || !is_base_geometry(y)) {
     abort("intersection can only be calculated between two geometries")
   }
   lapply(geometry_intersection(get_ptr(x), get_ptr(y)), function(g) {
@@ -169,7 +169,7 @@ has_intersection <- function(x, y) {
       y <- as_iso_cube(y)
     }
   }
-  if (!is_geometry(x) || !is_geometry(y)) {
+  if (!is_base_geometry(x) || !is_base_geometry(y)) {
     abort("intersection can only be calculated between two geometries")
   }
   if (is_weighted_point(x)) {

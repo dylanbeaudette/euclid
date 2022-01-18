@@ -36,7 +36,11 @@
 #' is_degenerate(circ)
 #'
 is_degenerate <- function(x) {
-  if (!is_geometry(x)) {
+  UseMethod("is_degenerate")
+}
+#' @export
+is_degenerate.euclid_geometry <- function(x) {
+  if (!is_base_geometry(x)) {
     abort("`is_degenerate` is only defined for geometries")
   }
   geometry_is_degenerate(get_ptr(x))
@@ -177,7 +181,7 @@ NULL
 #' @rdname constant_in
 #' @export
 is_constant_in <- function(x, axis) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`is_constant_in()` is only defined for geometries")
   }
   if (is.character(axis)) {
@@ -195,7 +199,7 @@ is_constant_in <- function(x, axis) {
 #' @rdname constant_in
 #' @export
 has_constant_x <- function(x) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`has_constant_x()` is only defined for geometries")
   }
   geometry_constant_in(get_ptr(x), 0L)
@@ -203,7 +207,7 @@ has_constant_x <- function(x) {
 #' @rdname constant_in
 #' @export
 has_constant_y <- function(x) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`has_constant_y()` is only defined for geometries")
   }
   geometry_constant_in(get_ptr(x), 1L)
@@ -211,7 +215,7 @@ has_constant_y <- function(x) {
 #' @rdname constant_in
 #' @export
 has_constant_z <- function(x) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("`has_constant_z()` is only defined for geometries")
   }
   if (dim(x) != 3) {

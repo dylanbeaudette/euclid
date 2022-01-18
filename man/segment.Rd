@@ -2,10 +2,13 @@
 % Please edit documentation in R/segment.R
 \name{segment}
 \alias{segment}
+\alias{is_segment}
 \alias{as_segment}
 \title{Vector of segments}
 \usage{
 segment(..., default_dim = 2)
+
+is_segment(x)
 
 as_segment(x)
 }

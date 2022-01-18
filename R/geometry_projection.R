@@ -41,7 +41,7 @@
 #'         plane(point(0, 0, 0), vec(1, 0, 0)))
 #'
 project <- function(x, target) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("Only geometries can be projected")
   }
   if (dim(x) != dim(target)) {
@@ -82,7 +82,7 @@ project <- function(x, target) {
 #' map_to(p, plane(support[1], support[2], support[3]))
 #'
 map_to <- function(x, target) {
-  if (!is_geometry(x)) {
+  if (!is_base_geometry(x)) {
     abort("Only geometries can be mapped to planes")
   }
   if (dim(x) != 3) {
