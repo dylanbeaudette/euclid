@@ -44,7 +44,12 @@ public:
       cpp11::stop("Only geometries of the same dimensionality can intersect");
     }
     switch (other.geometry_type()) {
+    case LINE: return intersection_impl(get_vector_of_geo<Line_3>(other), _storage);
+    case PLANE: return intersection_impl(get_vector_of_geo<Plane>(other), _storage);
     case POINT: return intersection_impl(get_vector_of_geo<Point_3>(other), _storage);
+    case RAY: return intersection_impl(get_vector_of_geo<Ray_3>(other), _storage);
+    case SEGMENT: return intersection_impl(get_vector_of_geo<Segment_3>(other), _storage);
+    case TRIANGLE: return intersection_impl(_storage, get_vector_of_geo<Triangle_3>(other));
     default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
     }
   }
@@ -71,14 +76,20 @@ public:
     if (other.dimensions() != dimensions()) {
       cpp11::stop("Only geometries of the same dimensionality allowed");
     }
-    return unknown_squared_distance_impl(std::max(size(), other.size()));
+    switch (other.geometry_type()) {
+    case POINT: return squared_distance_impl(get_vector_of_geo<Point_3>(other), _storage);
+    default: return unknown_squared_distance_impl(std::max(size(), other.size()));
+    }
   }
 
   cpp11::writable::doubles_matrix<> distance_matrix(const geometry_vector_base& other) const {
     if (other.dimensions() != dimensions()) {
       cpp11::stop("Only geometries of the same dimensionality allowed");
     }
-    return unknown_distance_matrix_impl(size(), other.size());
+    switch (other.geometry_type()) {
+    case POINT: return distance_matrix_impl(get_vector_of_geo<Point_3>(other), _storage);
+    default: return unknown_distance_matrix_impl(size(), other.size());
+    }
   }
 };
 

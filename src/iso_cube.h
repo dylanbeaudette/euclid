@@ -45,9 +45,11 @@ public:
     switch (other.geometry_type()) {
     case ISOCUBE: return intersection_impl(_storage, get_vector_of_geo<Iso_cuboid>(other));
     case LINE: return intersection_impl(_storage, get_vector_of_geo<Line_3>(other));
+    case PLANE: return intersection_impl(_storage, get_vector_of_geo<Plane>(other));
     case POINT: return intersection_impl(_storage, get_vector_of_geo<Point_3>(other));
     case RAY: return intersection_impl(_storage, get_vector_of_geo<Ray_3>(other));
     case SEGMENT: return intersection_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    case TRIANGLE: return intersection_impl(_storage, get_vector_of_geo<Triangle_3>(other));
     default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
     }
   }

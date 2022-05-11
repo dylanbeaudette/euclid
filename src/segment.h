@@ -153,6 +153,7 @@ public:
     case POINT: return intersection_impl(get_vector_of_geo<Point_3>(other), _storage);
     case RAY: return intersection_impl(get_vector_of_geo<Ray_3>(other), _storage);
     case SEGMENT: return intersection_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    case TETRAHEDRON: return intersection_impl(_storage, get_vector_of_geo<Tetrahedron>(other));
     case TRIANGLE: return intersection_impl(_storage, get_vector_of_geo<Triangle_3>(other));
     default: cpp11::stop("Don't know how to calculate the intersection of these geometries");
     }

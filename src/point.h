@@ -391,6 +391,7 @@ public:
     case POINT: return squared_distance_impl(_storage, get_vector_of_geo<Point_3>(other));
     case RAY: return squared_distance_impl(_storage, get_vector_of_geo<Ray_3>(other));
     case SEGMENT: return squared_distance_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    case TETRAHEDRON: return squared_distance_impl(_storage, get_vector_of_geo<Tetrahedron>(other));
     case TRIANGLE: return squared_distance_impl(_storage, get_vector_of_geo<Triangle_3>(other));
     default: return unknown_squared_distance_impl(std::max(size(), other.size()));
     }
@@ -406,6 +407,7 @@ public:
     case POINT: return distance_matrix_impl(_storage, get_vector_of_geo<Point_3>(other));
     case RAY: return distance_matrix_impl(_storage, get_vector_of_geo<Ray_3>(other));
     case SEGMENT: return distance_matrix_impl(_storage, get_vector_of_geo<Segment_3>(other));
+    case TETRAHEDRON: return distance_matrix_impl(_storage, get_vector_of_geo<Tetrahedron>(other));
     case TRIANGLE: return distance_matrix_impl(_storage, get_vector_of_geo<Triangle_3>(other));
     default: return unknown_distance_matrix_impl(size(), other.size());
     }

@@ -35,10 +35,14 @@ struct Intersection_visitor {
     return create_scalar_geometry(Point_3(i));
   }
   result_type operator()(const std::vector<Kernel::Point_2>& i) const {
-    return create_scalar_geometry(Point_2::NA_value());
+    std::vector<Point_2> points;
+    for (size_t j = 0; j < i.size(); ++j) points.emplace_back(i[j]);
+    return create_geometry_vector(points);
   }
   result_type operator()(const std::vector<Kernel::Point_3>& i) const {
-    return create_scalar_geometry(Point_3::NA_value());
+    std::vector<Point_3> points;
+    for (size_t j = 0; j < i.size(); ++j) points.emplace_back(i[j]);
+    return create_geometry_vector(points);
   }
   result_type operator()(const Kernel::Ray_2& i) const {
     return create_scalar_geometry(Ray_2(i));
