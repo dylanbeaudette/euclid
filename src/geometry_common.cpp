@@ -68,11 +68,43 @@ exact_numeric_p geometry_definition(geometry_vector_base_p geometries, int which
 }
 
 [[cpp11::register]]
+geometry_vector_base_p geometry_set_definition(geometry_vector_base_p geometries, int which, cpp11::integers element, exact_numeric_p value) {
+  if (geometries.get() == nullptr || value.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
+  return geometries->set_definition(which, element, value);
+}
+
+[[cpp11::register]]
 geometry_vector_base_p geometry_vertex(geometry_vector_base_p geometries, cpp11::integers which) {
   if (geometries.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
   return geometries->vertex(which);
+}
+
+[[cpp11::register]]
+geometry_vector_base_p geometry_set_vertex(geometry_vector_base_p geometries, cpp11::integers which, geometry_vector_base_p value) {
+  if (geometries.get() == nullptr || value.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
+  return geometries->set_vertex(which, *value);
+}
+
+[[cpp11::register]]
+geometry_vector_base_p geometry_vertices(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
+  return geometries->vertices();
+}
+
+[[cpp11::register]]
+geometry_vector_base_p geometry_edges(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
+  return geometries->edges();
 }
 
 [[cpp11::register]]
@@ -84,6 +116,19 @@ cpp11::writable::integers geometry_cardinality(geometry_vector_base_p geometries
   result.reserve(geometries->size());
   for (size_t i = 0; i < geometries->size(); ++i) {
     result.push_back(geometries->cardinality(i));
+  }
+  return result;
+}
+
+[[cpp11::register]]
+cpp11::writable::integers geometry_n_edges(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
+  cpp11::writable::integers result;
+  result.reserve(geometries->size());
+  for (size_t i = 0; i < geometries->size(); ++i) {
+    result.push_back(geometries->n_edges(i));
   }
   return result;
 }

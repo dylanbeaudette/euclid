@@ -15,6 +15,7 @@ public:
 
   Primitive geometry_type() const { return ISOCUBE; }
   size_t cardinality(size_t i) const { return 8; }
+  size_t n_edges(size_t i) const { return 12; }
   size_t long_length() const { return size() * 8; }
 
   cpp11::writable::strings def_names() const {
@@ -28,6 +29,10 @@ public:
     case 2: return _storage[i].vertex(element).z();
     }
     return _storage[i].vertex(0).x();
+  }
+
+  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
+    cpp11::stop("iso_cube geometries can't be modied one definition at a time");
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

@@ -70,7 +70,10 @@ bbox <- function(..., default_dim = 2) {
   } else if(length(inputs) == 6) {
     new_bbox3(create_bbox_3(inputs[[1]], inputs[[2]], inputs[[3]], inputs[[4]], inputs[[5]], inputs[[6]]))
   } else {
-    abort("bbox vectors needs 4 or 6 coordinate inputs")
+    try_fetch(
+      as_bbox(..1),
+      error = function(cnd) cli_abort("{.cls euclid_bbox} vectors needs 4 or 6 coordinate inputs")
+    )
   }
 }
 #' @rdname bbox
@@ -156,7 +159,7 @@ dim.euclid_bbox <- function(x) {
 #' @export
 `[[.euclid_bbox` <- function(x, i) {
   if (length(i) != 1) {
-    abort("attempt to select more than one element in vector")
+    cli_abort("attempt to select more than one element in vector")
   }
   x[i]
 }
@@ -171,7 +174,7 @@ dim.euclid_bbox <- function(x) {
     return(x)
   }
   if (anyNA(index)) {
-    abort("Trying to assign to non-existing element")
+    cli_abort("Trying to assign to non-existing element")
   }
   value <- rep_len(as_bbox(value), length(index))
   restore_euclid_vector(bbox_assign(get_ptr(x), index, get_ptr(value)), x)
@@ -179,24 +182,24 @@ dim.euclid_bbox <- function(x) {
 #' @export
 `[[<-.euclid_bbox` <- function(x, i, value) {
   if (length(i) != 1) {
-    abort("attempt to assign to more than one element in vector")
+    cli_abort("attempt to assign to more than one element in vector")
   }
   x[i] <- value
   x
 }
 #' @export
 `$.euclid_bbox` <- function(x, name) {
-  abort("`$` is not defined for bounding boxes")
+  cli_abort("{.code $} is not defined for {.cls euclid_bbox} vectors")
 }
 #' @export
 `$<-.euclid_bbox` <- function(x, name, value) {
-  abort("`$<-` is not defined for bounding boxes")
+  cli_abort("{.code $<-} is not defined for {.cls euclid_bbox} vectors")
 }
 #' @export
 c.euclid_bbox <- function(..., recursive = FALSE) {
   input <- lapply(list(...), as_bbox)
   if (length(unique(vapply(input, dim, integer(1)))) != 1) {
-    abort("Bounding boxes can only be combined with other bounding boxes of the same dimensionalities")
+    cli_abort("{.cls euclid_bbox} vectors can only be combined with other {.cls euclid_bbox} vectors of the same dimensionalities")
   }
   input <- lapply(input, get_ptr)
   res <- bbox_combine(input[[1]], input[-1])
@@ -256,12 +259,12 @@ is_overlapping <- function(x, y) {
 #' @export
 Ops.euclid_bbox <- function(e1, e2) {
   if (!.Generic %in% c("+", "==", "!=")) {
-    abort(paste0("The `", .Generic, "` operator is not defined for bounding boxes matrices"))
+    cli_abort("The {.code {.Generic}} operator is not defined for {.cls euclid_bbox} vectors")
   }
   e1 <- as_bbox(e1)
   e2 <- as_bbox(e2)
   if (dim(e1) != dim(e2)) {
-    abort("bounding boxes must be of the same dimensionality")
+    cli_abort("input must be of the same dimensionality")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     new_bbox_empty(dim(e1))
@@ -279,7 +282,7 @@ Ops.euclid_bbox <- function(e1, e2) {
 #' @export
 Math.euclid_bbox <- function(x, ...) {
   if (.Generic != "cumsum") {
-    abort(paste0("`", .Generic, "` is not defined for bounding boxes"))
+    cli_abort("{.fn {.Generic}} is not defined for {.cls euclid_bbox} vectors")
   }
   restore_euclid_vector(bbox_cumsum(get_ptr(x)), x)
 }
@@ -288,7 +291,7 @@ Summary.euclid_bbox <- function(..., na.rm) {
   na.rm = isTRUE(na.rm)
   input <- do.call(c, list(...))
   if (.Generic != "sum") {
-    abort(paste0("`", .Generic, "` is not defined for bounding boxes"))
+    cli_abort("{.fn {.Generic}} is not defined for {.cls euclid_bbox} vectors")
   }
   restore_euclid_vector(bbox_sum(get_ptr(input), na.rm), input)
 }

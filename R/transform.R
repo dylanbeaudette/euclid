@@ -82,7 +82,7 @@ affine_matrix <- function(mat) {
       mat <- list(as.matrix(mat))
     } else {
       if (length(x_dim) != 3) {
-        abort("Only 3-dimensional arrays can be converted to transformation matrices")
+        cli_abort("Only 3-dimensional arrays can be converted to a {.cls euclid_affine_transformation} vector")
       }
       m_size <- prod(x_dim[1:2])
       n <- length(mat) / m_size
@@ -91,7 +91,7 @@ affine_matrix <- function(mat) {
     }
   }
   if (!all(vapply(mat, is.matrix, logical(1)) || vapply(mat, anyNA, logical(1)))) {
-    abort("`x` must be a list of matrices or an object convertible to it")
+    cli_abort("{.arg x} must be a matrix, a list of matrices, a 3-dimensional array, or an object convertible to one of these")
   }
   dimensionality <- max(vapply(mat, ncol, integer(1)))
   mat <- lapply(mat, function(x) {
@@ -101,17 +101,17 @@ affine_matrix <- function(mat) {
     }
     n_cols <- ncol(x)
     if (n_cols != dimensionality) {
-      abort("Cannot provide a mix of dimensionalities")
+      cli_abort("Cannot provide a mix of dimensionalities")
     }
     if (n_cols != 3 && n_cols != 4) {
-      abort("Only 2 and 3 dimensional transformation matrices supported")
+      cli_abort("Only 2 and 3 dimensional transformation matrices supported")
     }
     if (nrow(x) == ncol(x) - 1) {
       x <- rbind(x, 0)
       x[length(x)] <- 1
     }
     if (ncol(x) != nrow(x)) {
-      abort("Malformed transformation matrix")
+      cli_abort("Malformed transformation matrix")
     }
     x
   })
@@ -236,8 +236,8 @@ as.list.euclid_affine_transformation <- function(x, ...) {
   array <- transform_to_array(get_ptr(x))
   x_dim <- dim(array)
   m_size <- prod(x_dim[1:2])
-  n <- length(x) / m_size
-  x <- split(x, rep(n, each = m_size))
+  n <- length(array) / m_size
+  x <- split(array, rep(n, each = m_size))
   lapply(x, matrix, nrow = x_dim[1], ncol = x_dim[2])
 }
 
@@ -291,7 +291,7 @@ dim.euclid_affine_transformation <- function(x) {
 #' @export
 `[[.euclid_affine_transformation` <- function(x, i) {
   if (length(i) != 1) {
-    abort("attempt to select more than one element in vector")
+    cli_abort("attempt to select more than one element in vector")
   }
   x[i]
 }
@@ -306,7 +306,7 @@ dim.euclid_affine_transformation <- function(x) {
     return(x)
   }
   if (anyNA(index)) {
-    abort("Trying to assign to non-existing element")
+    cli_abort("Trying to assign to non-existing element")
   }
   value <- rep_len(as_affine_transformation(value), length(index))
   restore_euclid_vector(transform_assign(get_ptr(x), index, get_ptr(value)), x)
@@ -314,24 +314,24 @@ dim.euclid_affine_transformation <- function(x) {
 #' @export
 `[[<-.euclid_affine_transformation` <- function(x, i, value) {
   if (length(i) != 1) {
-    abort("attempt to assign to more than one element in vector")
+    cli_abort("attempt to assign to more than one element in vector")
   }
   x[i] <- value
   x
 }
 #' @export
 `$.euclid_affine_transformation` <- function(x, name) {
-  abort("`$` is not defined for transformations")
+  cli_abort("{.code $} is not defined for {.cls euclid_affine_transformation} vectors")
 }
 #' @export
 `$<-.euclid_affine_transformation` <- function(x, name, value) {
-  abort("`$<-` is not defined for transformations")
+  cli_abort("{.code $<-} is not defined for {.cls euclid_affine_transformation} vectors")
 }
 #' @export
 c.euclid_affine_transformation <- function(..., recursive = FALSE) {
   input <- lapply(list(...), as_affine_transformation)
   if (length(unique(vapply(input, dim, integer(1)))) != 1) {
-    abort("Transformations can only be combined with other transformations of the same dimensionalities")
+    cli_abort("Transformations can only be combined with other transformations of the same dimensionalities")
   }
   input <- lapply(input, get_ptr)
   res <- transform_combine(input[[1]], input[-1])
@@ -379,7 +379,7 @@ match_transform <- function(x, table) {
 #' @export
 inverse <- function(x) {
   if (!is_affine_transformation(x)) {
-    abort("`x` must be an affine transformation vector")
+    cli_abort("{.arg x} must be an affine transformation vector")
   }
   restore_euclid_vector(transform_inverse(get_ptr(x)), x)
 }
@@ -387,7 +387,7 @@ inverse <- function(x) {
 #' @export
 is_reflecting <- function(x) {
   if (!is_affine_transformation(x)) {
-    abort("`x` must be an affine transformation vector")
+    cli_abort("{.arg x} must be an affine transformation vector")
   }
   transform_is_reflecting(get_ptr(x))
 }
@@ -397,12 +397,12 @@ is_reflecting <- function(x) {
 #' @export
 Ops.euclid_affine_transformation <- function(e1, e2) {
   if (!.Generic %in% c("*", "==", "!=")) {
-    abort(paste0("The `", .Generic, "` operator is not defined for transformation matrices"))
+    cli_abort("The {.code {.Generic}} operator is not defined for {.cls euclid_affine_transformation} vectors")
   }
   e1 <- as_affine_transformation(e1)
   e2 <- as_affine_transformation(e2)
   if (dim(e1) != dim(e2)) {
-    abort("transformations must be of the same dimensionality")
+    cli_abort("transformation matrices must be of the same dimensionality")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     new_affine_transformation_empty(dim(e1))
@@ -420,7 +420,7 @@ Ops.euclid_affine_transformation <- function(e1, e2) {
 #' @export
 Math.euclid_affine_transformation <- function(x, ...) {
   if (.Generic != "cumprod") {
-    abort(paste0("`", .Generic, "` is not defined for transformation matrices"))
+    cli_abort("{.fn {.Generic}} is not defined for transformation matrices")
   }
   restore_euclid_vector(transform_cumprod(get_ptr(x)), x)
 }
@@ -429,7 +429,7 @@ Summary.euclid_affine_transformation <- function(..., na.rm) {
   na.rm = isTRUE(na.rm)
   input <- do.call(c, list(...))
   if (.Generic != "prod") {
-    abort(paste0("`", .Generic, "` is not defined for transformation matrices"))
+    cli_abort("{.fn {.Generic}} is not defined for transformation matrices")
   }
   restore_euclid_vector(transform_prod(get_ptr(input), na.rm), input)
 }
@@ -449,7 +449,7 @@ affine_rotate_axis <- function(rho, axis) {
     axis <- rep_len(axis, n)
   }
   if (length(cosr) != length(axis)) {
-    abort("`rho` and `axis` must be either scalar or equal length")
+    cli_abort("{.arg rho} and {.arg axis} must be either scalar or equal length")
   }
   is_na <- !is.finite(cosr) || !is.finite(sinr) || is.na(axis)
   matrices <- lapply(seq_len(n), function(i) {
@@ -478,7 +478,7 @@ affine_rotate_axis <- function(rho, axis) {
                 0,        0, 0, 1),
         nrow = 4, ncol = 4
       ),
-      abort(paste0("Unknown axis: `", axis[i], "`"))
+      cli_abort("Unknown axis: {.val {axis[i]}}")
     )
   })
   new_affine_transformation3(create_transform_3_matrix(matrices))
@@ -487,7 +487,7 @@ affine_rotate_axis <- function(rho, axis) {
 affine_rotate_direction <- function(rho, direction) {
   direction <- as_vec(direction)
   if (dim(direction) != 3) {
-    abort("Need a 3-dimensional vector for affine rotation around vector")
+    cli_abort("Need a 3-dimensional vector for affine rotation around vector")
   }
   n <- max(length(rho), length(direction))
   rho <- as.numeric(rho)
@@ -501,7 +501,7 @@ affine_rotate_direction <- function(rho, direction) {
     direction <- rep_len(direction, n)
   }
   if (length(cosr) != length(direction)) {
-    abort("`rho` and `direction` must be either scalar or equal length")
+    cli_abort("{.arg rho} and {.arg direction} must be either scalar or equal length")
   }
   is_na <- !is.finite(cosr) || !is.finite(sinr) || is.na(direction)
   direction <- as.matrix(direction)
@@ -554,7 +554,7 @@ affine_rotate_ypr <- function(yaw, pitch, roll) {
     sinr <- rep_len(sinr, n)
   }
   if (length(cosy) != length(cosp) || length(cosy) != length(cosr)) {
-    abort("`yaw`, `pitch`, and `roll` must either be scalars or of the same length")
+    cli_abort("{.arg yaw}, {.arg pitch}, and {.arg roll} must be either scalar or equal length")
   }
   is_na <- !is.finite(cosy) || !is.finite(siny) || !is.finite(cosp) || !is.finite(sinp) || !is.finite(cosr) || !is.finite(sinr)
   m11 <- cosy * cosp

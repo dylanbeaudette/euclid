@@ -47,26 +47,32 @@ def <- function(x, ...) {
 def.euclid_geometry <- function(x, which, element = NA, ...) {
   def_names <- definition_names(x)
   if (length(which) != 1) {
-    abort("It is only possible to select a single definition at a time")
+    cli_abort("Can't get more than a single definition at a time")
   }
   if (is.character(which)) {
     index <- match(which, def_names)
     if (is.na(index)) {
-      abort(paste0(which, " does not name a definition of the geometry"))
+      cli_abort(c(
+        "{.val {which}} does not name a definition of the geometry",
+        i = "Use one of {.or {.val {def_names}}}"
+      ))
     }
   } else {
     index <- as.integer(which)
     if (is.na(index)) {
-      abort(paste0("`which` must be either a character or a value convertible to an integer"))
+      cli_abort(paste0("{.arg which} must be either a string or a value convertible to a scalar integer"))
     }
   }
   if (index < 1 || index > length(def_names)) {
-    abort("`which` must match one of the definitions of the geometry")
+    cli_abort(c(
+      "{.arg which} must reference a definitions for the geometry",
+      i = "Use a a positive integer less than or equal to {length(def_names)}"
+    ))
   }
   if (!anyNA(element)) {
     element <- rep_len(element, length(x))
     if (any(element > cardinality(x))) {
-      abort("Trying to use an element index larger than the geometry cardinality")
+      cli_abort("{.arg element} must not be larger than the cardinality of the element in the vector")
     }
   } else {
     element <- NA_integer_
@@ -87,12 +93,85 @@ def.euclid_affine_transformation <- function(x, i, j, ...) {
     j <- rep_len(j, n)
   }
   if (length(x) != length(i) || length(x) != length(j)) {
-    abort("`x`, `i`, and `j` must be either scalars or of the same length")
+    cli_abort("{.arg x}, {.arg i}, and {.arg j} must be either scalars or of the same length")
   }
   new_exact_numeric(transform_definition(get_ptr(x), as.integer(i) - 1L, as.integer(j) - 1L))
 }
+
 #' @rdname def
 #' @export
-definition_names <- function(x) {
+`def<-` <- function(x, ..., value) {
+  UseMethod('def<-')
+}
+#' @rdname def
+#' @export
+`def<-.euclid_geometry` <- function(x, which, element = NA, ..., value) {
+  def_names <- definition_names(x)
+  if (length(which) != 1) {
+    cli_abort("Can't set more than a single definition at a time")
+  }
+  if (is.character(which)) {
+    index <- match(which, def_names)
+    if (is.na(index)) {
+      cli_abort(c(
+        "{.val {which}} does not name a definition of the geometry",
+        i = "Use one of {.or {.val {def_names}}}"
+      ))
+    }
+  } else {
+    index <- as.integer(which)
+    if (is.na(index)) {
+      cli_abort(paste0("{.arg which} must be either a string or a value convertible to a scalar integer"))
+    }
+  }
+  if (index < 1 || index > length(def_names)) {
+    cli_abort(c(
+      "{.arg which} must reference a definitions for the geometry",
+      i = "Use a a positive integer less than or equal to {length(def_names)}"
+    ))
+  }
+  if (!anyNA(element)) {
+    element <- rep_len(element, length(x))
+    if (any(element > cardinality(x))) {
+      cli_abort("{.arg element} must not be larger than the cardinality of the element in the vector")
+    }
+  } else {
+    element <- NA_integer_
+  }
+
+  new_geometry_vector(
+    geometry_set_definition(get_ptr(x), index - 1L, element - 1L, get_ptr(as_exact_numeric(value)))
+  )
+}
+#' @rdname def
+#' @export
+`def<-.euclid_affine_transformation` <- function(x, i, j, ..., value) {
+  if (i > dim(x) + 1 || j > dim(x) + 1) {
+    cli_abort(c(
+      '{.arg i} or {.arg j} exceeds the dimensions of the transformation matrix',
+      i = 'Use a value less or equal to {dom(x) + 1}'
+    ))
+  }
+  if (i == dim(x) + 1 && j != dim(x) + 1) {
+    warn("Ignoring non-diagonal elements in the last row")
+  }
+  restore_euclid_vector(
+    transform_set_definition(
+      get_ptr(x),
+      rep_len(as.integer(i) - 1L, length(x)),
+      rep_len(as.integer(j) - 1L, length(x)),
+      get_ptr(as_exact_numeric(value))
+    ),
+    x
+  )
+}
+
+#' @rdname def
+#' @export
+definition_names <- function(x, ...) {
+  UseMethod("definintion_names")
+}
+#' @export
+definition_names.euclid_geometry <- function(x, ...) {
   geometry_definition_names(get_ptr(x))
 }

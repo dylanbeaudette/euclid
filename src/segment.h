@@ -16,6 +16,7 @@ public:
   Primitive geometry_type() const { return SEGMENT; }
 
   size_t cardinality(size_t i) const { return 2; }
+  size_t n_edges(size_t i) const { return 1; }
   size_t long_length() const { return size() * 2; }
 
   cpp11::writable::strings def_names() const {
@@ -28,6 +29,21 @@ public:
     case 1: return _storage[i].vertex(element).y();
     }
     return _storage[i].source().x();
+  }
+
+  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
+    std::vector<Point_2> current = {_storage[i].source(), _storage[i].target()};
+    switch(which) {
+    case 0: {
+      current[element] = Point_2(value, current[element].y());
+      break;
+    }
+    case 1: {
+      current[element] = Point_2(current[element].x(), value);
+      break;
+    }
+    }
+    _storage[i] = Segment_2(current[0], current[1]);
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {
@@ -119,6 +135,7 @@ public:
   Primitive geometry_type() const { return SEGMENT; }
 
   size_t cardinality(size_t i) const { return 2; }
+  size_t n_edges(size_t i) const { return 1; }
   size_t long_length() const { return size() * 2; }
 
   cpp11::writable::strings def_names() const {
@@ -132,6 +149,25 @@ public:
     case 2: return _storage[i].vertex(element).z();
     }
     return _storage[i].source().x();
+  }
+
+  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
+    std::vector<Point_3> current = {_storage[i].source(), _storage[i].target()};
+    switch(which) {
+    case 0: {
+      current[element] = Point_3(value, current[element].y(), current[element].z());
+      break;
+    }
+    case 1: {
+      current[element] = Point_3(current[element].x(), value, current[element].z());
+      break;
+    }
+    case 2: {
+      current[element] = Point_3(current[element].x(), current[element].y(), value);
+      break;
+    }
+    }
+    _storage[i] = Segment_3(current[0], current[1]);
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

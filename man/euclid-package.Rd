@@ -6,7 +6,7 @@
 \alias{euclid-package}
 \title{euclid: Exact Computation Geometry Framework Based on 'CGAL'}
 \description{
-\if{html}{\figure{logo.png}{options: align='right' alt='logo' width='120'}}
+\if{html}{\figure{logo.png}{options: style='float: right' alt='logo' width='120'}}
 
 Provides a rich framework for doing computation geometry by interfacing with the 'CGAL' library. The 'euclid' package provides new vector types for standard geometric objects and supports exact computations on them.
 }

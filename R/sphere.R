@@ -63,7 +63,7 @@ sphere <- function(...) {
   } else if (length(circles) == 1) {
     new_sphere_from_circle(circles[[1]])
   } else {
-    abort("Don't know how to construct spheres from the given input")
+    cli_abort("Can't construct a {.cls euclid_sphere} vector from the given input")
   }
 }
 #' @rdname sphere
@@ -80,7 +80,7 @@ as_sphere <- function(x) {
 }
 #' @export
 as_sphere.default <- function(x) {
-  abort("Don't know how to convert the input to spheres")
+  cli_abort("Can't convert the input to a {.cls euclid_sphere} vector")
 }
 #' @export
 as_sphere.euclid_sphere <- function(x) x

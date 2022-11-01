@@ -74,7 +74,7 @@ plane <- function(...) {
   } else if (length(triangles) == 1) {
     new_plane_from_triangle(triangles[[1]])
   } else {
-    abort("Don't know how to construct planes from the given input")
+    cli_abort("Can't construct a {.cls euclid_plane} vector from the given input")
   }
 }
 #' @rdname plane
@@ -91,7 +91,7 @@ as_plane <- function(x) {
 }
 #' @export
 as_plane.default <- function(x) {
-  abort("Don't know how to convert the input to planes")
+  cli_abort("Can't convert the input to a {.cls euclid_plane} vector")
 }
 #' @export
 as_plane.euclid_plane <- function(x) x

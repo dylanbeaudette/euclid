@@ -53,7 +53,7 @@ iso_cube <- function(...) {
   } else if (length(numbers) == 6) {
     new_iso_cube_from_6_numbers(numbers[[1]], numbers[[2]], numbers[[3]], numbers[[4]], numbers[[5]], numbers[[6]])
   } else {
-    abort("Don't know how to construct iso cubes from the given input")
+    cli_abort("Can't construct a {.cls euclid_iso_cube} vector from the given input")
   }
 }
 #' @rdname iso_cube
@@ -70,7 +70,7 @@ as_iso_cube <- function(x) {
 }
 #' @export
 as_iso_cube.default <- function(x) {
-  abort("Don't know how to convert the input to iso cubes")
+  cli_abort("Can't convert the input to a {.cls euclid_iso_cube} vector")
 }
 #' @export
 as_iso_cube.euclid_iso_cube <- function(x) x

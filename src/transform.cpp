@@ -293,8 +293,17 @@ exact_numeric_p transform_definition(transform_vector_base_p transforms, cpp11::
   if (transforms.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
-  exact_numeric* vec(new exact_numeric(transforms->definition(i, j)));
+  std::vector<Exact_number> res = transforms->definition(i, j);
+  exact_numeric* vec(new exact_numeric(res));
   return {vec};
+}
+
+[[cpp11::register]]
+transform_vector_base_p transform_set_definition(transform_vector_base_p transforms, cpp11::integers i, cpp11::integers j, exact_numeric_p value) {
+  if (transforms.get() == nullptr || value.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
+  return transforms->set_definition(i, j, value);
 }
 
 [[cpp11::register]]

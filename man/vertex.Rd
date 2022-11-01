@@ -2,9 +2,12 @@
 % Please edit documentation in R/vertex.R
 \name{vertex}
 \alias{vertex}
+\alias{vertex<-}
 \title{Extract points from geometries}
 \usage{
-vertex(x, which = 1L)
+vertex(x, which = 1L, ...)
+
+vertex(x, which = 1L, ...) <- value
 }
 \arguments{
 \item{x}{A vector of geometries}
@@ -52,6 +55,7 @@ vertex(line(4, 7, -1))
 \seealso{
 Other Geometry methods: 
 \code{\link{def}()},
-\code{\link{euclid_geometry}}
+\code{\link{euclid_geometry}},
+\code{\link{subgeometries}}
 }
 \concept{Geometry methods}

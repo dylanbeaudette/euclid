@@ -3,28 +3,28 @@ geometry_summary_sum <- function(x, na_rm) {
 }
 #' @export
 geometry_summary_sum.default <- function(x, na_rm) {
-  abort("The provided geometry does not support `sum()`")
+  cli_abort("The provided geometry does not support {.fn sum}")
 }
 geometry_summary_prod <- function(x, na_rm) {
   UseMethod("geometry_summary_prod")
 }
 #' @export
 geometry_summary_prod.default <- function(x, na_rm) {
-  abort("The provided geometry does not support `prod()`")
+  cli_abort("The provided geometry does not support {.fn prod}")
 }
 geometry_summary_min <- function(x, na_rm) {
   UseMethod("geometry_summary_min")
 }
 #' @export
 geometry_summary_min.default <- function(x, na_rm) {
-  abort("The provided geometry does not support `min()`")
+  cli_abort("The provided geometry does not support {.fn min}")
 }
 geometry_summary_max <- function(x, na_rm) {
   UseMethod("geometry_summary_max")
 }
 #' @export
 geometry_summary_max.default <- function(x, na_rm) {
-  abort("The provided geometry does not support `max()`")
+  cli_abort("The provided geometry does not support {.fn max}")
 }
 
 #' @export

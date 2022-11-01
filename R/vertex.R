@@ -39,14 +39,106 @@
 #' # Get a point on a line
 #' vertex(line(4, 7, -1))
 #'
-vertex <- function(x, which = 1L) {
-  if (!is_base_geometry(x)) {
-    abort("`vertex()` is only defined for geometries")
-  }
+vertex <- function(x, which = 1L, ...) {
+  UseMethod("vertex")
+}
+#' @export
+vertex.euclid_geometry <- function(x, which = 1L, ...) {
   which <- rep_len(as.integer(which), length(x))
   if (any(which > cardinality(x))) {
-    abort("`which` cannot be larger than the cardinality of the geometry")
+    cli_abort("{.arg which} cannot be larger than the cardinality of the geometry")
   }
   which <- which - 1L
   new_geometry_vector(geometry_vertex(get_ptr(x), which))
+}
+#' @rdname vertex
+#' @export
+`vertex<-` <- function(x, which = 1L, ..., value) {
+  UseMethod("vertex<-")
+}
+#' @export
+`vertex<-.euclid_geometry` <- function(x, which = 1L, ..., value) {
+  if (!is_point(value)) {
+    cli_abort("New vertices must be given as points")
+  }
+  if (is_vec(x) || is_direction(x)) {
+    cli_abort("You can't assing vertices to {.cls euclid_vector} or {.cls euclid_direction} vectors")
+  }
+  if (dim(x) != dim(value)) {
+    cli_abort("{.arg x} and {.arg value} must have the same number of dimensions")
+  }
+  which <- rep_len(as.integer(which), length(x))
+  if (any(which > cardinality(x))) {
+    cli_abort("{.arg which} cannot be larger than the cardinality of the geometry")
+  }
+  which <- which - 1L
+  new_geometry_vector(geometry_set_vertex(get_ptr(x), which, get_ptr(value)))
+}
+
+#' Vertices and edges of a geometry
+#'
+#' These functions allows you to extract all the various sub-geometries that a
+#' geometry consists of (if any). `vertices()` extracts all the points of each
+#' geometry in a vector and `edges()` all the segments. `n_vertices()` gives the
+#' number of vertices for each element (equivalent to [cardinality()]), while
+#' `n_edges()` gives the number of edges.
+#'
+#' @param x A vector of geometries
+#'
+#' @return A `euclid_point` or `euclid_segment` vector with the requested
+#' geometries.
+#'
+#' @family Geometry methods
+#'
+#' @name subgeometries
+#' @rdname subgeometries
+#'
+#' @examples
+#' # not all geometries has both types of subgeometries
+#' rect <- iso_rect(point(1, 1), point(3, 6))
+#'
+#' vertices(rect)
+#' edges(rect)
+#' n_vertices(rect)
+#' n_edges(rect)
+#'
+NULL
+
+#' @rdname subgeometries
+#' @export
+vertices <- function(x) {
+  UseMethod("vertices")
+}
+#' @export
+vertices.euclid_geometry <- function(x) {
+  new_geometry_vector(geometry_vertices(get_ptr(x)))
+}
+
+#' @rdname subgeometries
+#' @export
+edges <- function(x) {
+  UseMethod("edges")
+}
+#' @export
+edges.euclid_geometry <- function(x) {
+  new_geometry_vector(geometry_edges(get_ptr(x)))
+}
+#' @rdname subgeometries
+#' @export
+n_vertices <- function(x) {
+  UseMethod("n_vertices")
+}
+#' @export
+n_vertices.euclid_geometry <- function(x) {
+  cardinality(x)
+}
+
+#' @rdname subgeometries
+#' @export
+n_edges <- function(x) {
+  UseMethod("n_edges")
+}
+#' @export
+n_edges.euclid_geometry <- function(x) {
+  new_geometry_vector(geometry_n_edges(get_ptr(x)))
 }

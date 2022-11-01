@@ -4,6 +4,9 @@
 \alias{def}
 \alias{def.euclid_geometry}
 \alias{def.euclid_affine_transformation}
+\alias{def<-}
+\alias{def<-.euclid_geometry}
+\alias{def<-.euclid_affine_transformation}
 \alias{definition_names}
 \title{Access the exact values that defines the geometries}
 \usage{
@@ -13,7 +16,13 @@ def(x, ...)
 
 \method{def}{euclid_affine_transformation}(x, i, j, ...)
 
-definition_names(x)
+def(x, ...) <- value
+
+\method{def}{euclid_geometry}(x, which, element = NA, ...) <- value
+
+\method{def}{euclid_affine_transformation}(x, i, j, ...) <- value
+
+definition_names(x, ...)
 }
 \arguments{
 \item{x}{A geometry vector}
@@ -61,6 +70,7 @@ def(m, 1, 2)
 \seealso{
 Other Geometry methods: 
 \code{\link{euclid_geometry}},
+\code{\link{subgeometries}},
 \code{\link{vertex}()}
 }
 \concept{Geometry methods}

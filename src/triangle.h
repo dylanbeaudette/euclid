@@ -16,6 +16,7 @@ public:
   Primitive geometry_type() const { return TRIANGLE; }
 
   size_t cardinality(size_t i) const { return 3; }
+  size_t n_edges(size_t i) const { return 3; }
   size_t long_length() const { return size() * 3; }
 
   cpp11::writable::strings def_names() const {
@@ -28,6 +29,21 @@ public:
     case 1: return _storage[i].vertex(element).y();
     }
     return _storage[i].vertex(0).x();
+  }
+
+  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
+    std::vector<Point_2> current = {_storage[i].vertex(0), _storage[i].vertex(1), _storage[i].vertex(2)};
+    switch(which) {
+    case 0: {
+      current[element] = Point_2(value, current[element].y());
+      break;
+    }
+    case 1: {
+      current[element] = Point_2(current[element].x(), value);
+      break;
+    }
+    }
+    _storage[i] = Triangle_2(current[0], current[1], current[2]);
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {
@@ -106,6 +122,7 @@ public:
   Primitive geometry_type() const { return TRIANGLE; }
 
   size_t cardinality(size_t i) const { return 3; }
+  size_t n_edges(size_t i) const { return 3; }
   size_t long_length() const { return size() * 3; }
 
   cpp11::writable::strings def_names() const {
@@ -119,6 +136,25 @@ public:
     case 2: return _storage[i].vertex(element).z();
     }
     return _storage[i].vertex(0).x();
+  }
+
+  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
+    std::vector<Point_3> current = {_storage[i].vertex(0), _storage[i].vertex(1), _storage[i].vertex(2)};
+    switch(which) {
+    case 0: {
+      current[element] = Point_3(value, current[element].y(), current[element].z());
+      break;
+    }
+    case 1: {
+      current[element] = Point_3(current[element].x(), value, current[element].z());
+      break;
+    }
+    case 2: {
+      current[element] = Point_3(current[element].x(), current[element].y(), value);
+      break;
+    }
+    }
+    _storage[i] = Triangle_3(current[0], current[1], current[2]);
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

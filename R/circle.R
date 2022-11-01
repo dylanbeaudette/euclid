@@ -117,7 +117,7 @@ circle <- function(..., default_dim = 2) {
   } else if (length(spheres) == 1 && length(planes) == 1) {
     new_circle_from_sphere_plane(spheres[[1]], planes[[1]])
   } else {
-    abort("Don't know how to construct circles from the given input")
+    cli_abort("Can't construct a {.cls euclid_circle} vector from the given input")
   }
 }
 #' @rdname circle
@@ -133,7 +133,7 @@ as_circle <- function(x) {
 }
 #' @export
 as_circle.default <- function(x) {
-  abort("Don't know how to convert the input to circles")
+  cli_abort("Don't know how to convert the input to a {.cls euclid_circle} vector")
 }
 #' @export
 as_circle.euclid_circle <- function(x) x
@@ -176,7 +176,10 @@ new_circle_empty <- function(dim) {
 }
 new_circle_from_point_number <- function(center, r) {
   if (dim(center) != 2) {
-    abort("Circles in 3 dimensions cannot be constructed from center and radius")
+    cli_abort(c(
+      "Can't construct a {.cls euclid_circle3} vector from center and radius",
+      i = "Supply either a supporting plane or orthogonal vector as well"
+    ))
   }
   new_geometry_vector(create_circle_2_center_radius(get_ptr(center), get_ptr(r)))
 }
@@ -195,7 +198,7 @@ new_circle_from_3_points <- function(p, q, r) {
 }
 new_circle_from_2_points <- function(p, q) {
   if (dim(p) != 2) {
-    abort("Circles in 3 dimensions cannot be constructed from 2 points")
+    cli_abort("Can't construct a {.cls euclid_circle3} vector from 2 points")
   }
   new_geometry_vector(create_circle_2_2_point(get_ptr(p), get_ptr(q)))
 }

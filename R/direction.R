@@ -78,7 +78,7 @@ direction <- function(..., default_dim = 2) {
   } else if (length(segments) == 1) {
     new_direction_from_segment(segments[[1]])
   } else {
-    abort("Don't know how to construct directions from the given input")
+    cli_abort("Can't construct a {.cls euclid_direction} vector from the given input")
   }
 }
 #' @rdname direction
@@ -89,10 +89,10 @@ is_direction <- function(x) inherits(x, "euclid_direction")
 #' @export
 between <- function(x, d1, d2) {
   if (!is_direction(x) || !is_direction(d1) ||!is_direction(d2)) {
-    abort("`between()` is only defined for directions")
+    cli_abort("{.fn between} is only defined for directions")
   }
   if (dim(x) != 2 || dim(d1) != 2 || dim(d2) != 2) {
-    abort("`between()` is only defined in 2 dimensions")
+    cli_abort("{.fn between} is only defined in 2 dimensions")
   }
   direction_2_between(get_ptr(x), get_ptr(d1), get_ptr(d2))
 }
@@ -106,7 +106,7 @@ as_direction <- function(x) {
 }
 #' @export
 as_direction.default <- function(x) {
-  abort("Don't know how to convert the input to directions")
+  cli_abort("Don't know how to convert the input to a {.cls euclid_direction} vector")
 }
 #' @export
 as_direction.euclid_direction <- function(x) x
@@ -121,7 +121,7 @@ as_vec.euclid_direction <- function(x) {
 #' @export
 geometry_op_minus.euclid_direction <- function(e1, e2) {
   if (!missing(e2)) {
-    abort("Directions cannot be subtracted, only negated")
+    cli_abort("{.cls euclid_direction} vectors cannot be subtracted, only negated")
   }
   if (dim(e1) == 2) {
     restore_euclid_vector(direction_2_negate(get_ptr(e1)), e1)
@@ -132,10 +132,10 @@ geometry_op_minus.euclid_direction <- function(e1, e2) {
 #' @export
 geometry_op_less.euclid_direction <- function(e1, e2) {
   if (!is_direction(e2)) {
-    abort("`<` is only defined for directions")
+    cli_abort("{.code <} is only defined for {.cls euclid_direction} vectors")
   }
   if (dim(e1) != 2 || dim(e2) != 2) {
-    abort("`<` is only defined in 2 dimensions")
+    cli_abort("{.code <} is only defined in 2 dimensions")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     return(logical(0))
@@ -145,10 +145,10 @@ geometry_op_less.euclid_direction <- function(e1, e2) {
 #' @export
 geometry_op_greater.euclid_direction <- function(e1, e2) {
   if (!is_direction(e2)) {
-    abort("`>` is only defined for directions")
+    cli_abort("{.code >} is only defined for {.cls euclid_direction} vectors")
   }
   if (dim(e1) != 2 || dim(e2) != 2) {
-    abort("`>` is only defined in 2 dimensions")
+    cli_abort("{.code >} is only defined in 2 dimensions")
   }
   if (length(e1) == 0 || length(e2) == 0) {
     return(logical(0))
@@ -161,14 +161,14 @@ geometry_op_greater.euclid_direction <- function(e1, e2) {
 #' @export
 geometry_summary_min.euclid_direction <- function(x, na_rm) {
   if (dim(x) != 2) {
-    abort("`min()` is only defined in 2 dimensions")
+    cli_abort("{.fn min} is only defined in 2 dimensions")
   }
   direction_2_min(get_ptr(x), na_rm)
 }
 #' @export
 geometry_summary_max.euclid_direction <- function(x, na_rm) {
   if (dim(x) != 2) {
-    abort("`max()` is only defined in 2 dimensions")
+    cli_abort("{.fn max} is only defined in 2 dimensions")
   }
   direction_2_max(get_ptr(x), na_rm)
 }
@@ -178,14 +178,14 @@ geometry_summary_max.euclid_direction <- function(x, na_rm) {
 #' @export
 geometry_math_cummin.euclid_direction <- function(x) {
   if (dim(x) != 2) {
-    abort("`cummin()` is only defined in 2 dimensions")
+    cli_abort("{.fn cummin} is only defined in 2 dimensions")
   }
   direction_2_cummin(get_ptr(x))
 }
 #' @export
 geometry_math_cummax.euclid_direction <- function(x) {
   if (dim(x) != 2) {
-    abort("`cummax()` is only defined in 2 dimensions")
+    cli_abort("{.fn cummax} is only defined in 2 dimensions")
   }
   direction_2_cummax(get_ptr(x))
 }
@@ -195,14 +195,14 @@ geometry_math_cummax.euclid_direction <- function(x) {
 #' @export
 sort.euclid_direction <- function(x, decreasing = FALSE, na.last = NA, ...) {
   if (dim(x) != 2) {
-    abort("`sort()` is only defined in 2 dimensions")
+    cli_abort("{.fn sort} is only defined in 2 dimensions")
   }
   restore_euclid_vector(direction_2_sort(get_ptr(x), decreasing, na.last), x)
 }
 #' @export
 xtfrm.euclid_direction <- function(x) {
   if (dim(x) != 2) {
-    abort("ranking is only defined in 2 dimensions")
+    cli_abort("ranking is only defined in 2 dimensions")
   }
   direction_2_rank(get_ptr(x))
 }
@@ -214,7 +214,7 @@ range.euclid_direction <- function(..., na.rm = FALSE) {
 #' @export
 seq.euclid_direction <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   if (dim(from) != dim(to)) {
-    abort("`from` and `to` must have the same number of dimensions")
+    cli_abort("{.arg from} and {.arg to} must have the same number of dimensions")
   }
   if (!is.null(along.with)) {
     length.out <- length(along.with)
@@ -223,7 +223,7 @@ seq.euclid_direction <- function(from, to, length.out = NULL, along.with = NULL,
   if (!is.null(length.out)) {
     by <- dif / length.out
   } else {
-    abort("Either `length.out` or `along.with` must be given")
+    cli_abort("Either {.arg length.out} or {.arg along.with} must be given")
   }
   n <- floor(as.numeric(dif / by))
   steps <- seq(0, 1, length.out = n)

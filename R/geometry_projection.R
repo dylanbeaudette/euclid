@@ -42,17 +42,17 @@
 #'
 project <- function(x, target) {
   if (!is_base_geometry(x)) {
-    abort("Only geometries can be projected")
+    cli_abort("Only geometries can be projected")
   }
   if (dim(x) != dim(target)) {
-    abort("geometry must have the same dimensionality as the projection target")
+    cli_abort("geometry must have the same dimensionality as the projection target")
   }
   if (is_line(target)) {
     restore_euclid_vector(geometry_project_to_line(get_ptr(x), get_ptr(target)), x)
   } else if (is_plane(target)) {
     restore_euclid_vector(geometry_project_to_plane(get_ptr(x), get_ptr(target)), x)
   } else {
-    abort("projection target must either be lines or planes")
+    cli_abort("projection target must either be vector of lines or planes")
   }
 }
 
@@ -83,13 +83,13 @@ project <- function(x, target) {
 #'
 map_to <- function(x, target) {
   if (!is_base_geometry(x)) {
-    abort("Only geometries can be mapped to planes")
+    cli_abort("Only geometries can be mapped to planes")
   }
   if (dim(x) != 3) {
-    abort("Only 3 dimensional geometries can be mapped to planes")
+    cli_abort("Only 3 dimensional geometries can be mapped to planes")
   }
   if (!is_plane(target)) {
-    abort("Only planes can be used as mapping target")
+    cli_abort("Only planes can be used as mapping target")
   }
   new_geometry_vector(geometry_map_to_plane(get_ptr(x), get_ptr(target)))
 }
@@ -133,7 +133,7 @@ normal <- function(x, y = NULL) {
     new_geometry_vector(geometry_normal(get_ptr(x)))
   } else {
     if (dim(x) != 3) {
-      abort("unit normal is only defined for 3D geometries")
+      cli_abort("unit normal is only defined for 3D geometries")
     }
     p1 <- as_point(as_vec(x))
     p2 <- as_point(as_vec(y))

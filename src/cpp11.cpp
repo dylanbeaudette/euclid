@@ -664,6 +664,13 @@ extern "C" SEXP _euclid_geometry_definition(SEXP geometries, SEXP which, SEXP el
   END_CPP11
 }
 // geometry_common.cpp
+geometry_vector_base_p geometry_set_definition(geometry_vector_base_p geometries, int which, cpp11::integers element, exact_numeric_p value);
+extern "C" SEXP _euclid_geometry_set_definition(SEXP geometries, SEXP which, SEXP element, SEXP value) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_set_definition(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries), cpp11::as_cpp<cpp11::decay_t<int>>(which), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(element), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(value)));
+  END_CPP11
+}
+// geometry_common.cpp
 geometry_vector_base_p geometry_vertex(geometry_vector_base_p geometries, cpp11::integers which);
 extern "C" SEXP _euclid_geometry_vertex(SEXP geometries, SEXP which) {
   BEGIN_CPP11
@@ -671,10 +678,38 @@ extern "C" SEXP _euclid_geometry_vertex(SEXP geometries, SEXP which) {
   END_CPP11
 }
 // geometry_common.cpp
+geometry_vector_base_p geometry_set_vertex(geometry_vector_base_p geometries, cpp11::integers which, geometry_vector_base_p value);
+extern "C" SEXP _euclid_geometry_set_vertex(SEXP geometries, SEXP which, SEXP value) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_set_vertex(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(which), cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(value)));
+  END_CPP11
+}
+// geometry_common.cpp
+geometry_vector_base_p geometry_vertices(geometry_vector_base_p geometries);
+extern "C" SEXP _euclid_geometry_vertices(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_vertices(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
+geometry_vector_base_p geometry_edges(geometry_vector_base_p geometries);
+extern "C" SEXP _euclid_geometry_edges(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_edges(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
 cpp11::writable::integers geometry_cardinality(geometry_vector_base_p geometries);
 extern "C" SEXP _euclid_geometry_cardinality(SEXP geometries) {
   BEGIN_CPP11
     return cpp11::as_sexp(geometry_cardinality(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
+  END_CPP11
+}
+// geometry_common.cpp
+cpp11::writable::integers geometry_n_edges(geometry_vector_base_p geometries);
+extern "C" SEXP _euclid_geometry_n_edges(SEXP geometries) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(geometry_n_edges(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
   END_CPP11
 }
 // geometry_common.cpp
@@ -1791,6 +1826,13 @@ extern "C" SEXP _euclid_transform_definition(SEXP transforms, SEXP i, SEXP j) {
   END_CPP11
 }
 // transform.cpp
+transform_vector_base_p transform_set_definition(transform_vector_base_p transforms, cpp11::integers i, cpp11::integers j, exact_numeric_p value);
+extern "C" SEXP _euclid_transform_set_definition(SEXP transforms, SEXP i, SEXP j, SEXP value) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(transform_set_definition(cpp11::as_cpp<cpp11::decay_t<transform_vector_base_p>>(transforms), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(i), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(j), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(value)));
+  END_CPP11
+}
+// transform.cpp
 transform_vector_base_p transform_subset(transform_vector_base_p transforms, cpp11::integers index);
 extern "C" SEXP _euclid_transform_subset(SEXP transforms, SEXP index) {
   BEGIN_CPP11
@@ -2368,6 +2410,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_distance_matrix",            (DL_FUNC) &_euclid_geometry_distance_matrix,            2},
     {"_euclid_geometry_do_intersect",               (DL_FUNC) &_euclid_geometry_do_intersect,               2},
     {"_euclid_geometry_duplicated",                 (DL_FUNC) &_euclid_geometry_duplicated,                 1},
+    {"_euclid_geometry_edges",                      (DL_FUNC) &_euclid_geometry_edges,                      1},
     {"_euclid_geometry_equidistant_line",           (DL_FUNC) &_euclid_geometry_equidistant_line,           3},
     {"_euclid_geometry_format",                     (DL_FUNC) &_euclid_geometry_format,                     1},
     {"_euclid_geometry_has_point_inside",           (DL_FUNC) &_euclid_geometry_has_point_inside,           2},
@@ -2382,18 +2425,22 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_length",                     (DL_FUNC) &_euclid_geometry_length,                     1},
     {"_euclid_geometry_map_to_plane",               (DL_FUNC) &_euclid_geometry_map_to_plane,               2},
     {"_euclid_geometry_match",                      (DL_FUNC) &_euclid_geometry_match,                      2},
+    {"_euclid_geometry_n_edges",                    (DL_FUNC) &_euclid_geometry_n_edges,                    1},
     {"_euclid_geometry_normal",                     (DL_FUNC) &_euclid_geometry_normal,                     1},
     {"_euclid_geometry_parallel",                   (DL_FUNC) &_euclid_geometry_parallel,                   2},
     {"_euclid_geometry_primitive_type",             (DL_FUNC) &_euclid_geometry_primitive_type,             1},
     {"_euclid_geometry_project_to_line",            (DL_FUNC) &_euclid_geometry_project_to_line,            2},
     {"_euclid_geometry_project_to_plane",           (DL_FUNC) &_euclid_geometry_project_to_plane,           2},
     {"_euclid_geometry_radical_geometry",           (DL_FUNC) &_euclid_geometry_radical_geometry,           2},
+    {"_euclid_geometry_set_definition",             (DL_FUNC) &_euclid_geometry_set_definition,             4},
+    {"_euclid_geometry_set_vertex",                 (DL_FUNC) &_euclid_geometry_set_vertex,                 3},
     {"_euclid_geometry_squared_distance",           (DL_FUNC) &_euclid_geometry_squared_distance,           2},
     {"_euclid_geometry_subset",                     (DL_FUNC) &_euclid_geometry_subset,                     2},
     {"_euclid_geometry_to_matrix",                  (DL_FUNC) &_euclid_geometry_to_matrix,                  1},
     {"_euclid_geometry_transform",                  (DL_FUNC) &_euclid_geometry_transform,                  2},
     {"_euclid_geometry_unique",                     (DL_FUNC) &_euclid_geometry_unique,                     1},
     {"_euclid_geometry_vertex",                     (DL_FUNC) &_euclid_geometry_vertex,                     2},
+    {"_euclid_geometry_vertices",                   (DL_FUNC) &_euclid_geometry_vertices,                   1},
     {"_euclid_point_2_add_vector",                  (DL_FUNC) &_euclid_point_2_add_vector,                  2},
     {"_euclid_point_2_cummax",                      (DL_FUNC) &_euclid_point_2_cummax,                      1},
     {"_euclid_point_2_cummin",                      (DL_FUNC) &_euclid_point_2_cummin,                      1},
@@ -2445,6 +2492,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_transform_match",                     (DL_FUNC) &_euclid_transform_match,                     2},
     {"_euclid_transform_multiply",                  (DL_FUNC) &_euclid_transform_multiply,                  2},
     {"_euclid_transform_prod",                      (DL_FUNC) &_euclid_transform_prod,                      2},
+    {"_euclid_transform_set_definition",            (DL_FUNC) &_euclid_transform_set_definition,            4},
     {"_euclid_transform_subset",                    (DL_FUNC) &_euclid_transform_subset,                    2},
     {"_euclid_transform_to_array",                  (DL_FUNC) &_euclid_transform_to_array,                  1},
     {"_euclid_transform_unique",                    (DL_FUNC) &_euclid_transform_unique,                    1},

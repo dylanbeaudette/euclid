@@ -376,12 +376,32 @@ geometry_definition <- function(geometries, which, element) {
   .Call(`_euclid_geometry_definition`, geometries, which, element)
 }
 
+geometry_set_definition <- function(geometries, which, element, value) {
+  .Call(`_euclid_geometry_set_definition`, geometries, which, element, value)
+}
+
 geometry_vertex <- function(geometries, which) {
   .Call(`_euclid_geometry_vertex`, geometries, which)
 }
 
+geometry_set_vertex <- function(geometries, which, value) {
+  .Call(`_euclid_geometry_set_vertex`, geometries, which, value)
+}
+
+geometry_vertices <- function(geometries) {
+  .Call(`_euclid_geometry_vertices`, geometries)
+}
+
+geometry_edges <- function(geometries) {
+  .Call(`_euclid_geometry_edges`, geometries)
+}
+
 geometry_cardinality <- function(geometries) {
   .Call(`_euclid_geometry_cardinality`, geometries)
+}
+
+geometry_n_edges <- function(geometries) {
+  .Call(`_euclid_geometry_n_edges`, geometries)
 }
 
 geometry_subset <- function(geometries, index) {
@@ -1018,6 +1038,10 @@ transform_dimension <- function(transforms) {
 
 transform_definition <- function(transforms, i, j) {
   .Call(`_euclid_transform_definition`, transforms, i, j)
+}
+
+transform_set_definition <- function(transforms, i, j, value) {
+  .Call(`_euclid_transform_set_definition`, transforms, i, j, value)
 }
 
 transform_subset <- function(transforms, index) {

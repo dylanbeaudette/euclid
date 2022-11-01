@@ -6,5 +6,6 @@
 # roxygen namespace tags. Modify with care!
 ## usethis namespace: start
 #' @useDynLib euclid, .registration = TRUE
+#' @import cli
 ## usethis namespace: end
 NULL

@@ -63,7 +63,7 @@ iso_rect <- function(...) {
   } else if (length(numbers) == 4) {
     new_iso_rect_from_4_numbers(numbers[[1]], numbers[[2]], numbers[[3]], numbers[[4]])
   } else {
-    abort("Don't know how to construct iso rectangles from the given input")
+    cli_abort("Can't construct a {.cls euclid_iso_rect} vector from the given input")
   }
 }
 #' @rdname iso_rect
@@ -80,7 +80,7 @@ as_iso_rect <- function(x) {
 }
 #' @export
 as_iso_rect.default <- function(x) {
-  abort("Don't know how to convert the input to iso rects")
+  cli_abort("Can't convert the input to a {.cls euclid_iso_rect} vector")
 }
 #' @export
 as_iso_rect.euclid_iso_rect <- function(x) x

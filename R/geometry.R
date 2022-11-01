@@ -95,7 +95,7 @@ get_class <- function(type, dim) {
     triangle = c(paste0("euclid_", type, dim), base),
     vector = c(paste0("euclid_", type, dim), base),
     point_w = c(paste0("euclid_", type, dim), base),
-    abort(paste0("Unknown geometry type: ", type, "<", dim, ">"))
+    cli_abort("Unknown geometry class: {.cls {paste0('euclid_', type, dim)}}")
   )
 }
 
@@ -190,14 +190,14 @@ dim.euclid_geometry <- function(x) {
 #' @export
 `[[.euclid_geometry` <- function(x, i) {
   if (length(i) != 1) {
-    abort("attempt to select more than one element in vector")
+    cli_abort("attempt to select more than one element in vector")
   }
   x[i]
 }
 #' @export
 `[<-.euclid_geometry` <- function(x, i, j, ..., value) {
   if (!is_base_geometry(value)) {
-    abort("Only geometries can be assigned to geometry vectors")
+    cli_abort("Only {.cls euclid_geometry} vectors can be assigned to {.cls euclid_geometry} vectors")
   }
   if (is.numeric(i) && all(i >= 0)) {
     index <- seq_len(max(i))[i]
@@ -208,7 +208,7 @@ dim.euclid_geometry <- function(x) {
     return(x)
   }
   if (anyNA(index)) {
-    abort("Trying to assign to non-existing element")
+    cli_abort("Trying to assign to non-existing element")
   }
   value <- rep_len(value, length(index))
   restore_euclid_vector(geometry_assign(get_ptr(x), index, get_ptr(value)), x)
@@ -216,24 +216,24 @@ dim.euclid_geometry <- function(x) {
 #' @export
 `[[<-.euclid_geometry` <- function(x, i, value) {
   if (length(i) != 1) {
-    abort("attempt to assign to more than one element in vector")
+    cli_abort("attempt to assign to more than one element in vector")
   }
   x[i] <- value
   x
 }
 #' @export
 `$.euclid_geometry` <- function(x, name) {
-  abort("`$` is not defined for geometries")
+  cli_abort("{.code $} is not defined for {.cls euclid_geometry} vectors")
 }
 #' @export
 `$<-.euclid_geometry` <- function(x, name, value) {
-  abort("`$<-` is not defined for geometries")
+  cli_abort("{.code $<-} is not defined for {.cls euclid_geometry} vectors")
 }
 #' @export
 c.euclid_geometry <- function(..., recursive = FALSE) {
   input <- list(...)
   if (any(!vapply(input, inherits, logical(1), class(input[[1]])[1]))) {
-    abort("Geometries can only be combined with other geometries of the same type")
+    cli_abort("{.cls euclid_geometry} vectors can only be combined with other vectors of the same class")
   }
   input <- lapply(input, get_ptr)
   res <- geometry_combine(input[[1]], input[-1])
@@ -276,11 +276,11 @@ match_geometry <- function(x, table) {
 }
 #' @export
 sort.euclid_geometry <- function(x, decreasing = FALSE, ...) {
-  abort("Sorting is not supported for the geometry type")
+  cli_abort("{.fn sort} is not supported for {.cls {class(x)[1]}} vectors")
 }
 #' @export
 xtfrm.euclid_geometry <- function(x) {
-  abort("Ranking is not supported for the geometry type")
+  cli_abort("Ranking is not supported for {.cls {class(x)[1]}} vectors")
 }
 #' @export
 transform.euclid_geometry <- function(`_data`, transformation, ...) {

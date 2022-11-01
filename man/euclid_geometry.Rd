@@ -88,6 +88,7 @@ transform(p, affine_rotate(pi/3))
 \seealso{
 Other Geometry methods: 
 \code{\link{def}()},
+\code{\link{subgeometries}},
 \code{\link{vertex}()}
 }
 \concept{Geometry methods}

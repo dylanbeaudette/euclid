@@ -140,7 +140,7 @@ sort.euclid_exact_numeric <- function(x, decreasing = FALSE, na.last = NA, ...) 
 #' @export
 `[[.euclid_exact_numeric` <- function(x, i) {
   if (length(i) != 1) {
-    abort("attempt to select more than one element in vector")
+    cli_abort("attempt to select more than one element in vector")
   }
   x[i]
 }
@@ -155,7 +155,7 @@ sort.euclid_exact_numeric <- function(x, decreasing = FALSE, na.last = NA, ...) 
     return(x)
   }
   if (anyNA(index)) {
-    abort("Trying to assign to non-existing element")
+    cli_abort("Trying to assign to non-existing element")
   }
   value <- rep_len(as_exact_numeric(value), length(index))
   restore_euclid_vector(exact_numeric_assign(get_ptr(x), index, get_ptr(value)), x)
@@ -163,18 +163,18 @@ sort.euclid_exact_numeric <- function(x, decreasing = FALSE, na.last = NA, ...) 
 #' @export
 `[[<-.euclid_exact_numeric` <- function(x, i, value) {
   if (length(i) != 1) {
-    abort("attempt to assign to more than one element in vector")
+    cli_abort("attempt to assign to more than one element in vector")
   }
   x[i] <- value
   x
 }
 #' @export
 `$.euclid_exact_numeric` <- function(x, name) {
-  abort("`$` is not defined for exact numerics")
+  cli_abort("{.code $} is not defined for {.cls euclid_exact_numeric} vectors")
 }
 #' @export
 `$<-.euclid_exact_numeric` <- function(x, name, value) {
-  abort("`$<-` is not defined for exact numerics")
+  cli_abort("{.code $<-} is not defined for {.cls euclid_exact_numeric} vectors")
 }
 #' @export
 c.euclid_exact_numeric <- function(..., recursive = FALSE) {
@@ -252,7 +252,7 @@ Ops.euclid_exact_numeric <- function(e1, e2) {
     "<=" = !exact_numeric_greater(get_ptr(e1), get_ptr(e2)),
     ">" = exact_numeric_greater(get_ptr(e1), get_ptr(e2)),
     ">=" = !exact_numeric_less(get_ptr(e1), get_ptr(e2)),
-    abort(paste0("The `", .Generic, "` operator is not defined for exact numerics"))
+    cli_abort("The {.code .Generic} operator is not defined for {.cls euclid_exact_numeric} vectors")
   )
   if (.Generic %in% c("+", "-", "*", "/")) {
     res <- restore_euclid_vector(res, e1)
@@ -269,7 +269,7 @@ Math.euclid_exact_numeric <- function(x, ...) {
     "cumprod" = exact_numeric_cumprod(get_ptr(x)),
     "cummin" = exact_numeric_cummin(get_ptr(x)),
     "cummax" = exact_numeric_cummax(get_ptr(x)),
-    abort(paste0("The `", .Generic, "()` function is not defined for exact numerics"))
+    cli_abort("The {.fn .Generic} function is not defined for {.cls euclid_exact_numeric} vectors")
   )
   if (.Generic != "sign") {
     res <- restore_euclid_vector(res, x)
@@ -293,19 +293,19 @@ Summary.euclid_exact_numeric <- function(..., na.rm) {
 #' @export
 seq.euclid_exact_numeric <- function(from, to, by = 1, length.out = NULL, along.with = NULL, ...) {
   if (is.na(from)) {
-    abort("`from` must be a finite number")
+    cli_abort("{.arg from} must be a finite number")
   }
   if (!is.null(along.with)) {
     length.out <- length(along.with)
   }
   if (missing(to)) {
     if (is.null(length.out)) {
-      abort("Either `to`, or `length.out`/`along.with` must be given")
+      cli_abort("Either {.arg to}, or {.arg length.out}/{.arg along.with} must be given")
     }
     to <- from + by * (length.out - 1)
   }
   if (is.na(to)) {
-    abort("`to` must be a finite number")
+    cli_abort("{.arg to} must be a finite number")
   }
   dif <- to - from
   if (!is.null(length.out)) {

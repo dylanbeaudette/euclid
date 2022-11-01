@@ -38,7 +38,7 @@ tetrahedron <- function(...) {
   if (length(points) == 4) {
     new_tetrahedron_from_4_points(points[[1]], points[[2]], points[[3]], points[[4]])
   } else {
-    abort("Don't know how to construct tetrahedrons from the given input")
+    cli_abort("Can't construct a {.cls euclid_tetrahedron} vector from the given input")
   }
 }
 #' @rdname tetrahedron
@@ -55,7 +55,7 @@ as_tetrahedron <- function(x) {
 }
 #' @export
 as_tetrahedron.default <- function(x) {
-  abort("Don't know how to convert the input to tetrahedrons")
+  abort("Can't convert the input to a {.cls euclid_tetrahedron} vector")
 }
 #' @export
 as_tetrahedron.euclid_tetrahedron <- function(x) x

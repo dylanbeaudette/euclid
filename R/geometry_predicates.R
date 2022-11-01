@@ -40,10 +40,11 @@ is_degenerate <- function(x) {
 }
 #' @export
 is_degenerate.euclid_geometry <- function(x) {
-  if (!is_base_geometry(x)) {
-    abort("`is_degenerate` is only defined for geometries")
-  }
   geometry_is_degenerate(get_ptr(x))
+}
+#' @export
+is_degenerate.default <- function(x) {
+  cli_abort("{.fn is_degenerate} is only defined for geometries")
 }
 
 #' Query location of points relative to geometry
@@ -100,6 +101,10 @@ NULL
 #' @rdname location_predicates
 #' @export
 has_on <- function(x, y) {
+  UseMethod("has_on")
+}
+#' @export
+has_on.euclid_geometry <- function(x, y) {
   y <- as_point(y)
   geometry_has_point_on(get_ptr(x), get_ptr(y))
 }
@@ -110,6 +115,10 @@ has_on <- function(x, y) {
 #' @rdname location_predicates
 #' @export
 has_inside <- function(x, y) {
+  UseMethod("has_inside")
+}
+#' @export
+has_inside.euclid_geometry <- function(x, y) {
   y <- as_point(y)
   geometry_has_point_inside(get_ptr(x), get_ptr(y))
 }
@@ -120,6 +129,10 @@ has_inside <- function(x, y) {
 #' @rdname location_predicates
 #' @export
 has_outside <- function(x, y) {
+  UseMethod("has_outside")
+}
+#' @export
+has_outside.euclid_geometry <- function(x, y) {
   y <- as_point(y)
   geometry_has_point_outside(get_ptr(x), get_ptr(y))
 }
@@ -130,6 +143,10 @@ has_outside <- function(x, y) {
 #' @rdname location_predicates
 #' @export
 has_on_positive_side <- function(x, y) {
+  UseMethod("has_on_positive_side")
+}
+#' @export
+has_on_positive_side.euclid_geometry <- function(x, y) {
   y <- as_point(y)
   geometry_has_point_on_positive(get_ptr(x), get_ptr(y))
 }
@@ -140,6 +157,10 @@ has_on_positive_side <- function(x, y) {
 #' @rdname location_predicates
 #' @export
 has_on_negative_side <- function(x, y) {
+  UseMethod("has_on_negative_side")
+}
+#' @export
+has_on_negative_side.euclid_geometry <- function(x, y) {
   y <- as_point(y)
   geometry_has_point_on_negative(get_ptr(x), get_ptr(y))
 }
@@ -182,17 +203,17 @@ NULL
 #' @export
 is_constant_in <- function(x, axis) {
   if (!is_base_geometry(x)) {
-    abort("`is_constant_in()` is only defined for geometries")
+    cli_abort("{.fn is_constant_in} is only defined for geometries")
   }
   if (is.character(axis)) {
     axis <- match(axis, c("x", "y", "z"))
     if (anyNA(axis)) {
-      abort("`axis` must be one of `x`, `y`, or `z`")
+      cli_abort("{.arg axis} must be one of {.or {.val {c('x', 'y', 'z')}}}")
     }
   }
   axis <- as.integer(axis - 1)
   if (any(axis < 0 | axis >= dim(x))) {
-    abort("`axis` must enumerate an axis in the geometries coordinate system")
+    cli_abort("{.arg axis} must reference an axis in the coordinate system of {.arg x}")
   }
   geometry_constant_in(get_ptr(x), axis)
 }
@@ -200,7 +221,7 @@ is_constant_in <- function(x, axis) {
 #' @export
 has_constant_x <- function(x) {
   if (!is_base_geometry(x)) {
-    abort("`has_constant_x()` is only defined for geometries")
+    cli_abort("{.fn has_constant_x} is only defined for geometries")
   }
   geometry_constant_in(get_ptr(x), 0L)
 }
@@ -208,7 +229,7 @@ has_constant_x <- function(x) {
 #' @export
 has_constant_y <- function(x) {
   if (!is_base_geometry(x)) {
-    abort("`has_constant_y()` is only defined for geometries")
+    cli_abort("{.fn has_constant_y} is only defined for geometries")
   }
   geometry_constant_in(get_ptr(x), 1L)
 }
@@ -216,10 +237,10 @@ has_constant_y <- function(x) {
 #' @export
 has_constant_z <- function(x) {
   if (!is_base_geometry(x)) {
-    abort("`has_constant_z()` is only defined for geometries")
+    cli_abort("{.fn has_constant_z} is only defined for geometries")
   }
   if (dim(x) != 3) {
-    abort("`has_constant_z()` is only defined for 3 dimensional geometries")
+    cli_abort("{.fn has_constant_z} is only defined for 3 dimensional geometries")
   }
   geometry_constant_in(get_ptr(x), 2L)
 }
@@ -416,7 +437,7 @@ turns_left <- function(x, y, z) {
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)
   if (!is_point(x) || !is_point(y) || !is_point(z)) {
-    abort("`turns_left()` is only defined for 2D points")
+    cli_abort("{.fn turns_left} is only defined for points in 2 dimensions")
   }
   point_turns_left(get_ptr(x), get_ptr(y), get_ptr(z))
 }
@@ -428,7 +449,7 @@ turns_right <- function(x, y, z) {
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)
   if (!is_point(x) || !is_point(y) || !is_point(z) || dim(x) != 2) {
-    abort("`turns_right()` is only defined for 2D points")
+    cli_abort("{.fn turns_right} is only defined for points in 2 dimensions")
   }
   point_turns_right(get_ptr(x), get_ptr(y), get_ptr(z))
 }
@@ -437,10 +458,10 @@ turns_right <- function(x, y, z) {
 turn_along <- function(x) {
   if (is_weighted_point(x)) x <- as_point(x)
   if (!is_point(x) || dim(x) != 2) {
-    abort("`turn_along()` is only defined for 2D points")
+    cli_abort("{.fn turns_along} is only defined for points in 2 dimensions")
   }
   if (length(x) < 3) {
-    abort("`turn_along()` needs at least 3 points")
+    cli_abort("{.arg turn_along} needs at least 3 points")
   }
   point_turns(get_ptr(x))
 }
@@ -477,7 +498,7 @@ in_order <- function(x, y, z) {
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)
   if (!is_point(x) || !is_point(y) || !is_point(z)) {
-    abort("`in_order()` is only defined for points")
+    cli_abort("{.fn in_order} is only defined for points")
   }
   point_ordered(get_ptr(x), get_ptr(y), get_ptr(z))
 }
@@ -486,10 +507,10 @@ in_order <- function(x, y, z) {
 in_order_along <- function(x) {
   if (is_weighted_point(x)) x <- as_point(x)
   if (!is_point(x)) {
-    abort("`in_order_along()` is only defined for points")
+    cli_abort("{.fn in_order} is only defined for points")
   }
   if (length(x) < 3) {
-    abort("`in_order_along()` needs at least 3 points")
+    cli_abort("{.fn in_order_along} needs at least 3 points")
   }
   point_ordered_along(get_ptr(x))
 }

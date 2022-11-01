@@ -30,6 +30,28 @@ public:
     return _storage[i].center().x();
   }
 
+  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
+    Sphere current = _storage[i];
+    switch(which) {
+    case 0: {
+      _storage[i] = Sphere(Point_3(value, current.center().y(), current.center().z()), current.squared_radius());
+      break;
+    }
+    case 1: {
+      _storage[i] = Sphere(Point_3(current.center().x(), value, current.center().z()), current.squared_radius());
+      break;
+    }
+    case 2: {
+      _storage[i] = Sphere(Point_3(current.center().x(), current.center().y(), value), current.squared_radius());
+      break;
+    }
+    case 3: {
+      _storage[i] = Sphere(current.center(), value);
+      break;
+    }
+    }
+  }
+
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
       CGAL::to_double(_storage[i].center().x().exact()),

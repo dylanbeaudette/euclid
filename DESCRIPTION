@@ -15,7 +15,7 @@ License: MIT + file LICENSE
 Encoding: UTF-8
 LazyData: true
 Roxygen: list(markdown = TRUE)
-RoxygenNote: 7.1.2
+RoxygenNote: 7.2.1
 LinkingTo: 
     cpp11 (>= 0.2.3),
     cgalh,
@@ -29,7 +29,8 @@ Imports:
     utils,
     grid,
     graphics,
-    grDevices
+    grDevices,
+    cli
 URL: https://r-euclid.com, https://github.com/thomasp85/euclid
 BugReports: https://github.com/thomasp85/euclid/issues
 Suggests: 

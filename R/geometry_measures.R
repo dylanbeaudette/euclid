@@ -28,32 +28,50 @@ NULL
 #' @rdname geometry_measures
 #' @export
 approx_length <- function(x) {
-  if (!is_base_geometry(x)) {
-    abort("`approx_length()` is only defined for geometries")
-  }
+  UseMethod("approx_length")
+}
+#' @export
+approx_length.euclid_geometry <- function(x) {
   geometry_approx_length(get_ptr(x))
 }
+#' @export
+approx_length.default <- function(x) {
+  cli_abort("{.fn approx_length} is only defined for {.cls euclid_geometry} vectors")
+}
+
 #' @rdname geometry_measures
 #' @export
 approx_area <- function(x) {
-  if (!is_base_geometry(x)) {
-    abort("`approx_area()` is only defined for geometries")
-  }
+  UseMethod("approx_area")
+}
+#' @export
+approx_area.euclid_geometry <- function(x) {
   geometry_approx_area(get_ptr(x))
 }
+#' @export
+approx_area.default <- function(x) {
+  cli_abort("{.fn approx_area} is only defined for {.cls euclid_geometry} vectors")
+}
+
 #' @rdname geometry_measures
 #' @export
 approx_volume <- function(x) {
-  if (!is_base_geometry(x)) {
-    abort("`approx_volume()` is only defined for geometries")
-  }
+  UseMethod("approx_volume")
+}
+#' @export
+approx_volume.euclid_geometry <- function(x) {
   geometry_approx_volume(get_ptr(x))
 }
+#' @export
+approx_volume.default <- function(x) {
+  cli_abort("{.fn approx_volume} is only defined for {.cls euclid_geometry} vectors")
+}
+
 #' @rdname geometry_measures
 #' @export
 approx_radius <- function(x) {
   if (!is_base_geometry(x)) {
-    abort("`approx_radius()` is only defined for geometries")
+    cli_abort("{.fn approx_radius} is only defined for {.cls euclid_geometry} vectors")
   }
   if (!is_circle(x) || !is_sphere(x)) {
     rep(NA_real_, length(x))
@@ -95,7 +113,7 @@ approx_radius <- function(x) {
 #'
 distance_squared <- function(x, y) {
   if (!is_base_geometry(x) || !is_base_geometry(y)) {
-    abort("distance can only be calculated between two geometries")
+    return(distance_squared_impl(x, y))
   }
   if (is_weighted_point(x)) {
     x <- as_point(x)
@@ -105,11 +123,20 @@ distance_squared <- function(x, y) {
   }
   new_exact_numeric(geometry_squared_distance(get_ptr(x), get_ptr(y)))
 }
+#' @export
+distance_squared_impl <- function(x, y) {
+  UseMethod("distance_squared_impl")
+}
+#' @export
+distance_squared_impl.default <- function(x, y) {
+  cli_abort("{.fn distance_squared} can only be calculated between two {.cls euclid_geometry} vectors")
+}
+
 #' @rdname distance_squared
 #' @export
 approx_distance_matrix <- function(x, y) {
   if (!is_base_geometry(x) || !is_base_geometry(y)) {
-    abort("distance can only be calculated between two geometries")
+    return(approx_distance_matrix_impl(x, y))
   }
   if (is_weighted_point(x)) {
     x <- as_point(x)
@@ -118,6 +145,14 @@ approx_distance_matrix <- function(x, y) {
     y <- as_point(y)
   }
   geometry_distance_matrix(get_ptr(x), get_ptr(y))
+}
+#' @export
+approx_distance_matrix_impl <- function(x, y) {
+  UseMethod("approx_distance_matrix_impl")
+}
+#' @export
+approx_distance_matrix_impl.default <- function(x, y) {
+  cli_abort("{.fn approx_distance_matrix} can only be calculated between two {.cls euclid_geometry} vectors")
 }
 
 #' Calculate angle between geometries
@@ -146,7 +181,10 @@ approx_distance_matrix <- function(x, y) {
 approx_angle <- function(x, y) {
   check_geometry_input(x, y, .name = "approx_angle()")
   if (is_volume(x) || is_location(x) || is_volume(y) || is_location(y)) {
-    abort("`x` and `y` must be curves, surfaces, or arrows")
+    cli_abort(c(
+      "{.arg x} and {.arg y} must be curves, surfaces, or arrows",
+      i = "see the {.help [help page on geometry classes](euclid::is_volume)} to learn more"
+    ))
   }
   if (dim(x) != 2) {
     mod <- 0

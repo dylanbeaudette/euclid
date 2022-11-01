@@ -7,7 +7,7 @@ validate_constructor_input <- function(..., .convert_numerics = TRUE) {
   })
   dim <- unique(unlist(lapply(inputs, dim)))
   if (length(dim) > 1) {
-    abort("Inputs must be of the same dimensionality")
+    cli_abort("Inputs must be of the same dimensionality")
   }
   input_lengths <- lengths(inputs)
   if (length(input_lengths) == 0 || any(lengths(input_lengths)) == 0) {
@@ -15,7 +15,7 @@ validate_constructor_input <- function(..., .convert_numerics = TRUE) {
   }
   max_length <- max(input_lengths)
   if (any(input_lengths != 1 & input_lengths != max_length)) {
-    abort("Inputs must be either scalar or of the same length")
+    cli_abort("Inputs must be either scalar or of the same length")
   }
   inputs[input_lengths == 1] <- lapply(inputs[input_lengths == 1], function(x) {
     rep_len(x, max_length)
@@ -26,10 +26,10 @@ check_geometry_input <- function(..., .name) {
   input <- list(...)
   input <- input[!vapply(input, is.null, logical(1))]
   if (!all(vapply(input, is_base_geometry, logical(1)))) {
-    abort(paste0("`", .name, "` is only defined for geometries"))
+    cli_abort(paste0("{.arg {.name}} is only defined for geometries"))
   }
   if (length(unique(vapply(input, dim, integer(1)))) != 1) {
-    abort("Geometries must have the same dimensionality")
+    cli_abort("Geometries must have the same dimensionality")
   }
   invisible(NULL)
 }

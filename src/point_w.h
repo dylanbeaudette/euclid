@@ -29,6 +29,24 @@ public:
     return _storage[i].x();
   }
 
+  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
+    Weighted_point_2 current = _storage[i];
+    switch(which) {
+    case 0: {
+      _storage[i] = Weighted_point_2(Point_2(value, current.y()), current.weight());
+      break;
+    }
+    case 1: {
+      _storage[i] = Weighted_point_2(Point_2(current.x(), value), current.weight());
+      break;
+    }
+    case 2: {
+      _storage[i] = Weighted_point_2(current.point(), value);
+      break;
+    }
+    }
+  }
+
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
       CGAL::to_double(_storage[i].x().exact()),
@@ -87,6 +105,28 @@ public:
     case 3: return _storage[i].weight();
     }
     return _storage[i].x();
+  }
+
+  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
+    Weighted_point_3 current = _storage[i];
+    switch(which) {
+    case 0: {
+      _storage[i] = Weighted_point_3(Point_3(value, current.y(), current.z()), current.weight());
+      break;
+    }
+    case 1: {
+      _storage[i] = Weighted_point_3(Point_3(current.x(), value, current.z()), current.weight());
+      break;
+    }
+    case 2: {
+      _storage[i] = Weighted_point_3(Point_3(current.x(), current.y(), value), current.weight());
+      break;
+    }
+    case 3: {
+      _storage[i] = Weighted_point_3(current.point(), value);
+      break;
+    }
+    }
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

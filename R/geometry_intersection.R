@@ -61,7 +61,7 @@ intersection <- function(x, y) {
     }
   }
   if (!is_base_geometry(x) || !is_base_geometry(y)) {
-    abort("intersection can only be calculated between two geometries")
+    return(intersection_impl(x, y))
   }
   lapply(geometry_intersection(get_ptr(x), get_ptr(y)), function(g) {
     if (is.null(g)) return(g)
@@ -170,7 +170,7 @@ has_intersection <- function(x, y) {
     }
   }
   if (!is_base_geometry(x) || !is_base_geometry(y)) {
-    abort("intersection can only be calculated between two geometries")
+    return(has_intersection_impl(x, y))
   }
   if (is_weighted_point(x)) {
     x <- as_point(x)
@@ -184,4 +184,24 @@ has_intersection <- function(x, y) {
 #' @export
 `%is_intersecting%` <- function(x, y) {
   has_intersection(x, y)
+}
+
+#' @export
+#' @keywords internal
+intersection_impl <- function(x, y) {
+  UseMethod("intersection_impl")
+}
+#' @export
+intersection_impl.default <- function(x, y) {
+  cli_abort("intersection can only be calculated between two geometries")
+}
+
+#' @export
+#' @keywords internal
+has_intersection_impl <- function(x, y) {
+  UseMethod("has_intersection_impl")
+}
+#' @export
+has_intersection_impl.default <- function(x, y) {
+  !vapply(intersection_impl(x, y), logical(1L), is.null)
 }

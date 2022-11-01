@@ -62,7 +62,7 @@ euclid_plot <- function(x, ..., mapping_plane = "z") {
 #' @export
 euclid_plot.default <- function(x, ..., mapping_plane = "z") {
   if (!is.null(x)) {
-    abort("No plotting method for this class")
+    cli_abort("No plotting method defined for this class")
   }
 }
 #' @rdname euclid_plot
@@ -74,7 +74,7 @@ euclid_grob <- function(x, ..., unit = "native", name = NULL, gp = gpar(), vp = 
 #' @export
 euclid_grob.default <- function(x, ..., unit = "native", name = NULL, gp = gpar(), vp = NULL, mapping_plane = "z") {
   if (!is.null(x)) {
-    abort("No plotting method for this class")
+    cli_abort("No plotting method defined for this class")
   }
   grid::nullGrob()
 }
@@ -126,7 +126,7 @@ plot.exact_numeric <- function(x, y, ...) {
 #' @export
 plot.euclid_bbox <- function(x, y, ...) {
   if (dim(x) != 2) {
-    abort("Only 2 dimensional bounding boxes can be plotted")
+    cli_abort("Only {.cls euclid_bbox2} vectors can be plotted")
   }
   plot(as_iso_rect(x), ...)
 }
@@ -313,7 +313,7 @@ euclid_grob.euclid_vector <- function(x, arrow = arrow(), unit = "native", name 
 
 ensure_2d <- function(x, mapping_plane) {
   if (length(mapping_plane) != 1) {
-    abort("`mapping_plane` must be a scalar")
+    cli_abort("{.arg mapping_plane} must be a scalar")
   }
   if (dim(x) == 3) {
     mapping_plane <- switch(mapping_plane,
@@ -321,7 +321,7 @@ ensure_2d <- function(x, mapping_plane) {
       y = plane(vec(0, 1, 0), point(0, 0, 0)),
       z = plane(vec(0, 0, 1), point(0, 0, 0)),
       if (!is_plane(mapping_plane)) {
-        abort("`mapping_plane` must be a plane or 'x', 'y', or 'z'")
+        cli_abort("{.arg mapping_plane} must be a plane or {.or {.val {c('x', 'y', 'z')}}}")
       }
     )
     x <- map_to(x, mapping_plane)

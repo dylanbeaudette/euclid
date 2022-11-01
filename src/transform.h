@@ -70,7 +70,9 @@ public:
   // Dimensions
   virtual size_t size() const = 0;
   virtual size_t dimensions() const = 0;
-  virtual exact_numeric definition(cpp11::integers i, cpp11::integers j) const = 0;
+  virtual std::vector<Exact_number> definition(cpp11::integers i, cpp11::integers j) const = 0;
+  virtual cpp11::external_pointer<transform_vector_base> set_definition(cpp11::integers i, cpp11::integers j, exact_numeric_p value) const = 0;
+  virtual void set_single_definition(size_t index, int i, int j, const Kernel::FT& value) = 0;
 
   // Subsetting etc
   virtual cpp11::external_pointer<transform_vector_base> subset(cpp11::integers index) const = 0;
@@ -179,7 +181,7 @@ public:
 
     return result;
   }
-  exact_numeric definition(cpp11::integers i, cpp11::integers j) const {
+  std::vector<Exact_number> definition(cpp11::integers i, cpp11::integers j) const {
     std::vector<Exact_number> result;
     result.reserve(size());
 
@@ -187,7 +189,19 @@ public:
       result.push_back(_storage[k].m(i[k], j[k]));
     }
 
-    return {result};
+    return result;
+  }
+  transform_vector_base_p set_definition(cpp11::integers i, cpp11::integers j, exact_numeric_p value) const {
+    transform_vector_base_p result = copy();
+    size_t ncol = dim + 1;
+    size_t nrow = dim;
+    std::vector<Exact_number> vars(ncol*nrow, Exact_number::NA_value());
+
+    for (size_t k = 0; k < size(); ++k) {
+      result->set_single_definition(k, i[k], j[k], (*value)[k % value->size()].base());
+    }
+
+    return result;
   }
 
   // Equality
@@ -481,6 +495,30 @@ class transform2: public transform_vector<Aff_transformation_2, 2> {
 public:
   using transform_vector::transform_vector;
   ~transform2() = default;
+
+  void set_single_definition(size_t index, int i, int j, const Kernel::FT& value) {
+    Aff_transformation_2 current = _storage[index];
+    std::vector<Kernel::FT> defs(9, Kernel::FT(0.0));
+    for (int row = 0; row < 3; row++) {
+      for (int col = 0; col < 3; col++) {
+        int vec_i = col + row * 3;
+        if (row == i && col == j) {
+          if (row == 2 && col < 2) {
+            continue;
+          } else {
+            defs[vec_i] = value;
+          }
+        } else {
+          defs[vec_i] = current.m(row, col);
+        }
+      }
+    }
+    _storage[index] = Aff_transformation_2(
+      defs[0], defs[1], defs[2],
+      defs[3], defs[4], defs[5],
+                        defs[8]
+    );
+  }
 };
 typedef cpp11::external_pointer<transform2> transform2_p;
 
@@ -488,5 +526,30 @@ class transform3: public transform_vector<Aff_transformation_3, 3> {
 public:
   using transform_vector::transform_vector;
   ~transform3() = default;
+
+  void set_single_definition(size_t index, int i, int j, const Kernel::FT& value) {
+    Aff_transformation_3 current = _storage[index];
+    std::vector<Kernel::FT> defs(16, Kernel::FT(0.0));
+    for (int row = 0; row < 4; row++) {
+      for (int col = 0; col < 4; col++) {
+        int vec_i = col + row * 4;
+        if (row == i && col == j) {
+          if (row == 3 && col < 3) {
+            continue;
+          } else {
+            defs[vec_i] = value;
+          }
+        } else {
+          defs[vec_i] = current.m(row, col);
+        }
+      }
+    }
+    _storage[index] = Aff_transformation_3(
+      defs[0], defs[1], defs[2],  defs[3],
+      defs[4], defs[5], defs[6],  defs[7],
+      defs[8], defs[9], defs[10], defs[11],
+                                  defs[15]
+    );
+  }
 };
 typedef cpp11::external_pointer<transform3> transform3_p;
