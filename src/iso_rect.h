@@ -31,10 +31,6 @@ public:
     return _storage[i].vertex(0).x();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    cpp11::stop("iso_rect geometries can't be modied one definition at a time");
-  }
-
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
       CGAL::to_double(_storage[i].vertex(j).x().exact()),

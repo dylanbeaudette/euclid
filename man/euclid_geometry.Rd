@@ -11,10 +11,12 @@ is_geometry(x)
 
 geometry_type(x)
 
-cardinality(x)
+cardinality(x, ...)
 }
 \arguments{
 \item{x}{An \code{euclid_geometry} object}
+
+\item{...}{Arguments passed on to methods}
 }
 \description{
 The base vector type for geometries in euclid is the \code{euclid_geometry} class.
@@ -88,7 +90,6 @@ transform(p, affine_rotate(pi/3))
 \seealso{
 Other Geometry methods: 
 \code{\link{def}()},
-\code{\link{subgeometries}},
-\code{\link{vertex}()}
+\code{\link{subgeometries}}
 }
 \concept{Geometry methods}

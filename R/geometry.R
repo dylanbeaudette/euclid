@@ -12,6 +12,7 @@
 #' constructed from `x` is not `length(x)` but `sum(cardinality(x))`.
 #'
 #' @param x An `euclid_geometry` object
+#' @param ... Arguments passed on to methods
 #'
 #' @section Vector behaviour:
 #' Geometry vectors in euclid are made to behave as closely as possible to what
@@ -123,11 +124,11 @@ geometry_type.euclid_geometry <- function(x) {
 
 #' @rdname euclid_geometry
 #' @export
-cardinality <- function(x) {
+cardinality <- function(x, ...) {
   UseMethod("cardinality")
 }
 #' @export
-cardinality.euclid_geometry <- function(x) {
+cardinality.euclid_geometry <- function(x, ...) {
   geometry_cardinality(get_ptr(x))
 }
 #' @export

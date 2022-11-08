@@ -28,24 +28,6 @@ public:
     return _storage[i].a();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Line_2 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Line_2(value, current.b(), current.c());
-      break;
-    }
-    case 1: {
-      _storage[i] = Line_2(current.a(), value, current.c());
-      break;
-    }
-    case 2: {
-      _storage[i] = Line_2(current.a(), current.b(), value);
-      break;
-    }
-    }
-  }
-
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
       CGAL::to_double(_storage[i].a().exact()),
@@ -137,36 +119,6 @@ public:
     case 5: return _storage[i].direction().dz();
     }
     return _storage[i].point(0.0).x();
-  }
-
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Line_3 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Line_3(Point_3(value, current.point(0.0).y(), current.point(0.0).z()), current.direction());
-      break;
-    }
-    case 1: {
-      _storage[i] = Line_3(Point_3(current.point(0.0).x(), value, current.point(0.0).z()), current.direction());
-      break;
-    }
-    case 2: {
-      _storage[i] = Line_3(Point_3(current.point(0.0).x(), current.point(0.0).y(), value), current.direction());
-      break;
-    }
-    case 3: {
-      _storage[i] = Line_3(current.point(0.0), Direction_3(value, current.direction().dy(), current.direction().dz()));
-      break;
-    }
-    case 4: {
-      _storage[i] = Line_3(current.point(0.0), Direction_3(current.direction().dx(), value, current.direction().dz()));
-      break;
-    }
-    case 5: {
-      _storage[i] = Line_3(current.point(0.0), Direction_3(current.direction().dx(), current.direction().dy(), value));
-      break;
-    }
-    }
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

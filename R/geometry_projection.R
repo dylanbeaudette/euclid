@@ -14,6 +14,7 @@
 #'
 #' @param x A vector of geometries to project or map
 #' @param target A vector of lines or planes
+#' @param ... Arguments passed on to methods
 #'
 #' @return A vector of geometries of the same class as `x`
 #'
@@ -40,10 +41,12 @@
 #' project(line(point(3, 7, -3), point(-2, 6, 0)),
 #'         plane(point(0, 0, 0), vec(1, 0, 0)))
 #'
-project <- function(x, target) {
-  if (!is_base_geometry(x)) {
-    cli_abort("Only geometries can be projected")
-  }
+project <- function(x, target, ...) {
+  UseMethod("project")
+}
+#' @rdname project
+#' @export
+project.euclid_geometry <- function(x, target, ...) {
   if (dim(x) != dim(target)) {
     cli_abort("geometry must have the same dimensionality as the projection target")
   }
@@ -68,6 +71,7 @@ project <- function(x, target) {
 #'
 #' @param x A vector of geometries to project or map
 #' @param target A vector of planes
+#' @param ... Arguments passed on to methods
 #'
 #' @return A vector of geometries in 2 dimensions
 #'
@@ -81,7 +85,12 @@ project <- function(x, target) {
 #' support <- p[sample(10, 3)]
 #' map_to(p, plane(support[1], support[2], support[3]))
 #'
-map_to <- function(x, target) {
+map_to <- function(x, target, ...) {
+  UseMethod("map_to")
+}
+#' @rdname map_to
+#' @export
+map_to.euclid_geometry <- function(x, target, ...) {
   if (!is_base_geometry(x)) {
     cli_abort("Only geometries can be mapped to planes")
   }
@@ -105,6 +114,7 @@ map_to <- function(x, target) {
 #'
 #' @param x,y Geometry vectors. If `y` is given both `x` and `y` must be
 #' convertible to vectors and be in 3D
+#' @param ... Arguments passed on to methods
 #'
 #' @return A vector of directions with the same dimensionality as the input
 #'
@@ -127,8 +137,13 @@ map_to <- function(x, target) {
 #' # Get direction orthogonal to two vectors
 #' normal(vec(5, 2, -7), vec(-1, 4, 9))
 #'
-normal <- function(x, y = NULL) {
-  check_geometry_input(x, y, .name = "normal()")
+normal <- function(x, ...) {
+  UseMethod("normal")
+}
+#' @rdname normal
+#' @export
+normal.euclid_geometry <- function(x, y = NULL, ...) {
+  check_geometry_input(x, y, .name = "normal")
   if (is.null(y)) {
     new_geometry_vector(geometry_normal(get_ptr(x)))
   } else {

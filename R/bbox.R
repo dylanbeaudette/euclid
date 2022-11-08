@@ -13,7 +13,7 @@
 #' 2D bounding boxes and 6 for 3D) interpreted in the order xmin, ymin, zmin,
 #' xmax, ymax, zmax.
 #' @param default_dim The dimensionality when constructing an empty vector
-#' @param x,y vectors of bounding boxes or geometries
+#' @param x vector of bounding boxes or geometries
 #'
 #' @return An `euclid_bbox` vector
 #'
@@ -37,7 +37,7 @@
 #' # Comparison
 #' boxes[1] == boxes
 #'
-#' boxes[1:2] %overlaps% boxes[3:4]
+#' boxes[1:2] %is_intersecting% boxes[3:4]
 #'
 #' # Addition
 #' boxes[1] + boxes[2]
@@ -240,19 +240,6 @@ anyDuplicated.euclid_bbox <- function(x, incomparables = FALSE, ...) {
 match_bbox <- function(x, table) {
   bbox_match(get_ptr(x), get_ptr(table))
 }
-
-# Misc --------------------------------------------------------------------
-
-#' @rdname bbox
-#' @export
-is_overlapping <- function(x, y) {
-  x <- as_bbox(x)
-  y <- as_bbox(y)
-  bbox_overlaps(get_ptr(x), get_ptr(y))
-}
-#' @rdname bbox
-#' @export
-`%overlaps%` <- is_overlapping
 
 # Group generics ----------------------------------------------------------
 

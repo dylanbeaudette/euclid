@@ -2,14 +2,19 @@
 % Please edit documentation in R/geometry_projection.R
 \name{project}
 \alias{project}
+\alias{project.euclid_geometry}
 \title{Project geometries to lines and planes}
 \usage{
-project(x, target)
+project(x, target, ...)
+
+\method{project}{euclid_geometry}(x, target, ...)
 }
 \arguments{
 \item{x}{A vector of geometries to project or map}
 
 \item{target}{A vector of lines or planes}
+
+\item{...}{Arguments passed on to methods}
 }
 \value{
 A vector of geometries of the same class as \code{x}

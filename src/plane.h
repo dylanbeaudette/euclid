@@ -29,28 +29,6 @@ public:
     return _storage[i].a();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Plane current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Plane(value, current.b(), current.c(), current.d());
-      break;
-    }
-    case 1: {
-      _storage[i] = Plane(current.a(), value, current.c(), current.d());
-      break;
-    }
-    case 2: {
-      _storage[i] = Plane(current.a(), current.b(), value, current.d());
-      break;
-    }
-    case 3: {
-      _storage[i] = Plane(current.a(), current.b(), current.c(), value);
-      break;
-    }
-    }
-  }
-
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
       CGAL::to_double(_storage[i].a().exact()),

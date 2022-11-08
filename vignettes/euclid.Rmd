@@ -98,12 +98,19 @@ The definition names of each geometry can be accessed with `definition_names()`:
 definition_names(circ)
 ```
 
+You can also use `def()` to alter the geometries:
+
+```{r}
+def(circ, "r2") <- 1
+circ
+```
+
 Another type of information that can be extracted are the points that make up
 the geometry. For circles, that would be the center, for segments it would be
 either the start or end, etc. This can be accessed with the `vertex()` function:
 
 ```{r}
-vertex(circ)
+vert(circ)
 ```
 
 For most geometries there is only one vertex to access, but some have several
@@ -113,10 +120,40 @@ For most geometries there is only one vertex to access, but some have several
 ```{r}
 tri <- triangle(p[1], p[2], p[3])
 cardinality(tri)
-vertex(tri, 3)
+vert(tri, 3)
 ```
 
-A last choice is to convert the vertex to a matrix. This will put all the
+If you do not specify a vertex index it will extract all the vertices at once:
+
+```{r}
+vert(tri)
+```
+
+Like `def()`, `vert()` can also be used for altering the geometries:
+
+```{r}
+vert(tri, 1) <- point(0, 0)
+tri
+```
+
+For geometries consisting of multiple vertices (segments, triangles,
+tetrahedrons, iso rectangles, and iso cuboids) it is also possible to extract
+the edges of the geometries as a segments vector:
+
+```{r}
+edge(tri, 1)
+```
+
+Again, not specifying an index extracts them all:
+
+```{r}
+edge(tri)
+```
+
+`edge()` cannot be used to alter geometries - for that you'd need to alter each
+vertex individually.
+
+A last choice is to convert the geometry to a matrix. This will put all the
 definitions in a separate column and create as many rows as the cardinality of
 the geometry for each element in the vector:
 

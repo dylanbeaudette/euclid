@@ -39,3 +39,5 @@ Suggests:
     testthat,
     rmarkdown
 VignetteBuilder: knitr
+Remotes:  
+    dickoa/cgalh

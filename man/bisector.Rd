@@ -7,7 +7,7 @@
 bisector(x, y)
 }
 \arguments{
-\item{x, y}{Vector of points}
+\item{x, y}{Vector of points, 2D lines, or planes}
 }
 \value{
 A vector of lines or planes depending on the dimensionality of x and

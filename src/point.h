@@ -28,20 +28,6 @@ public:
     return _storage[i].x();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Point_2 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Point_2(value, current.y());
-      break;
-    }
-    case 1: {
-      _storage[i] = Point_2(current.x(), value);
-      break;
-    }
-    }
-  }
-
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
       CGAL::to_double(_storage[i].x().exact()),
@@ -348,24 +334,6 @@ public:
     case 2: return _storage[i].z();
     }
     return _storage[i].x();
-  }
-
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Point_3 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Point_3(value, current.y(), current.z());
-      break;
-    }
-    case 1: {
-      _storage[i] = Point_3(current.x(), value, current.z());
-      break;
-    }
-    case 2: {
-      _storage[i] = Point_3(current.x(), current.y(), value);
-      break;
-    }
-    }
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

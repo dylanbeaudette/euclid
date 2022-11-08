@@ -156,6 +156,9 @@ intersection_triangle <- function(x, y) {
 #'
 has_intersection <- function(x, y) {
   if (is_bbox(x)) {
+    if (is_bbox(y)) {
+      return(bbox_overlaps(get_ptr(x), get_ptr(y)))
+    }
     if (dim(x) == 2) {
       x <- as_iso_rect(x)
     } else {

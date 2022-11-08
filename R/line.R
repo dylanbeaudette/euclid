@@ -124,12 +124,12 @@ seq.euclid_line <- function(from, to, length.out = NULL, along.with = NULL, ...)
       return(line(seq(points[1], points[2], length.out, along.with), dir))
     } else {
       if (parallel(from, to)) {
-        from_p <- vertex(from)
+        from_p <- vert(from)
         to_p <- intersection_point(to, plane(from_p, dir))
         return(line(seq(from_p, to_p, length.out, along.with), dir))
       } else {
         norm <- normal(as_vec(from), as_vec(to))
-        from_p <- intersection_point(from, project(to, plane(vertex(from), norm)))
+        from_p <- intersection_point(from, project(to, plane(vert(from), norm)))
         to_p <- intersection_point(line(from_p, norm), to)
         return(line(
           seq(from_p, to_p, length.out, along.with),

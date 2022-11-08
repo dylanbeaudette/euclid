@@ -80,8 +80,8 @@ as_iso_cube.euclid_iso_cube <- function(x) x
 #' @export
 seq.euclid_iso_cube <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   iso_cube(
-    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
-    seq(vertex(from, 8), vertex(to, 8), length.out, along.with)
+    seq(vert(from, 1), vert(to, 1), length.out, along.with),
+    seq(vert(from, 8), vert(to, 8), length.out, along.with)
   )
 }
 

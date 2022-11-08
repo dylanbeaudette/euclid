@@ -22,12 +22,12 @@
 #'
 #' # Same as getting the center of a circle constructed from the points
 #' circ <- circle(point(1, 1), point(5, -2), point(6, 4))
-#' vertex(circ)
+#' vert(circ)
 #'
 #' plot(circ)
 #' euclid_plot(t, col = "grey", border = NA)
 #' euclid_plot(circumcenter(t), cex = 3, col = "firebrick", lwd = 2)
-#' euclid_plot(vertex(circ), cex = 1.5, col = "steelblue", lwd = 2)
+#' euclid_plot(vert(circ), cex = 1.5, col = "steelblue", lwd = 2)
 #'
 circumcenter <- function(...) {
   inputs <- validate_constructor_input(...)
@@ -41,17 +41,23 @@ circumcenter <- function(...) {
   tetrahedrons <- inputs[vapply(inputs, is_tetrahedron, logical(1))]
 
   if (length(triangles) == 1) {
+    if (length(inputs) > 1) {
+      cli_warn("Returning the circumcenter for the first traingle vector given")
+    }
     points <- list(
-      vertex(triangles[[1]], 1),
-      vertex(triangles[[1]], 2),
-      vertex(triangles[[1]], 3)
+      vert(triangles[[1]], 1),
+      vert(triangles[[1]], 2),
+      vert(triangles[[1]], 3)
     )
   } else if (length(tetrahedrons) == 1) {
+    if (length(inputs) > 1) {
+      cli_warn("Returning the circumcenter for the first tetrahedron vector given")
+    }
     points <- list(
-      vertex(tetrahedrons[[1]], 1),
-      vertex(tetrahedrons[[1]], 2),
-      vertex(tetrahedrons[[1]], 3),
-      vertex(tetrahedrons[[1]], 4)
+      vert(tetrahedrons[[1]], 1),
+      vert(tetrahedrons[[1]], 2),
+      vert(tetrahedrons[[1]], 3),
+      vert(tetrahedrons[[1]], 4)
     )
   }
   if (length(points) == 2) {
@@ -60,8 +66,10 @@ circumcenter <- function(...) {
     geo <- circle(points[[1]], points[[2]], points[[3]])
   } else if (length(points) == 4) {
     geo <- sphere(points[[1]], points[[2]], points[[3]], points[[4]])
+  } else {
+    cli_abort("Can't calculate the circumcenter of the given input")
   }
-  vertex(geo)
+  vert(geo)
 }
 
 #' Calculate barycenter of a set of weighted points
@@ -113,7 +121,7 @@ barycenter <- function(x, y, z = NULL, t = NULL) {
 #' a plane in 3D. Constructing a bisector from 2 geometries creates a split
 #' where the edge at any given point has equal length to the two geometries.
 #'
-#' @param x,y Vector of points
+#' @param x,y Vector of points, 2D lines, or planes
 #'
 #' @return A vector of lines or planes depending on the dimensionality of x and
 #' y
@@ -130,6 +138,17 @@ barycenter <- function(x, y, z = NULL, t = NULL) {
 #' euclid_plot(b, col = "firebrick")
 #'
 bisector <- function(x, y) {
+  if (dim(x) != dim(y)) {
+    cli_abort("{.arg x} and {.arg y} must have the same dimensions")
+  }
+  if ((is_point(x) && !is_point(y)) ||
+      (is_line(x) && !is_line(y)) ||
+      (is_plane(x) && !is_plane(y))) {
+    cli_abort("{.arg x} and {.arg y} must be of the same geometry type")
+  }
+  if (is_line(x) && dim(x) != 2) {
+    cli_abort("Only 2D lines have a bisector defined")
+  }
   new_geometry_vector(geometry_bisector(get_ptr(x), get_ptr(y)))
 }
 
@@ -162,7 +181,11 @@ bisector <- function(x, y) {
 #'
 centroid <- function(x, y = NULL, z = NULL, t = NULL) {
   if (is.null(y)) {
-    new_geometry_vector(geometry_centroid_1(get_ptr(x)))
+    if (is_base_geometry(x)) {
+      new_geometry_vector(geometry_centroid_1(get_ptr(x)))
+    } else {
+      centroid_impl(x, y, z, t)
+    }
   } else if (is.null(z)) {
     if (!is_point(x) || !is_point(y)) {
       cli_abort("{.arg x} and {.arg y} must be {.cls euclid_point} vectors")
@@ -179,6 +202,15 @@ centroid <- function(x, y = NULL, z = NULL, t = NULL) {
     }
     new_geometry_vector(geometry_centroid_4(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(t)))
   }
+}
+#' @export
+#' @keywords internal
+centroid_impl <- function(x, ...) {
+  UseMethod("centroid_impl")
+}
+#' @export
+centroid_impl.default <- function(x, ...) {
+  cli_abort("centroid can't be calculated for this input")
 }
 
 #' Construct the equidistant line of 2 or three points
@@ -268,9 +300,20 @@ equidistant_line <- function(x, y, z = NULL) {
 #' )
 #'
 radical <- function(x, y, z = NULL) {
+  if (dim(x) != dim(y) || (!is.null(z) && dim(x) != dim(z))) {
+    cli_abort("Input dimensions must match")
+  }
+  if ((is_circle(x) && !is_circle(y)) ||
+      (is_sphere(x) && !is_sphere(y))) {
+    cli_abort("radical can only be calculated between geometries of the same class")
+  }
   r <- new_geometry_vector(geometry_radical_geometry(get_ptr(x), get_ptr(y)))
   if (is.null(z)) {
     return(r)
+  }
+  if ((is_circle(x) && !is_circle(z)) ||
+      (is_sphere(x) && !is_sphere(z))) {
+    cli_abort("radical can only be calculated between geometries of the same class")
   }
   r2 <- new_geometry_vector(geometry_radical_geometry(get_ptr(x), get_ptr(z)))
   if (dim(x) == 2) {

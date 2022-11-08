@@ -179,7 +179,7 @@ approx_distance_matrix_impl.default <- function(x, y) {
 #' approx_angle(plane(-4, 1, 19, -4), vec(5, -7, 2))
 #'
 approx_angle <- function(x, y) {
-  check_geometry_input(x, y, .name = "approx_angle()")
+  check_geometry_input(x, y, .name = "approx_angle")
   if (is_volume(x) || is_location(x) || is_volume(y) || is_location(y)) {
     cli_abort(c(
       "{.arg x} and {.arg y} must be curves, surfaces, or arrows",

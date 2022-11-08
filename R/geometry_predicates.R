@@ -320,7 +320,7 @@ is_location <- function(x) is_point(x) || is_weighted_point(x)
 #' parallel(t1, line(p[5], p[6]))
 #'
 parallel <- function(x, y) {
-  check_geometry_input(x, y, .name = "parallel()")
+  check_geometry_input(x, y, .name = "parallel")
   if (geometry_type(x) == geometry_type(y)) {
     if (is_surface(x)) {
       x <- as_plane(x)
@@ -366,31 +366,31 @@ parallel <- function(x, y) {
 #' )
 #'
 collinear <- function(x, y, z = NULL) {
-  check_geometry_input(x, y, z, .name = "collinear()")
+  check_geometry_input(x, y, z, .name = "collinear")
   if (is.null(z)) {
     x <- as_line(x)
     y <- as_line(y)
-    has_intersection(x, vertex(y)) && parallel(x, y)
+    has_intersection(x, vert(y)) && parallel(x, y)
   } else {
-    if (is_circle(x) || is_sphere(x) || is_weighted_point(x)) x <- vertex(x)
-    if (is_circle(y) || is_sphere(y) || is_weighted_point(y)) y <- vertex(y)
-    if (is_circle(z) || is_sphere(z) || is_weighted_point(z)) z <- vertex(z)
+    if (is_circle(x) || is_sphere(x) || is_weighted_point(x)) x <- vert(x)
+    if (is_circle(y) || is_sphere(y) || is_weighted_point(y)) y <- vert(y)
+    if (is_circle(z) || is_sphere(z) || is_weighted_point(z)) z <- vert(z)
     point_collinear(get_ptr(x), get_ptr(y), get_ptr(z))
   }
 }
 #' @rdname collinear
 #' @export
 coplanar <- function(x, y, z = NULL, t = NULL) {
-  check_geometry_input(x, y, z, t, .name = "coplanar()")
+  check_geometry_input(x, y, z, t, .name = "coplanar")
   if (is.null(z)) {
     x <- as_plane(x)
     y <- as_plane(y)
-    has_intersection(x, vertex(y)) && parallel(x, y)
+    has_intersection(x, vert(y)) && parallel(x, y)
   }else {
-    if (is_sphere(x) || is_weighted_point(x)) x <- vertex(x)
-    if (is_sphere(y) || is_weighted_point(y)) y <- vertex(y)
-    if (is_sphere(z) || is_weighted_point(z)) z <- vertex(z)
-    if (is_sphere(t) || is_weighted_point(t)) t <- vertex(t)
+    if (is_sphere(x) || is_weighted_point(x)) x <- vert(x)
+    if (is_sphere(y) || is_weighted_point(y)) y <- vert(y)
+    if (is_sphere(z) || is_weighted_point(z)) z <- vert(z)
+    if (is_sphere(t) || is_weighted_point(t)) t <- vert(t)
     point_coplanar(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(t))
   }
 }
@@ -432,7 +432,7 @@ NULL
 #' @rdname geometry_turns
 #' @export
 turns_left <- function(x, y, z) {
-  check_geometry_input(x, y, z, .name = "turns_left()")
+  check_geometry_input(x, y, z, .name = "turns_left")
   if (is_weighted_point(x)) x <- as_point(x)
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)
@@ -444,7 +444,7 @@ turns_left <- function(x, y, z) {
 #' @rdname geometry_turns
 #' @export
 turns_right <- function(x, y, z) {
-  check_geometry_input(x, y, z, .name = "turns_right()")
+  check_geometry_input(x, y, z, .name = "turns_right")
   if (is_weighted_point(x)) x <- as_point(x)
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)
@@ -493,7 +493,7 @@ turn_along <- function(x) {
 #' in_order_along(p)
 #'
 in_order <- function(x, y, z) {
-  check_geometry_input(x, y, z, .name = "in_order()")
+  check_geometry_input(x, y, z, .name = "in_order")
   if (is_weighted_point(x)) x <- as_point(x)
   if (is_weighted_point(y)) y <- as_point(y)
   if (is_weighted_point(z)) z <- as_point(z)

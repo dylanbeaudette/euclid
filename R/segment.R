@@ -115,8 +115,8 @@ seq.euclid_segment <- function(from, to, length.out = NULL, along.with = NULL, .
     cli_abort("{.arg from} and {.arg to} must have the same number of dimensions")
   }
   segment(
-    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
-    seq(vertex(from, 2), vertex(to, 2), length.out, along.with)
+    seq(vert(from, 1), vert(to, 1), length.out, along.with),
+    seq(vert(from, 2), vert(to, 2), length.out, along.with)
   )
 }
 

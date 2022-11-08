@@ -26,7 +26,7 @@ check_geometry_input <- function(..., .name) {
   input <- list(...)
   input <- input[!vapply(input, is.null, logical(1))]
   if (!all(vapply(input, is_base_geometry, logical(1)))) {
-    cli_abort(paste0("{.arg {.name}} is only defined for geometries"))
+    cli_abort("{.fn {.name}} is only defined for geometries")
   }
   if (length(unique(vapply(input, dim, integer(1)))) != 1) {
     cli_abort("Geometries must have the same dimensionality")

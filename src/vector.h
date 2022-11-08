@@ -27,21 +27,7 @@ public:
     return _storage[i].x();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Vector_2 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Vector_2(value, current.y());
-      break;
-    }
-    case 1: {
-      _storage[i] = Vector_2(current.x(), value);
-      break;
-    }
-    }
-  }
-
-  geometry_vector_base_p set_vertex(cpp11::integers which, const geometry_vector_base& value) const {
+  geometry_vector_base_p set_vertex(cpp11::integers which, bool set_all, const geometry_vector_base& value) const {
     cpp11::stop("You can't assign a vertex to a vector");
   }
 
@@ -240,25 +226,7 @@ public:
     return _storage[i].x();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Vector_3 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Vector_3(value, current.y(), current.z());
-      break;
-    }
-    case 1: {
-      _storage[i] = Vector_3(current.x(), value, current.z());
-      break;
-    }
-    case 2: {
-      _storage[i] = Vector_3(current.x(), current.y(), value);
-      break;
-    }
-    }
-  }
-
-  geometry_vector_base_p set_vertex(cpp11::integers which, const geometry_vector_base& value) const {
+  geometry_vector_base_p set_vertex(cpp11::integers which, bool set_all, const geometry_vector_base& value) const {
     cpp11::stop("You can't assign a vertex to a vector");
   }
 

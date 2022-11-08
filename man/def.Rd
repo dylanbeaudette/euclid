@@ -38,6 +38,8 @@ for all elements will be returned and the length of the returned vector will
 be \code{sum(cardinality(x))} (matching the return of \code{as.matrix(x)})}
 
 \item{i, j}{The row and column of the cell in the transformation to fetch.}
+
+\item{value}{An \code{exact_numeric} vector or an object convertible to one}
 }
 \value{
 An exact_numeric vector
@@ -53,6 +55,10 @@ cardinality of the geometry exceeds 1.
 # Get squared radius of circle
 circ <- circle(point(4, 7), 25)
 def(circ, "r2")
+
+# Set r2 to 10
+def(circ, "r2") <- 10
+circ
 
 # Get all the x values from the source of segments
 s <- segment(point(sample(10, 4), sample(10, 4)),
@@ -70,7 +76,6 @@ def(m, 1, 2)
 \seealso{
 Other Geometry methods: 
 \code{\link{euclid_geometry}},
-\code{\link{subgeometries}},
-\code{\link{vertex}()}
+\code{\link{subgeometries}}
 }
 \concept{Geometry methods}

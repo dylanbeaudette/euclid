@@ -165,17 +165,17 @@ geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_v
       }
       break;
     }
-    //case LINE: {
-    //  auto p1 = get_vector_of_geo<Line_2>(*geo1);
-    //  auto p2 = get_vector_of_geo<Line_2>(*geo2);
-    //  for (size_t i = 0; i < output_size; ++i) {
-    //    if (!p1[i % p1.size()] || !p2[i % p2.size()]) {
-    //      result.push_back(Line_2::NA_value());
-    //      continue;
-    //    }
-    //    result.push_back(CGAL::bisector(p1[i % p1.size()], p2[i % p2.size()]));
-    //  }
-    //}
+    case LINE: {
+      auto p1 = get_vector_of_geo<Line_2>(*geo1);
+      auto p2 = get_vector_of_geo<Line_2>(*geo2);
+      for (size_t i = 0; i < output_size; ++i) {
+        if (!p1[i % p1.size()] || !p2[i % p2.size()]) {
+          result.push_back(Line_2::NA_value());
+          continue;
+        }
+        result.push_back(CGAL::bisector(p1[i % p1.size()], p2[i % p2.size()]));
+      }
+    }
     default: cpp11::stop("Don't know how to calculate bisector of given geometries");
     }
     return create_geometry_vector(result);
@@ -198,17 +198,17 @@ geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_v
       }
       break;
     }
-    //case PLANE: {
-    //  auto p1 = get_vector_of_geo<Plane>(*geo1);
-    //  auto p2 = get_vector_of_geo<Plane>(*geo2);
-    //  for (size_t i = 0; i < output_size; ++i) {
-    //    if (!p1[i % p1.size()] || !p2[i % p2.size()]) {
-    //      result.push_back(Plane::NA_value());
-    //      continue;
-    //    }
-    //    result.push_back(CGAL::bisector(p1[i % p1.size()], p2[i % p2.size()]));
-    //  }
-    //}
+    case PLANE: {
+      auto p1 = get_vector_of_geo<Plane>(*geo1);
+      auto p2 = get_vector_of_geo<Plane>(*geo2);
+      for (size_t i = 0; i < output_size; ++i) {
+        if (!p1[i % p1.size()] || !p2[i % p2.size()]) {
+          result.push_back(Plane::NA_value());
+          continue;
+        }
+        result.push_back(CGAL::bisector(p1[i % p1.size()], p2[i % p2.size()]));
+      }
+    }
     default: cpp11::stop("Don't know how to calculate bisector of given geometries");
     }
     return create_geometry_vector(result);

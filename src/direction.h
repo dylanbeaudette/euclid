@@ -27,21 +27,7 @@ public:
     return _storage[i].dx();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Direction_2 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Direction_2(value, current.dy());
-      break;
-    }
-    case 1:{
-      _storage[i] = Direction_2(current.dx(), value);
-      break;
-    }
-    }
-  }
-
-  geometry_vector_base_p set_vertex(cpp11::integers which, const geometry_vector_base& value) const {
+  geometry_vector_base_p set_vertex(cpp11::integers which, bool set_all, const geometry_vector_base& value) const {
     cpp11::stop("You can't assign a vertex to a direction");
   }
 
@@ -302,25 +288,7 @@ public:
     return _storage[i].dx();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Direction_3 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Direction_3(value, current.dy(), current.dz());
-      break;
-    }
-    case 1:{
-      _storage[i] = Direction_3(current.dx(), value, current.dz());
-      break;
-    }
-    case 2:{
-      _storage[i] = Direction_3(current.dx(), current.dy(), value);
-      break;
-    }
-    }
-  }
-
-  geometry_vector_base_p set_vertex(cpp11::integers which, const geometry_vector_base& value) const {
+  geometry_vector_base_p set_vertex(cpp11::integers which, bool set_all, const geometry_vector_base& value) const {
     cpp11::stop("You can't assign a vertex to a direction");
   }
 

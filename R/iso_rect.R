@@ -90,8 +90,8 @@ as_iso_rect.euclid_iso_rect <- function(x) x
 #' @export
 seq.euclid_iso_rect <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   iso_rect(
-    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
-    seq(vertex(from, 3), vertex(to, 3), length.out, along.with)
+    seq(vert(from, 1), vert(to, 1), length.out, along.with),
+    seq(vert(from, 3), vert(to, 3), length.out, along.with)
   )
 }
 

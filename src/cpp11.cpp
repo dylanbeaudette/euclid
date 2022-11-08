@@ -685,17 +685,10 @@ extern "C" SEXP _euclid_geometry_set_vertex(SEXP geometries, SEXP which, SEXP va
   END_CPP11
 }
 // geometry_common.cpp
-geometry_vector_base_p geometry_vertices(geometry_vector_base_p geometries);
-extern "C" SEXP _euclid_geometry_vertices(SEXP geometries) {
+geometry_vector_base_p geometry_edges(geometry_vector_base_p geometries, cpp11::integers which);
+extern "C" SEXP _euclid_geometry_edges(SEXP geometries, SEXP which) {
   BEGIN_CPP11
-    return cpp11::as_sexp(geometry_vertices(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
-  END_CPP11
-}
-// geometry_common.cpp
-geometry_vector_base_p geometry_edges(geometry_vector_base_p geometries);
-extern "C" SEXP _euclid_geometry_edges(SEXP geometries) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(geometry_edges(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries)));
+    return cpp11::as_sexp(geometry_edges(cpp11::as_cpp<cpp11::decay_t<geometry_vector_base_p>>(geometries), cpp11::as_cpp<cpp11::decay_t<cpp11::integers>>(which)));
   END_CPP11
 }
 // geometry_common.cpp
@@ -1216,6 +1209,48 @@ extern "C" SEXP _euclid_create_plane_triangle(SEXP triangle) {
     return cpp11::as_sexp(create_plane_triangle(cpp11::as_cpp<cpp11::decay_t<triangle3_p>>(triangle)));
   END_CPP11
 }
+// point_w.cpp
+point_w2_p create_point_w_2_empty();
+extern "C" SEXP _euclid_create_point_w_2_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_empty());
+  END_CPP11
+}
+// point_w.cpp
+point_w2_p create_point_w_2_x_y_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_2_x_y_w(SEXP x, SEXP y, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_x_y_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w2_p create_point_w_2_p_w(point2_p p, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_2_p_w(SEXP p, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_2_p_w(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_empty();
+extern "C" SEXP _euclid_create_point_w_3_empty() {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_empty());
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_x_y_z_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_3_x_y_z_w(SEXP x, SEXP y, SEXP z, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_x_y_z_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
+// point_w.cpp
+point_w3_p create_point_w_3_p_w(point3_p p, exact_numeric_p w);
+extern "C" SEXP _euclid_create_point_w_3_p_w(SEXP p, SEXP w) {
+  BEGIN_CPP11
+    return cpp11::as_sexp(create_point_w_3_p_w(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
+  END_CPP11
+}
 // point.cpp
 point2_p create_point_2_empty();
 extern "C" SEXP _euclid_create_point_2_empty() {
@@ -1473,48 +1508,6 @@ cpp11::writable::integers point_turns(point2_p x);
 extern "C" SEXP _euclid_point_turns(SEXP x) {
   BEGIN_CPP11
     return cpp11::as_sexp(point_turns(cpp11::as_cpp<cpp11::decay_t<point2_p>>(x)));
-  END_CPP11
-}
-// point_w.cpp
-point_w2_p create_point_w_2_empty();
-extern "C" SEXP _euclid_create_point_w_2_empty() {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_2_empty());
-  END_CPP11
-}
-// point_w.cpp
-point_w2_p create_point_w_2_x_y_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p w);
-extern "C" SEXP _euclid_create_point_w_2_x_y_w(SEXP x, SEXP y, SEXP w) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_2_x_y_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
-  END_CPP11
-}
-// point_w.cpp
-point_w2_p create_point_w_2_p_w(point2_p p, exact_numeric_p w);
-extern "C" SEXP _euclid_create_point_w_2_p_w(SEXP p, SEXP w) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_2_p_w(cpp11::as_cpp<cpp11::decay_t<point2_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
-  END_CPP11
-}
-// point_w.cpp
-point_w3_p create_point_w_3_empty();
-extern "C" SEXP _euclid_create_point_w_3_empty() {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_3_empty());
-  END_CPP11
-}
-// point_w.cpp
-point_w3_p create_point_w_3_x_y_z_w(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z, exact_numeric_p w);
-extern "C" SEXP _euclid_create_point_w_3_x_y_z_w(SEXP x, SEXP y, SEXP z, SEXP w) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_3_x_y_z_w(cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(x), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(y), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(z), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
-  END_CPP11
-}
-// point_w.cpp
-point_w3_p create_point_w_3_p_w(point3_p p, exact_numeric_p w);
-extern "C" SEXP _euclid_create_point_w_3_p_w(SEXP p, SEXP w) {
-  BEGIN_CPP11
-    return cpp11::as_sexp(create_point_w_3_p_w(cpp11::as_cpp<cpp11::decay_t<point3_p>>(p), cpp11::as_cpp<cpp11::decay_t<exact_numeric_p>>(w)));
   END_CPP11
 }
 // ray.cpp
@@ -2410,7 +2403,7 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_distance_matrix",            (DL_FUNC) &_euclid_geometry_distance_matrix,            2},
     {"_euclid_geometry_do_intersect",               (DL_FUNC) &_euclid_geometry_do_intersect,               2},
     {"_euclid_geometry_duplicated",                 (DL_FUNC) &_euclid_geometry_duplicated,                 1},
-    {"_euclid_geometry_edges",                      (DL_FUNC) &_euclid_geometry_edges,                      1},
+    {"_euclid_geometry_edges",                      (DL_FUNC) &_euclid_geometry_edges,                      2},
     {"_euclid_geometry_equidistant_line",           (DL_FUNC) &_euclid_geometry_equidistant_line,           3},
     {"_euclid_geometry_format",                     (DL_FUNC) &_euclid_geometry_format,                     1},
     {"_euclid_geometry_has_point_inside",           (DL_FUNC) &_euclid_geometry_has_point_inside,           2},
@@ -2440,7 +2433,6 @@ static const R_CallMethodDef CallEntries[] = {
     {"_euclid_geometry_transform",                  (DL_FUNC) &_euclid_geometry_transform,                  2},
     {"_euclid_geometry_unique",                     (DL_FUNC) &_euclid_geometry_unique,                     1},
     {"_euclid_geometry_vertex",                     (DL_FUNC) &_euclid_geometry_vertex,                     2},
-    {"_euclid_geometry_vertices",                   (DL_FUNC) &_euclid_geometry_vertices,                   1},
     {"_euclid_point_2_add_vector",                  (DL_FUNC) &_euclid_point_2_add_vector,                  2},
     {"_euclid_point_2_cummax",                      (DL_FUNC) &_euclid_point_2_cummax,                      1},
     {"_euclid_point_2_cummin",                      (DL_FUNC) &_euclid_point_2_cummin,                      1},

@@ -65,10 +65,10 @@ as_tetrahedron.euclid_tetrahedron <- function(x) x
 #' @export
 seq.euclid_tetrahedron <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   tetrahedron(
-    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
-    seq(vertex(from, 2), vertex(to, 2), length.out, along.with),
-    seq(vertex(from, 3), vertex(to, 3), length.out, along.with),
-    seq(vertex(from, 4), vertex(to, 4), length.out, along.with)
+    seq(vert(from, 1), vert(to, 1), length.out, along.with),
+    seq(vert(from, 2), vert(to, 2), length.out, along.with),
+    seq(vert(from, 3), vert(to, 3), length.out, along.with),
+    seq(vert(from, 4), vert(to, 4), length.out, along.with)
   )
 }
 

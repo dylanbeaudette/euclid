@@ -6,6 +6,11 @@ inline T set_vertex_impl(const T& geometry, int which, const U& value) {
   return geometry;
 }
 
+template<typename T, typename U>
+inline T set_vertex_all_impl(const T& geometry, const std::vector<U>& values) {
+  return set_vertex_impl(geometry, 0, values[0]);
+}
+
 template<>
 inline Circle_2 set_vertex_impl(const Circle_2& geometry, int which, const Point_2& value) {
   return Circle_2(value, geometry.squared_radius());
@@ -76,6 +81,16 @@ inline Segment_3 set_vertex_impl(const Segment_3& geometry, int which, const Poi
 }
 
 template<>
+inline Segment_2 set_vertex_all_impl(const Segment_2& geometry, const std::vector<Point_2>& values) {
+  return Segment_2(values[0], values[1]);
+}
+
+template<>
+inline Segment_3 set_vertex_all_impl(const Segment_3& geometry, const std::vector<Point_3>& values) {
+  return Segment_3(values[0], values[1]);
+}
+
+template<>
 inline Sphere set_vertex_impl(const Sphere& geometry, int which, const Point_3& value) {
   return Sphere(value, geometry.squared_radius());
 }
@@ -85,6 +100,11 @@ inline Tetrahedron set_vertex_impl(const Tetrahedron& geometry, int which, const
   std::vector<Point_3> current = {geometry.vertex(0), geometry.vertex(1), geometry.vertex(2), geometry.vertex(3)};
   current[which] = value;
   return Tetrahedron(current[0], current[1], current[2], current[3]);
+}
+
+template<>
+inline Tetrahedron set_vertex_all_impl(const Tetrahedron& geometry, const std::vector<Point_3>& values) {
+  return Tetrahedron(values[0], values[1], values[2], values[3]);
 }
 
 template<>
@@ -99,4 +119,14 @@ inline Triangle_3 set_vertex_impl(const Triangle_3& geometry, int which, const P
   std::vector<Point_3> current = {geometry.vertex(0), geometry.vertex(1), geometry.vertex(2)};
   current[which] = value;
   return Triangle_3(current[0], current[1], current[2]);
+}
+
+template<>
+inline Triangle_2 set_vertex_all_impl(const Triangle_2& geometry, const std::vector<Point_2>& values) {
+  return Triangle_2(values[0], values[1], values[2]);
+}
+
+template<>
+inline Triangle_3 set_vertex_all_impl(const Triangle_3& geometry, const std::vector<Point_3>& values) {
+  return Triangle_3(values[0], values[1], values[2]);
 }

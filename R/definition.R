@@ -14,6 +14,7 @@
 #' for all elements will be returned and the length of the returned vector will
 #' be `sum(cardinality(x))` (matching the return of `as.matrix(x)`)
 #' @param i,j The row and column of the cell in the transformation to fetch.
+#' @param value An `exact_numeric` vector or an object convertible to one
 #' @param ... parameters to pass on
 #'
 #' @return An exact_numeric vector
@@ -26,6 +27,10 @@
 #' # Get squared radius of circle
 #' circ <- circle(point(4, 7), 25)
 #' def(circ, "r2")
+#'
+#' # Set r2 to 10
+#' def(circ, "r2") <- 10
+#' circ
 #'
 #' # Get all the x values from the source of segments
 #' s <- segment(point(sample(10, 4), sample(10, 4)),
@@ -153,7 +158,7 @@ def.euclid_affine_transformation <- function(x, i, j, ...) {
     ))
   }
   if (i == dim(x) + 1 && j != dim(x) + 1) {
-    warn("Ignoring non-diagonal elements in the last row")
+    cli_warn("Ignoring non-diagonal elements in the last row")
   }
   restore_euclid_vector(
     transform_set_definition(
@@ -169,7 +174,7 @@ def.euclid_affine_transformation <- function(x, i, j, ...) {
 #' @rdname def
 #' @export
 definition_names <- function(x, ...) {
-  UseMethod("definintion_names")
+  UseMethod("definition_names")
 }
 #' @export
 definition_names.euclid_geometry <- function(x, ...) {

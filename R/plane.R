@@ -101,12 +101,12 @@ as_plane.euclid_plane <- function(x) x
 #' @export
 seq.euclid_plane <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   if (parallel(from, to)) {
-    from_p <- vertex(from)
+    from_p <- vert(from)
     to_p <- intersection_point(line(from_p, normal(from)), to)
     return(plane(seq(from_p, to_p, length.out, along.with), normal(from)))
   }
   plane(
-    vertex(intersection_line(from, to)),
+    vert(intersection_line(from, to)),
     seq(normal(from), normal(to), length.out, along.with)
   )
 }

@@ -152,14 +152,14 @@ as_plane.euclid_circle3 <- function(x) {
 #' @export
 seq.euclid_circle2 <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   circle(
-    seq(vertex(from), vertex(to), length.out, along.with),
+    seq(vert(from), vert(to), length.out, along.with),
     seq(def(from, "r2"), def(to, "r2"), length.out = length.out, along.with = along.with)
   )
 }
 #' @export
 seq.euclid_circle3 <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   circle(
-    seq(vertex(from), vertex(to), length.out, along.with),
+    seq(vert(from), vert(to), length.out, along.with),
     seq(def(from, "r2"), def(to, "r2"), length.out = length.out, along.with = along.with),
     seq(normal(from), normal(to), length.out, along.with)
   )

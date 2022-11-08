@@ -29,28 +29,6 @@ public:
     return _storage[i].source().x();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Ray_2 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Ray_2(Point_2(value, current.source().y()), current.direction());
-      break;
-    }
-    case 1: {
-      _storage[i] = Ray_2(Point_2(current.source().x(), value), current.direction());
-      break;
-    }
-    case 2: {
-      _storage[i] = Ray_2(current.source(), Direction_2(value, current.direction().dy()));
-      break;
-    }
-    case 3: {
-      _storage[i] = Ray_2(current.source(), Direction_2(value, current.direction().dy()));
-      break;
-    }
-    }
-  }
-
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
       CGAL::to_double(_storage[i].source().x().exact()),
@@ -155,36 +133,6 @@ public:
     case 5: return _storage[i].direction().dz();
     }
     return _storage[i].source().x();
-  }
-
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Ray_3 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Ray_3(Point_3(value, current.source().y(), current.source().z()), current.direction());
-      break;
-    }
-    case 1: {
-      _storage[i] = Ray_3(Point_3(current.source().x(), value, current.source().z()), current.direction());
-      break;
-    }
-    case 2: {
-      _storage[i] = Ray_3(Point_3(current.source().x(), current.source().y(), value), current.direction());
-      break;
-    }
-    case 3: {
-      _storage[i] = Ray_3(current.source(), Direction_3(value, current.direction().dy(), current.direction().dz()));
-      break;
-    }
-    case 4: {
-      _storage[i] = Ray_3(current.source(), Direction_3(current.direction().dx(), value, current.direction().dz()));
-      break;
-    }
-    case 5: {
-      _storage[i] = Ray_3(current.source(), Direction_3(current.direction().dx(), current.direction().dy(), value));
-      break;
-    }
-    }
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

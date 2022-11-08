@@ -81,9 +81,9 @@ seq.euclid_triangle <- function(from, to, length.out = NULL, along.with = NULL, 
     cli_abort("{.arg from} and {.arg to} must have the same number of dimensions")
   }
   triangle(
-    seq(vertex(from, 1), vertex(to, 1), length.out, along.with),
-    seq(vertex(from, 2), vertex(to, 2), length.out, along.with),
-    seq(vertex(from, 3), vertex(to, 3), length.out, along.with)
+    seq(vert(from, 1), vert(to, 1), length.out, along.with),
+    seq(vert(from, 2), vert(to, 2), length.out, along.with),
+    seq(vert(from, 3), vert(to, 3), length.out, along.with)
   )
 }
 

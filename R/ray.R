@@ -128,7 +128,7 @@ geometry_op_minus.euclid_ray <- function(e1, e2) {
 #' @export
 seq.euclid_ray <- function(from, to, length.out = NULL, along.with = NULL, ...) {
   ray(
-    seq(vertex(from), vertex(to), length.out, along.with),
+    seq(vert(from), vert(to), length.out, along.with),
     seq(as_direction(from), as_direction(to), length.out, along.with)
   )
 }

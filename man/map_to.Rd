@@ -2,14 +2,19 @@
 % Please edit documentation in R/geometry_projection.R
 \name{map_to}
 \alias{map_to}
+\alias{map_to.euclid_geometry}
 \title{Map 3D geometries to 2D based on plane}
 \usage{
-map_to(x, target)
+map_to(x, target, ...)
+
+\method{map_to}{euclid_geometry}(x, target, ...)
 }
 \arguments{
 \item{x}{A vector of geometries to project or map}
 
 \item{target}{A vector of planes}
+
+\item{...}{Arguments passed on to methods}
 }
 \value{
 A vector of geometries in 2 dimensions

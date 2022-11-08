@@ -388,12 +388,8 @@ geometry_set_vertex <- function(geometries, which, value) {
   .Call(`_euclid_geometry_set_vertex`, geometries, which, value)
 }
 
-geometry_vertices <- function(geometries) {
-  .Call(`_euclid_geometry_vertices`, geometries)
-}
-
-geometry_edges <- function(geometries) {
-  .Call(`_euclid_geometry_edges`, geometries)
+geometry_edges <- function(geometries, which) {
+  .Call(`_euclid_geometry_edges`, geometries, which)
 }
 
 geometry_cardinality <- function(geometries) {
@@ -692,6 +688,30 @@ create_plane_triangle <- function(triangle) {
   .Call(`_euclid_create_plane_triangle`, triangle)
 }
 
+create_point_w_2_empty <- function() {
+  .Call(`_euclid_create_point_w_2_empty`)
+}
+
+create_point_w_2_x_y_w <- function(x, y, w) {
+  .Call(`_euclid_create_point_w_2_x_y_w`, x, y, w)
+}
+
+create_point_w_2_p_w <- function(p, w) {
+  .Call(`_euclid_create_point_w_2_p_w`, p, w)
+}
+
+create_point_w_3_empty <- function() {
+  .Call(`_euclid_create_point_w_3_empty`)
+}
+
+create_point_w_3_x_y_z_w <- function(x, y, z, w) {
+  .Call(`_euclid_create_point_w_3_x_y_z_w`, x, y, z, w)
+}
+
+create_point_w_3_p_w <- function(p, w) {
+  .Call(`_euclid_create_point_w_3_p_w`, p, w)
+}
+
 create_point_2_empty <- function() {
   .Call(`_euclid_create_point_2_empty`)
 }
@@ -838,30 +858,6 @@ point_turns_right <- function(x, y, z) {
 
 point_turns <- function(x) {
   .Call(`_euclid_point_turns`, x)
-}
-
-create_point_w_2_empty <- function() {
-  .Call(`_euclid_create_point_w_2_empty`)
-}
-
-create_point_w_2_x_y_w <- function(x, y, w) {
-  .Call(`_euclid_create_point_w_2_x_y_w`, x, y, w)
-}
-
-create_point_w_2_p_w <- function(p, w) {
-  .Call(`_euclid_create_point_w_2_p_w`, p, w)
-}
-
-create_point_w_3_empty <- function() {
-  .Call(`_euclid_create_point_w_3_empty`)
-}
-
-create_point_w_3_x_y_z_w <- function(x, y, z, w) {
-  .Call(`_euclid_create_point_w_3_x_y_z_w`, x, y, z, w)
-}
-
-create_point_w_3_p_w <- function(p, w) {
-  .Call(`_euclid_create_point_w_3_p_w`, p, w)
 }
 
 create_ray_2_empty <- function() {

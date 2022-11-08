@@ -22,6 +22,7 @@
 #include "geometry_projection.h"
 #include "get_vertex.h"
 #include "set_vertex.h"
+#include "set_definition.h"
 #include "get_edge.h"
 #include "match.h"
 #include "constant_in.h"
@@ -66,14 +67,12 @@ public:
   virtual size_t dimensions() const = 0;
   virtual Primitive geometry_type() const = 0;
   virtual cpp11::writable::strings def_names() const = 0;
-  virtual std::vector<Exact_number> definition(int which, cpp11::integers element) const = 0;
-  virtual cpp11::external_pointer<geometry_vector_base> set_definition(int which, cpp11::integers element, exact_numeric_p value) const = 0;
-  virtual cpp11::external_pointer<geometry_vector_base> vertex(cpp11::integers which) const = 0;
-  virtual cpp11::external_pointer<geometry_vector_base> set_vertex(cpp11::integers which, const geometry_vector_base& value) const = 0;
-  virtual cpp11::external_pointer<geometry_vector_base> vertices() const = 0;
-  virtual cpp11::external_pointer<geometry_vector_base> edges() const = 0;
+  virtual std::vector<Exact_number> definition(int which, cpp11::integers element, bool get_all) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> set_definition(int which, cpp11::integers element, bool set_all, exact_numeric_p value) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> vertex(cpp11::integers which, bool get_all) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> set_vertex(cpp11::integers which, bool set_all, const geometry_vector_base& value) const = 0;
+  virtual cpp11::external_pointer<geometry_vector_base> edge(cpp11::integers which, bool get_all) const = 0;
   virtual Exact_number get_single_definition(size_t i, int which, int element) const = 0;
-  virtual void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) = 0;
   virtual size_t cardinality(size_t i) const = 0;
   virtual size_t n_edges(size_t i) const = 0;
   virtual size_t long_length() const = 0;
@@ -321,100 +320,120 @@ public:
 
     return result;
   }
-  std::vector<Exact_number> definition(int which, cpp11::integers element) const {
-    bool get_all = element[0] == R_NaInt;
+  std::vector<Exact_number> definition(int which, cpp11::integers element, bool get_all) const {
     std::vector<Exact_number> result;
     result.reserve(get_all ? long_length() : size());
 
     for (size_t i = 0; i < size(); ++i) {
       if (get_all) {
         for (size_t j = 0; j < cardinality(i); ++j) {
-          result.push_back(get_single_definition(i, which, j));
+          result.push_back(_storage[i] ? get_single_definition(i, which, j) : Exact_number::NA_value());
         }
       } else {
-        result.push_back(get_single_definition(i, which, element[i]));
+        result.push_back(_storage[i] ? get_single_definition(i, which, element[i]) : Exact_number::NA_value());
       }
     }
 
     return result;
   }
-  geometry_vector_base_p set_definition(int which, cpp11::integers element, exact_numeric_p value) const {
-    geometry_vector_base_p result = copy();
-    bool get_all = element[0] == R_NaInt;
+  geometry_vector_base_p set_definition(int which, cpp11::integers element, bool set_all, exact_numeric_p value) const {
+    std::vector<T> result;
+    result.reserve(size());
 
-    for (size_t i = 0; i < result->size(); ++i) {
+    int k = 0;
+    for (size_t i = 0; i < size(); ++i) {
+      if (!_storage[i]) {
+        result.push_back(T::NA_value());
+        continue;
+      }
+      if (set_all) {
+        std::vector<Exact_number> defs;
+        bool any_na = false;
+        for (size_t j = 0; j < cardinality(i); ++j) {
+          defs.push_back((*value)[k % value->size()]);
+          if (!defs.back()) any_na = true;
+          k++;
+        }
+        result.push_back(any_na ? T::NA_value() : set_definition_all_impl<T>(_storage[i], which, defs));
+      } else {
+        if ((*value)[i % value->size()]) {
+          result.push_back(set_definition_impl<T>(_storage[i], which, element[i % element.size()], (*value)[i % value->size()]));
+        } else {
+          result.push_back(T::NA_value());
+        }
+      }
+    }
+
+    return create_geometry_vector(result);
+  }
+  geometry_vector_base_p vertex(cpp11::integers which, bool get_all) const {
+    std::vector<Point> result;
+    result.reserve(get_all ? long_length() : size());
+    if (size() == 0) {
+      return create_geometry_vector(result);
+    }
+    for (size_t i = 0; i < size(); ++i) {
       if (get_all) {
-        for (size_t j = 0; j < result->cardinality(i); ++j) {
-          result->set_single_definition(i, which, j, (*value)[i % value->size()].base());
+        for (size_t j = 0; j < cardinality(i); ++j) {
+          result.push_back(_storage[i] ? get_vertex_impl<T, Point>(_storage[i], j) : Point::NA_value());
         }
       } else {
-        result->set_single_definition(i, which, element[i], (*value)[i % value->size()].base());
+        result.push_back(_storage[i] ? get_vertex_impl<T, Point>(_storage[i], which[i % which.size()]) : Point::NA_value());
       }
     }
-
-    return result;
-  }
-  geometry_vector_base_p vertex(cpp11::integers which) const {
-    std::vector<Point> vertices;
-    size_t max_size = std::max(size(), (size_t) which.size());
-    if (size() == 0 || which.size() == 0) {
-      return create_geometry_vector(vertices);
-    }
-    vertices.reserve(max_size);
-    for (size_t i = 0; i < max_size; ++i) {
-      if (!_storage[i % size()] || which[i % which.size()] == R_NaInt) {
-        vertices.push_back(Point::NA_value());
-      }
-      vertices.push_back(get_vertex_impl<T, Point>(_storage[i % size()], which[i % which.size()]));
-    }
-    return create_geometry_vector(vertices);
+    return create_geometry_vector(result);
   }
 
-  geometry_vector_base_p set_vertex(cpp11::integers which, const geometry_vector_base& value) const {
+  geometry_vector_base_p set_vertex(cpp11::integers which, bool set_all, const geometry_vector_base& value) const {
     auto points_vec = get_vector_of_geo<Point>(value);
-    std::vector<T> vertices;
+    std::vector<T> result;
     if (size() == 0) {
-      return create_geometry_vector(vertices);
+      return create_geometry_vector(result);
     }
-    vertices.reserve(size());
-    for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i] || which[i % which.size()] == R_NaInt) {
-        vertices.push_back(_storage[i]);
-      }
-      if (!points_vec[i % points_vec.size()]) {
-        vertices.push_back(T::NA_value());
-      }
-      vertices.push_back(set_vertex_impl<T, Point>(_storage[i], which[i % which.size()], points_vec[i % points_vec.size()]));
-    }
-    return create_geometry_vector(vertices);
-  }
+    result.reserve(size());
 
-  geometry_vector_base_p vertices() const {
-    std::vector<Point> vertices;
-    if (size() == 0) {
-      return create_geometry_vector(vertices);
-    }
-    vertices.reserve(size() * cardinality(0));
+    int k = 0;
     for (size_t i = 0; i < size(); ++i) {
-      for (size_t j = 0; j < cardinality(i); ++j) {
-        if (!_storage[i]) {
-          vertices.push_back(Point::NA_value());
+      if (!_storage[i]) {
+        result.push_back(T::NA_value());
+        continue;
+      }
+      if (set_all) {
+        std::vector<Point> verts;
+        bool any_na = false;
+        for (size_t j = 0; j < cardinality(i); ++j) {
+          verts.push_back(points_vec[k % points_vec.size()]);
+          if (!verts.back()) any_na = true;
+          k++;
         }
-        vertices.push_back(get_vertex_impl<T, Point>(_storage[i], j));
+        result.push_back(any_na ? T::NA_value() : set_vertex_all_impl<T, Point>(_storage[i], verts));
+      } else {
+        if (!points_vec[i % points_vec.size()]) {
+          result.push_back(T::NA_value());
+        } else {
+          result.push_back(set_vertex_impl<T, Point>(_storage[i], which[i % which.size()], points_vec[i % points_vec.size()]));
+        }
       }
     }
-    return create_geometry_vector(vertices);
+    return create_geometry_vector(result);
   }
 
-  geometry_vector_base_p edges() const {
+  geometry_vector_base_p edge(cpp11::integers which, bool get_all) const {
     std::vector<Segment> segments;
-    segments.reserve(size() * n_edges(0));
+    segments.reserve(get_all ? size() * n_edges(0) : size());
     for (size_t i = 0; i < size(); ++i) {
-      for (size_t j = 0; j < n_edges(i); ++j) {
+      if (get_all) {
+        for (size_t j = 0; j < n_edges(i); ++j) {
+          if (!_storage[i]) {
+            segments.push_back(Segment::NA_value());
+          }
+          segments.push_back(get_edge_impl<T, Segment>(_storage[i], j));
+        }
+      } else {
         if (!_storage[i]) {
           segments.push_back(Segment::NA_value());
         }
-        segments.push_back(get_edge_impl<T, Segment>(_storage[i], j));
+        segments.push_back(get_edge_impl<T, Segment>(_storage[i], which[i % which.size()]));
       }
     }
     return create_geometry_vector(segments);

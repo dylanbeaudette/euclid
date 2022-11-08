@@ -95,7 +95,7 @@ plot.euclid_geometry <- function(x, y, xlim = NULL, ylim = NULL, mapping_plane =
       } else if (is_direction(x)) {
         cbox <- bbox(point(0, 0))
       } else if (is_line(x) || is_ray(x)) {
-        cbox <- bbox(vertex(x))
+        cbox <- bbox(vert(x))
       } else {
         cbox <- bbox(x)
       }

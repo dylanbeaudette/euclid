@@ -29,24 +29,6 @@ public:
     return _storage[i].center().x();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Circle_2 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Circle_2(Point_2(value, current.center().y()), current.squared_radius());
-      break;
-    }
-    case 1: {
-      _storage[i] = Circle_2(Point_2(current.center().x(), value), current.squared_radius());
-      break;
-    }
-    case 2: {
-      _storage[i] = Circle_2(current.center(), value);
-      break;
-    }
-    }
-  }
-
   std::vector<double> get_row(size_t i, size_t j) const {
     Circle_2 circ = _storage[i];
     Point_2 center = circ.center();
@@ -119,41 +101,6 @@ public:
     case 6: return _storage[i].supporting_plane().orthogonal_direction().dz();
     }
     return _storage[i].center().x();
-  }
-
-
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    Circle_3 current = _storage[i];
-    switch(which) {
-    case 0: {
-      _storage[i] = Circle_3(Point_3(value, current.center().y(), current.center().z()), current.squared_radius(), current.supporting_plane().orthogonal_vector());
-      break;
-    }
-    case 1: {
-      _storage[i] = Circle_3(Point_3(current.center().x(), value, current.center().z()), current.squared_radius(), current.supporting_plane().orthogonal_vector());
-      break;
-    }
-    case 2: {
-      _storage[i] = Circle_3(Point_3(current.center().x(), current.center().y(), value), current.squared_radius(), current.supporting_plane().orthogonal_vector());
-      break;
-    }
-    case 3: {
-      _storage[i] = Circle_3(current.center(), value, current.supporting_plane());
-      break;
-    }
-    case 4: {
-      _storage[i] = Circle_3(current.center(), value, Vector_3(value, current.supporting_plane().orthogonal_direction().dy(), current.supporting_plane().orthogonal_direction().dz()));
-      break;
-    }
-    case 5: {
-      _storage[i] = Circle_3(current.center(), value, Vector_3(current.supporting_plane().orthogonal_direction().dx(), value, current.supporting_plane().orthogonal_direction().dz()));
-      break;
-    }
-    case 6: {
-      _storage[i] = Circle_3(current.center(), value, Vector_3(current.supporting_plane().orthogonal_direction().dx(), current.supporting_plane().orthogonal_direction().dy(), value));
-      break;
-    }
-    }
   }
 
   std::vector<double> get_row(size_t i, size_t j) const {

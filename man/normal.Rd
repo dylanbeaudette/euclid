@@ -2,13 +2,18 @@
 % Please edit documentation in R/geometry_projection.R
 \name{normal}
 \alias{normal}
+\alias{normal.euclid_geometry}
 \title{Get the normal of a geometry}
 \usage{
-normal(x, y = NULL)
+normal(x, ...)
+
+\method{normal}{euclid_geometry}(x, y = NULL, ...)
 }
 \arguments{
 \item{x, y}{Geometry vectors. If \code{y} is given both \code{x} and \code{y} must be
 convertible to vectors and be in 3D}
+
+\item{...}{Arguments passed on to methods}
 }
 \value{
 A vector of directions with the same dimensionality as the input

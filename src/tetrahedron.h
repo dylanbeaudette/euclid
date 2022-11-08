@@ -32,25 +32,6 @@ public:
     return _storage[i].vertex(element).x();
   }
 
-  void set_single_definition(size_t i, int which, int element, const Kernel::FT& value) {
-    std::vector<Point_3> current = {_storage[i].vertex(0), _storage[i].vertex(1), _storage[i].vertex(2), _storage[i].vertex(3)};
-    switch(which) {
-    case 0: {
-      current[element] = Point_3(value, current[element].y(), current[element].z());
-      break;
-    }
-    case 1: {
-      current[element] = Point_3(current[element].x(), value, current[element].z());
-      break;
-    }
-    case 2: {
-      current[element] = Point_3(current[element].x(), current[element].y(), value);
-      break;
-    }
-    }
-    _storage[i] = Tetrahedron(current[0], current[1], current[2], current[3]);
-  }
-
   std::vector<double> get_row(size_t i, size_t j) const {
     return {
       CGAL::to_double(_storage[i].vertex(j).x().exact()),

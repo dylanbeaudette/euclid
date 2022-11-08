@@ -4,8 +4,6 @@
 \alias{bbox}
 \alias{is_bbox}
 \alias{as_bbox}
-\alias{is_overlapping}
-\alias{\%overlaps\%}
 \title{Create a vector of bounding boxes}
 \usage{
 bbox(..., default_dim = 2)
@@ -13,10 +11,6 @@ bbox(..., default_dim = 2)
 is_bbox(x)
 
 as_bbox(x)
-
-is_overlapping(x, y)
-
-x \%overlaps\% y
 }
 \arguments{
 \item{...}{Either a vector of geometries or a range of numeric vectors (4 for
@@ -25,7 +19,7 @@ xmax, ymax, zmax.}
 
 \item{default_dim}{The dimensionality when constructing an empty vector}
 
-\item{x, y}{vectors of bounding boxes or geometries}
+\item{x}{vector of bounding boxes or geometries}
 }
 \value{
 An \code{euclid_bbox} vector
@@ -56,7 +50,7 @@ euclid_plot(boxes, fg = "firebrick")
 # Comparison
 boxes[1] == boxes
 
-boxes[1:2] \%overlaps\% boxes[3:4]
+boxes[1:2] \%is_intersecting\% boxes[3:4]
 
 # Addition
 boxes[1] + boxes[2]

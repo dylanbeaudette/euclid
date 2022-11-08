@@ -62,7 +62,7 @@ exact_numeric_p geometry_definition(geometry_vector_base_p geometries, int which
   if (geometries.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
-  std::vector<Exact_number> res = geometries->definition(which, element);
+  std::vector<Exact_number> res = geometries->definition(which, element, element.size() == 0);
   exact_numeric* vec(new exact_numeric(res));
   return {vec};
 }
@@ -72,7 +72,7 @@ geometry_vector_base_p geometry_set_definition(geometry_vector_base_p geometries
   if (geometries.get() == nullptr || value.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
-  return geometries->set_definition(which, element, value);
+  return geometries->set_definition(which, element, element.size() == 0, value);
 }
 
 [[cpp11::register]]
@@ -80,7 +80,7 @@ geometry_vector_base_p geometry_vertex(geometry_vector_base_p geometries, cpp11:
   if (geometries.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
-  return geometries->vertex(which);
+  return geometries->vertex(which, which.size() == 0);
 }
 
 [[cpp11::register]]
@@ -88,23 +88,15 @@ geometry_vector_base_p geometry_set_vertex(geometry_vector_base_p geometries, cp
   if (geometries.get() == nullptr || value.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
-  return geometries->set_vertex(which, *value);
+  return geometries->set_vertex(which, which.size() == 0, *value);
 }
 
 [[cpp11::register]]
-geometry_vector_base_p geometry_vertices(geometry_vector_base_p geometries) {
+geometry_vector_base_p geometry_edges(geometry_vector_base_p geometries, cpp11::integers which) {
   if (geometries.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
-  return geometries->vertices();
-}
-
-[[cpp11::register]]
-geometry_vector_base_p geometry_edges(geometry_vector_base_p geometries) {
-  if (geometries.get() == nullptr) {
-    cpp11::stop("Data structure pointer cleared from memory");
-  }
-  return geometries->edges();
+  return geometries->edge(which, which.size() == 0);
 }
 
 [[cpp11::register]]
