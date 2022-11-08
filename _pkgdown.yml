@@ -64,8 +64,9 @@ reference:
     Geometries are based on parameters and sometimes supporting points. These
     can be extracted in various ways.
   contents:
-  - parameter
-  - vertex
+  - def
+  - vert
+  - edge
 - title: Predicates
   desc: >
     At the core of a lot of geometric algorithms lies predicates on geometries.
