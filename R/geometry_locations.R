@@ -203,8 +203,8 @@ centroid <- function(x, y = NULL, z = NULL, t = NULL) {
     new_geometry_vector(geometry_centroid_4(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(t)))
   }
 }
+#' @rdname euclid_extend
 #' @export
-#' @keywords internal
 centroid_impl <- function(x, ...) {
   UseMethod("centroid_impl")
 }

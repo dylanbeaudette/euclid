@@ -123,6 +123,7 @@ distance_squared <- function(x, y) {
   }
   new_exact_numeric(geometry_squared_distance(get_ptr(x), get_ptr(y)))
 }
+#' @rdname euclid_extend
 #' @export
 distance_squared_impl <- function(x, y) {
   UseMethod("distance_squared_impl")
@@ -146,6 +147,7 @@ approx_distance_matrix <- function(x, y) {
   }
   geometry_distance_matrix(get_ptr(x), get_ptr(y))
 }
+#' @rdname euclid_extend
 #' @export
 approx_distance_matrix_impl <- function(x, y) {
   UseMethod("approx_distance_matrix_impl")

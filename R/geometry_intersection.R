@@ -189,8 +189,8 @@ has_intersection <- function(x, y) {
   has_intersection(x, y)
 }
 
+#' @rdname euclid_extend
 #' @export
-#' @keywords internal
 intersection_impl <- function(x, y) {
   UseMethod("intersection_impl")
 }
@@ -199,8 +199,8 @@ intersection_impl.default <- function(x, y) {
   cli_abort("intersection can only be calculated between two geometries")
 }
 
+#' @rdname euclid_extend
 #' @export
-#' @keywords internal
 has_intersection_impl <- function(x, y) {
   UseMethod("has_intersection_impl")
 }
