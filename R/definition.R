@@ -7,12 +7,11 @@
 #' cardinality of the geometry exceeds 1.
 #'
 #' @param x A geometry vector
-#' @param which Either a name or the index of the definition to extract, as
+#' @param name Either a name or the index of the definition to extract, as
 #' matched to `definition_names(x)`
-#' @param element For geometries with a cardinality above 1, which element of
-#' the geometry should the definition be extracted for. If `NA` the definition
-#' for all elements will be returned and the length of the returned vector will
-#' be `sum(cardinality(x))` (matching the return of `as.matrix(x)`)
+#' @param which An integer vector giving the vertex from which the definition
+#' should be extracted, or `NULL` to extract all
+#' to extract all.
 #' @param i,j The row and column of the cell in the transformation to fetch.
 #' @param value An `exact_numeric` vector or an object convertible to one
 #' @param ... parameters to pass on
@@ -49,40 +48,40 @@ def <- function(x, ...) {
 }
 #' @rdname def
 #' @export
-def.euclid_geometry <- function(x, which, element = NA, ...) {
+def.euclid_geometry <- function(x, name, which = NULL, ...) {
   def_names <- definition_names(x)
-  if (length(which) != 1) {
+  if (length(name) != 1) {
     cli_abort("Can't get more than a single definition at a time")
   }
-  if (is.character(which)) {
-    index <- match(which, def_names)
+  if (is.character(name)) {
+    index <- match(name, def_names)
     if (is.na(index)) {
       cli_abort(c(
-        "{.val {which}} does not name a definition of the geometry",
+        "{.val {name}} does not name a definition of the geometry",
         i = "Use one of {.or {.val {def_names}}}"
       ))
     }
   } else {
-    index <- as.integer(which)
+    index <- as.integer(name)
     if (is.na(index)) {
-      cli_abort(paste0("{.arg which} must be either a string or a value convertible to a scalar integer"))
+      cli_abort(paste0("{.arg name} must be either a string or a value convertible to a scalar integer"))
     }
   }
   if (index < 1 || index > length(def_names)) {
     cli_abort(c(
-      "{.arg which} must reference a definitions for the geometry",
+      "{.arg name} must reference a definitions for the geometry",
       i = "Use a a positive integer less than or equal to {length(def_names)}"
     ))
   }
-  if (!anyNA(element)) {
-    element <- rep_len(element, length(x))
-    if (any(element > cardinality(x))) {
-      cli_abort("{.arg element} must not be larger than the cardinality of the element in the vector")
-    }
-  } else {
-    element <- NA_integer_
+  which <- as.integer(which)
+  if (anyNA(which)) {
+    # Hack to make NULL appear as value
+    cli_abort("{.arg which} must be either {.val {factor('NULL')}} or a vector of finite integers")
   }
-  new_exact_numeric(geometry_definition(get_ptr(x), index - 1L, element - 1L))
+  if (any(which > cardinality(x))) {
+    cli_abort("{.arg which} cannot be larger than the cardinality of the geometry")
+  }
+  new_exact_numeric(geometry_definition(get_ptr(x), index - 1L, which - 1L))
 }
 #' @rdname def
 #' @export
@@ -110,42 +109,43 @@ def.euclid_affine_transformation <- function(x, i, j, ...) {
 }
 #' @rdname def
 #' @export
-`def<-.euclid_geometry` <- function(x, which, element = NA, ..., value) {
+`def<-.euclid_geometry` <- function(x, name, which = NULL, ..., value) {
   def_names <- definition_names(x)
-  if (length(which) != 1) {
+  if (length(name) != 1) {
     cli_abort("Can't set more than a single definition at a time")
   }
-  if (is.character(which)) {
-    index <- match(which, def_names)
+  if (is.character(name)) {
+    index <- match(name, def_names)
     if (is.na(index)) {
       cli_abort(c(
-        "{.val {which}} does not name a definition of the geometry",
+        "{.val {name}} does not name a definition of the geometry",
         i = "Use one of {.or {.val {def_names}}}"
       ))
     }
   } else {
-    index <- as.integer(which)
+    index <- as.integer(name)
     if (is.na(index)) {
-      cli_abort(paste0("{.arg which} must be either a string or a value convertible to a scalar integer"))
+      cli_abort(paste0("{.arg name} must be either a string or a value convertible to a scalar integer"))
     }
   }
   if (index < 1 || index > length(def_names)) {
     cli_abort(c(
-      "{.arg which} must reference a definitions for the geometry",
+      "{.arg name} must reference a definitions for the geometry",
       i = "Use a a positive integer less than or equal to {length(def_names)}"
     ))
   }
-  if (!anyNA(element)) {
-    element <- rep_len(element, length(x))
-    if (any(element > cardinality(x))) {
-      cli_abort("{.arg element} must not be larger than the cardinality of the element in the vector")
-    }
-  } else {
-    element <- NA_integer_
+
+  which <- as.integer(which)
+  if (anyNA(which)) {
+    # Hack to make NULL appear as value
+    cli_abort("{.arg which} must be either {.val {factor('NULL')}} or a vector of finite integers")
+  }
+  if (any(which > cardinality(x))) {
+    cli_abort("{.arg which} cannot be larger than the cardinality of the geometry")
   }
 
   new_geometry_vector(
-    geometry_set_definition(get_ptr(x), index - 1L, element - 1L, get_ptr(as_exact_numeric(value)))
+    geometry_set_definition(get_ptr(x), index - 1L, which - 1L, get_ptr(as_exact_numeric(value)))
   )
 }
 #' @rdname def

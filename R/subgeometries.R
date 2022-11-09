@@ -72,12 +72,12 @@ vert <- function(x, which = NULL, ...) {
 #' @export
 vert.euclid_geometry <- function(x, which = NULL, ...) {
   which <- as.integer(which)
-  if (any(which > cardinality(x))) {
-    cli_abort("{.arg which} cannot be larger than the cardinality of the geometry")
-  }
   if (anyNA(which)) {
     # Hack to make NULL appear as value
     cli_abort("{.arg which} must be either {.val {factor('NULL')}} or a vector of finite integers")
+  }
+  if (any(which > cardinality(x))) {
+    cli_abort("{.arg which} cannot be larger than the cardinality of the geometry")
   }
   which <- which - 1L
   new_geometry_vector(geometry_vertex(get_ptr(x), which))
@@ -99,12 +99,12 @@ vert.euclid_geometry <- function(x, which = NULL, ...) {
     cli_abort("{.arg x} and {.arg value} must have the same number of dimensions")
   }
   which <- as.integer(which)
-  if (any(which > cardinality(x))) {
-    cli_abort("{.arg which} cannot be larger than the cardinality of the geometry")
-  }
   if (anyNA(which)) {
     # Hack to make NULL appear as value
     cli_abort("{.arg which} must be either {.val {factor('NULL')}} or a vector of finite integers")
+  }
+  if (any(which > cardinality(x))) {
+    cli_abort("{.arg which} cannot be larger than the cardinality of the geometry")
   }
   which <- which - 1L
   new_geometry_vector(geometry_set_vertex(get_ptr(x), which, get_ptr(value)))
@@ -118,6 +118,10 @@ edge <- function(x, which = NULL, ...) {
 #' @export
 edge.euclid_geometry <- function(x, which = NULL, ...) {
   which <- as.integer(which)
+  if (anyNA(which)) {
+    # Hack to make NULL appear as value
+    cli_abort("{.arg which} must be either {.val {factor('NULL')}} or a vector of finite integers")
+  }
   if (any(which > edge_count(x))) {
     cli_abort("{.arg which} cannot be larger than the edge count of the geometry")
   }
