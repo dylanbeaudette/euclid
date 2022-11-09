@@ -12,13 +12,13 @@
 \usage{
 def(x, ...)
 
-\method{def}{euclid_geometry}(x, which, element = NA, ...)
+\method{def}{euclid_geometry}(x, name, which = NULL, ...)
 
 \method{def}{euclid_affine_transformation}(x, i, j, ...)
 
 def(x, ...) <- value
 
-\method{def}{euclid_geometry}(x, which, element = NA, ...) <- value
+\method{def}{euclid_geometry}(x, name, which = NULL, ...) <- value
 
 \method{def}{euclid_affine_transformation}(x, i, j, ...) <- value
 
@@ -29,13 +29,12 @@ definition_names(x, ...)
 
 \item{...}{parameters to pass on}
 
-\item{which}{Either a name or the index of the definition to extract, as
+\item{name}{Either a name or the index of the definition to extract, as
 matched to \code{definition_names(x)}}
 
-\item{element}{For geometries with a cardinality above 1, which element of
-the geometry should the definition be extracted for. If \code{NA} the definition
-for all elements will be returned and the length of the returned vector will
-be \code{sum(cardinality(x))} (matching the return of \code{as.matrix(x)})}
+\item{which}{An integer vector giving the vertex from which the definition
+should be extracted, or \code{NULL} to extract all
+to extract all.}
 
 \item{i, j}{The row and column of the cell in the transformation to fetch.}
 
