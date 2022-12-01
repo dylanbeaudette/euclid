@@ -100,7 +100,7 @@ public:
     std::vector<Segment_2> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result.push_back(Segment_2::NA_value());
         continue;
       }
@@ -211,7 +211,7 @@ public:
     std::vector<Segment_3> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result.push_back(Segment_3::NA_value());
         continue;
       }

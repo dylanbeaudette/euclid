@@ -100,7 +100,7 @@ public:
     std::vector<Ray_2> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result[i] = Ray_2::NA_value();
         continue;
       }
@@ -213,7 +213,7 @@ public:
     std::vector<Ray_3> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result[i] = Ray_3::NA_value();
         continue;
       }

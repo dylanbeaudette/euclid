@@ -45,5 +45,5 @@ inline bool is_degenerate_impl<Weighted_point_3>(const Weighted_point_3& geo) {
 
 template<typename T>
 inline bool invalid_geo(const T& geo) {
-  return !geo.is_valid() || is_degenerate_impl(geo);
+  return geo.is_na() || is_degenerate_impl(geo);
 }

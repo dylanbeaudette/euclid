@@ -17,6 +17,9 @@ vector2_p create_vector_2_empty() {
 
 [[cpp11::register]]
 vector2_p create_vector_2_point(point2_p p) {
+  if (p.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -33,6 +36,9 @@ vector2_p create_vector_2_point(point2_p p) {
 
 [[cpp11::register]]
 vector2_p create_vector_2_ray(ray2_p r) {
+  if (r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec;
   vec.reserve(r->size());
   for (size_t i = 0; i < r->size(); ++i) {
@@ -49,6 +55,9 @@ vector2_p create_vector_2_ray(ray2_p r) {
 
 [[cpp11::register]]
 vector2_p create_vector_2_segment(segment2_p s) {
+  if (s.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec;
   vec.reserve(s->size());
   for (size_t i = 0; i < s->size(); ++i) {
@@ -65,6 +74,9 @@ vector2_p create_vector_2_segment(segment2_p s) {
 
 [[cpp11::register]]
 vector2_p create_vector_2_line(line2_p l) {
+  if (l.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec;
   vec.reserve(l->size());
   for (size_t i = 0; i < l->size(); ++i) {
@@ -81,6 +93,9 @@ vector2_p create_vector_2_line(line2_p l) {
 
 [[cpp11::register]]
 vector2_p create_vector_2_direction(direction2_p d) {
+  if (d.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec;
   vec.reserve(d->size());
   for (size_t i = 0; i < d->size(); ++i) {
@@ -97,6 +112,9 @@ vector2_p create_vector_2_direction(direction2_p d) {
 
 [[cpp11::register]]
 vector2_p create_vector_2_x_y(exact_numeric_p x, exact_numeric_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec;
   vec.reserve(x->size());
   for (size_t i = 0; i < x->size(); ++i) {
@@ -113,6 +131,9 @@ vector2_p create_vector_2_x_y(exact_numeric_p x, exact_numeric_p y) {
 
 [[cpp11::register]]
 vector2_p vector_2_add_vector(vector2_p x, vector2_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec = (*x) + y->get_storage();
   vector2 *result(new vector2(vec));
 
@@ -121,6 +142,9 @@ vector2_p vector_2_add_vector(vector2_p x, vector2_p y) {
 
 [[cpp11::register]]
 vector2_p vector_2_minus_vector(vector2_p x, vector2_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec = (*x) - y->get_storage();
   vector2 *result(new vector2(vec));
 
@@ -129,6 +153,9 @@ vector2_p vector_2_minus_vector(vector2_p x, vector2_p y) {
 
 [[cpp11::register]]
 vector2_p vector_2_negate(vector2_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec = -(*x);
   vector2 *result(new vector2(vec));
 
@@ -137,6 +164,9 @@ vector2_p vector_2_negate(vector2_p x) {
 
 [[cpp11::register]]
 exact_numeric_p vector_2_dot_vector(vector2_p x, vector2_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Exact_number> vec = (*x) * y->get_storage();
   exact_numeric *result(new exact_numeric(vec));
 
@@ -145,6 +175,9 @@ exact_numeric_p vector_2_dot_vector(vector2_p x, vector2_p y) {
 
 [[cpp11::register]]
 vector2_p vector_2_times_numeric(vector2_p x, exact_numeric_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec = (*x) * y->get_storage();
   vector2 *result(new vector2(vec));
 
@@ -153,6 +186,9 @@ vector2_p vector_2_times_numeric(vector2_p x, exact_numeric_p y) {
 
 [[cpp11::register]]
 vector2_p vector_2_divide_numeric(vector2_p x, exact_numeric_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec = (*x) / y->get_storage();
   vector2 *result(new vector2(vec));
 
@@ -161,6 +197,9 @@ vector2_p vector_2_divide_numeric(vector2_p x, exact_numeric_p y) {
 
 [[cpp11::register]]
 vector2_p vector_2_sum(vector2_p x, bool na_rm) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec = x->sum(na_rm);
   vector2 *result(new vector2(vec));
 
@@ -169,6 +208,9 @@ vector2_p vector_2_sum(vector2_p x, bool na_rm) {
 
 [[cpp11::register]]
 vector2_p vector_2_cumsum(vector2_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec = x->cumsum();
   vector2 *result(new vector2(vec));
 
@@ -184,6 +226,9 @@ vector3_p create_vector_3_empty() {
 
 [[cpp11::register]]
 vector3_p create_vector_3_point(point3_p p) {
+  if (p.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -200,6 +245,9 @@ vector3_p create_vector_3_point(point3_p p) {
 
 [[cpp11::register]]
 vector3_p create_vector_3_ray(ray3_p r) {
+  if (r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec;
   vec.reserve(r->size());
   for (size_t i = 0; i < r->size(); ++i) {
@@ -216,6 +264,9 @@ vector3_p create_vector_3_ray(ray3_p r) {
 
 [[cpp11::register]]
 vector3_p create_vector_3_segment(segment3_p s) {
+  if (s.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec;
   vec.reserve(s->size());
   for (size_t i = 0; i < s->size(); ++i) {
@@ -232,6 +283,9 @@ vector3_p create_vector_3_segment(segment3_p s) {
 
 [[cpp11::register]]
 vector3_p create_vector_3_line(line3_p l) {
+  if (l.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec;
   vec.reserve(l->size());
   for (size_t i = 0; i < l->size(); ++i) {
@@ -248,6 +302,9 @@ vector3_p create_vector_3_line(line3_p l) {
 
 [[cpp11::register]]
 vector3_p create_vector_3_direction(direction3_p d) {
+  if (d.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec;
   vec.reserve(d->size());
   for (size_t i = 0; i < d->size(); ++i) {
@@ -264,6 +321,9 @@ vector3_p create_vector_3_direction(direction3_p d) {
 
 [[cpp11::register]]
 vector3_p create_vector_3_x_y_z(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z) {
+  if (x.get() == nullptr || y.get() == nullptr || z.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec;
   vec.reserve(x->size());
   for (size_t i = 0; i < x->size(); ++i) {
@@ -280,6 +340,9 @@ vector3_p create_vector_3_x_y_z(exact_numeric_p x, exact_numeric_p y, exact_nume
 
 [[cpp11::register]]
 vector3_p vector_3_add_vector(vector3_p x, vector3_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec = (*x) + y->get_storage();
   vector3 *result(new vector3(vec));
 
@@ -288,6 +351,9 @@ vector3_p vector_3_add_vector(vector3_p x, vector3_p y) {
 
 [[cpp11::register]]
 vector3_p vector_3_minus_vector(vector3_p x, vector3_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec = (*x) - y->get_storage();
   vector3 *result(new vector3(vec));
 
@@ -296,6 +362,9 @@ vector3_p vector_3_minus_vector(vector3_p x, vector3_p y) {
 
 [[cpp11::register]]
 vector3_p vector_3_negate(vector3_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec = -(*x);
   vector3 *result(new vector3(vec));
 
@@ -304,6 +373,9 @@ vector3_p vector_3_negate(vector3_p x) {
 
 [[cpp11::register]]
 exact_numeric_p vector_3_dot_vector(vector3_p x, vector3_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Exact_number> vec = (*x) * y->get_storage();
   exact_numeric *result(new exact_numeric(vec));
 
@@ -312,6 +384,9 @@ exact_numeric_p vector_3_dot_vector(vector3_p x, vector3_p y) {
 
 [[cpp11::register]]
 vector3_p vector_3_times_numeric(vector3_p x, exact_numeric_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec = (*x) * y->get_storage();
   vector3 *result(new vector3(vec));
 
@@ -320,6 +395,9 @@ vector3_p vector_3_times_numeric(vector3_p x, exact_numeric_p y) {
 
 [[cpp11::register]]
 vector3_p vector_3_divide_numeric(vector3_p x, exact_numeric_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec = (*x) / y->get_storage();
   vector3 *result(new vector3(vec));
 
@@ -328,6 +406,9 @@ vector3_p vector_3_divide_numeric(vector3_p x, exact_numeric_p y) {
 
 [[cpp11::register]]
 vector3_p vector_3_sum(vector3_p x, bool na_rm) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec = x->sum(na_rm);
   vector3 *result(new vector3(vec));
 
@@ -336,6 +417,9 @@ vector3_p vector_3_sum(vector3_p x, bool na_rm) {
 
 [[cpp11::register]]
 vector3_p vector_3_cumsum(vector3_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec = x->cumsum();
   vector3 *result(new vector3(vec));
 

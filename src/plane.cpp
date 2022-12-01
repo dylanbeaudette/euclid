@@ -18,6 +18,9 @@ plane_p create_plane_empty() {
 
 [[cpp11::register]]
 plane_p create_plane_abcd(exact_numeric_p a, exact_numeric_p b, exact_numeric_p c, exact_numeric_p d) {
+  if (a.get() == nullptr || b.get() == nullptr || c.get() == nullptr || d.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(a->size());
   for (size_t i = 0; i < a->size(); ++i) {
@@ -34,6 +37,9 @@ plane_p create_plane_abcd(exact_numeric_p a, exact_numeric_p b, exact_numeric_p 
 
 [[cpp11::register]]
 plane_p create_plane_pqr(point3_p p, point3_p q, point3_p r) {
+  if (p.get() == nullptr || q.get() == nullptr || r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -50,6 +56,9 @@ plane_p create_plane_pqr(point3_p p, point3_p q, point3_p r) {
 
 [[cpp11::register]]
 plane_p create_plane_pv(point3_p p, vector3_p v) {
+  if (p.get() == nullptr || v.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -66,6 +75,9 @@ plane_p create_plane_pv(point3_p p, vector3_p v) {
 
 [[cpp11::register]]
 plane_p create_plane_pd(point3_p p, direction3_p d) {
+  if (p.get() == nullptr || d.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -82,6 +94,9 @@ plane_p create_plane_pd(point3_p p, direction3_p d) {
 
 [[cpp11::register]]
 plane_p create_plane_pl(point3_p p, line3_p l) {
+  if (p.get() == nullptr || l.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -98,6 +113,9 @@ plane_p create_plane_pl(point3_p p, line3_p l) {
 
 [[cpp11::register]]
 plane_p create_plane_pr(point3_p p, ray3_p r) {
+  if (p.get() == nullptr || r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -114,6 +132,9 @@ plane_p create_plane_pr(point3_p p, ray3_p r) {
 
 [[cpp11::register]]
 plane_p create_plane_ps(point3_p p, segment3_p s) {
+  if (p.get() == nullptr || s.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -130,6 +151,9 @@ plane_p create_plane_ps(point3_p p, segment3_p s) {
 
 [[cpp11::register]]
 plane_p create_plane_circle(circle3_p circle) {
+  if (circle.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(circle->size());
   for (size_t i = 0; i < circle->size(); ++i) {
@@ -146,6 +170,9 @@ plane_p create_plane_circle(circle3_p circle) {
 
 [[cpp11::register]]
 plane_p create_plane_triangle(triangle3_p triangle) {
+  if (triangle.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Plane> vec;
   vec.reserve(triangle->size());
   for (size_t i = 0; i < triangle->size(); ++i) {

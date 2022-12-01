@@ -5,12 +5,14 @@
 \alias{approx_distance_matrix}
 \title{Calculate distances between geometries}
 \usage{
-distance_squared(x, y)
+distance_squared(x, y, ...)
 
-approx_distance_matrix(x, y)
+approx_distance_matrix(x, y, ...)
 }
 \arguments{
-\item{x, y}{eometry vectors or bounding boxes}
+\item{x, y}{geometry vectors or bounding boxes}
+
+\item{...}{arguments passed on to methods}
 }
 \value{
 A \code{euclid_exact_numeric} vector for \code{distance_squared()} and a

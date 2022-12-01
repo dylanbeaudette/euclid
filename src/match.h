@@ -19,7 +19,7 @@ inline cpp11::writable::integers match_impl(const std::vector<T>& x, const std::
   }
   auto start = lookup.begin();
   for (auto iter = x.begin(); iter != x.end(); ++iter) {
-    if (!iter->is_valid()) {
+    if (iter->is_na()) {
       if (NA_ind == -1) {
         results.push_back(R_NaInt);
       } else {
@@ -56,7 +56,7 @@ inline cpp11::writable::integers match_map_impl(const std::vector<T>& x, const s
   cpp11::writable::integers results;
   results.reserve(x.size());
   for (auto iter = x.begin(); iter != x.end(); ++iter) {
-    if (!iter->is_valid()) {
+    if (iter->is_na()) {
       if (NA_ind == -1) {
         results.push_back(R_NaInt);
       } else {

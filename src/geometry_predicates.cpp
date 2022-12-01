@@ -6,41 +6,65 @@
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_is_degenerate(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->is_degenerate();
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_has_point_inside(geometry_vector_base_p geometries, geometry_vector_base_p points) {
+  if (geometries.get() == nullptr || points.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->has_inside(*points);
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_has_point_on(geometry_vector_base_p geometries, geometry_vector_base_p points) {
+  if (geometries.get() == nullptr || points.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->has_on(*points);
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_has_point_outside(geometry_vector_base_p geometries, geometry_vector_base_p points) {
+  if (geometries.get() == nullptr || points.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->has_outside(*points);
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_has_point_on_positive(geometry_vector_base_p geometries, geometry_vector_base_p points) {
+  if (geometries.get() == nullptr || points.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->has_on_positive(*points);
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_has_point_on_negative(geometry_vector_base_p geometries, geometry_vector_base_p points) {
+  if (geometries.get() == nullptr || points.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->has_on_negative(*points);
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_constant_in(geometry_vector_base_p geometries, cpp11::integers coord) {
+  if (geometries.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->constant_in(coord);
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals geometry_parallel(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
+  if (geo1.get() == nullptr || geo2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (geo1->size() == 0 || geo2->size() == 0) {
     return {};
   }

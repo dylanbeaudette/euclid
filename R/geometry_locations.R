@@ -160,6 +160,7 @@ bisector <- function(x, y) {
 #' @param x A vector of triangles or tetrahedrons, or points if `y`, `z`, or `t`
 #' are provided
 #' @param y,z,t Vector of points
+#' @param ... arguments passed on to methods
 #'
 #' @return a vector of points
 #'
@@ -179,13 +180,17 @@ bisector <- function(x, y) {
 #' # Same as providing the points directly
 #' centroid(p[1], p[2], p[3])
 #'
-centroid <- function(x, y = NULL, z = NULL, t = NULL) {
+centroid <- function(x, ...) {
+  UseMethod("centroid")
+}
+#' @export
+centroid.default <- function(x, ...) {
+  cli_abort("centroid can't be calculated for this input")
+}
+#' @export
+centroid.euclid_geometry <- function(x, y = NULL, z = NULL, t = NULL, ...) {
   if (is.null(y)) {
-    if (is_base_geometry(x)) {
-      new_geometry_vector(geometry_centroid_1(get_ptr(x)))
-    } else {
-      centroid_impl(x, y, z, t)
-    }
+    centroid_impl(x, y, z, t)
   } else if (is.null(z)) {
     if (!is_point(x) || !is_point(y)) {
       cli_abort("{.arg x} and {.arg y} must be {.cls euclid_point} vectors")
@@ -202,15 +207,6 @@ centroid <- function(x, y = NULL, z = NULL, t = NULL) {
     }
     new_geometry_vector(geometry_centroid_4(get_ptr(x), get_ptr(y), get_ptr(z), get_ptr(t)))
   }
-}
-#' @rdname euclid_extend
-#' @export
-centroid_impl <- function(x, ...) {
-  UseMethod("centroid_impl")
-}
-#' @export
-centroid_impl.default <- function(x, ...) {
-  cli_abort("centroid can't be calculated for this input")
 }
 
 #' Construct the equidistant line of 2 or three points

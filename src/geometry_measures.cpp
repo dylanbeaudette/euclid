@@ -4,13 +4,22 @@
 
 [[cpp11::register]]
 cpp11::writable::doubles geometry_approx_length(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->length();
 }
 [[cpp11::register]]
 cpp11::writable::doubles geometry_approx_area(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->area();
 }
 [[cpp11::register]]
 cpp11::writable::doubles geometry_approx_volume(geometry_vector_base_p geometries) {
+  if (geometries.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geometries->volume();
 }

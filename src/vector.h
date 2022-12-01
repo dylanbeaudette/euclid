@@ -74,7 +74,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result[i] = Vector_2::NA_value();
         continue;
       }
@@ -90,7 +90,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result[i] = Vector_2::NA_value();
         continue;
       }
@@ -102,7 +102,7 @@ public:
     std::vector<Vector_2> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result[i] = Vector_2::NA_value();
         continue;
       }
@@ -118,7 +118,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result[i] = Exact_number::NA_value();
         continue;
       }
@@ -134,7 +134,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result[i] = Vector_2::NA_value();
         continue;
       }
@@ -150,7 +150,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()] || other[i % other.size()] == 0.0) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na() || other[i % other.size()] == 0.0) {
         result[i] = Vector_2::NA_value();
         continue;
       }
@@ -165,7 +165,7 @@ public:
     Vector_2 total = _storage[0];
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           total = Vector_2::NA_value();
           break;
@@ -190,7 +190,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_sum = Vector_2::NA_value();
       }
@@ -274,7 +274,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result[i] = Vector_3::NA_value();
         continue;
       }
@@ -290,7 +290,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result[i] = Vector_3::NA_value();
         continue;
       }
@@ -302,7 +302,7 @@ public:
     std::vector<Vector_3> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result[i] = Vector_3::NA_value();
         continue;
       }
@@ -318,7 +318,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result[i] = Exact_number::NA_value();
         continue;
       }
@@ -334,7 +334,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result[i] = Vector_3::NA_value();
         continue;
       }
@@ -350,7 +350,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()] || other[i % other.size()] == 0.0) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na() || other[i % other.size()] == 0.0) {
         result[i] = Vector_3::NA_value();
         continue;
       }
@@ -365,7 +365,7 @@ public:
     Vector_3 total = _storage[0];
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           total = Vector_3::NA_value();
           break;
@@ -390,7 +390,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i]) {
         is_na = true;
         cum_sum = Vector_3::NA_value();
       }

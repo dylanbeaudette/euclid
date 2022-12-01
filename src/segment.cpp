@@ -13,6 +13,9 @@ segment2_p create_segment_2_empty() {
 
 [[cpp11::register]]
 segment2_p create_segment_2_p_q(point2_p p, point2_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Segment_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -29,6 +32,9 @@ segment2_p create_segment_2_p_q(point2_p p, point2_p q) {
 
 [[cpp11::register]]
 segment2_p create_segment_2_p_v(point2_p p, vector2_p v) {
+  if (p.get() == nullptr || v.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Segment_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -45,6 +51,9 @@ segment2_p create_segment_2_p_v(point2_p p, vector2_p v) {
 
 [[cpp11::register]]
 segment2_p segment_2_negate(segment2_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Segment_2> vec = -(*x);
   segment2 *result(new segment2(vec));
 
@@ -60,6 +69,9 @@ segment3_p create_segment_3_empty() {
 
 [[cpp11::register]]
 segment3_p create_segment_3_p_q(point3_p p, point3_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Segment_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -76,6 +88,9 @@ segment3_p create_segment_3_p_q(point3_p p, point3_p q) {
 
 [[cpp11::register]]
 segment3_p create_segment_3_p_v(point3_p p, vector3_p v) {
+  if (p.get() == nullptr || v.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Segment_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -92,6 +107,9 @@ segment3_p create_segment_3_p_v(point3_p p, vector3_p v) {
 
 [[cpp11::register]]
 segment3_p segment_3_negate(segment3_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Segment_3> vec = -(*x);
   segment3 *result(new segment3(vec));
 

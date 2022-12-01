@@ -90,7 +90,8 @@ approx_radius <- function(x) {
 #' that the value of `mat[i, j]` corresponds to the distance between `x[i]` and
 #' `y[j]`.
 #'
-#' @param x,y eometry vectors or bounding boxes
+#' @param x,y geometry vectors or bounding boxes
+#' @param ... arguments passed on to methods
 #'
 #' @return A `euclid_exact_numeric` vector for `distance_squared()` and a
 #' numeric matrix for `distance_matrix()`
@@ -111,9 +112,17 @@ approx_radius <- function(x) {
 #' # All distances
 #' approx_distance_matrix(l, r)
 #'
-distance_squared <- function(x, y) {
-  if (!is_base_geometry(x) || !is_base_geometry(y)) {
-    return(distance_squared_impl(x, y))
+distance_squared <- function(x, y, ...) {
+  UseMethod("distance_squared")
+}
+#' @export
+distance_squared.default <- function(x, y, ...) {
+  cli_abort("No method available to calculate distances between the given input")
+}
+#' @export
+distance_squared.euclid_geometry <- function(x, y, ...) {
+  if (!is_base_geometry(y)) {
+    return(distance_squared(y, x, ...))
   }
   if (is_weighted_point(x)) {
     x <- as_point(x)
@@ -123,21 +132,19 @@ distance_squared <- function(x, y) {
   }
   new_exact_numeric(geometry_squared_distance(get_ptr(x), get_ptr(y)))
 }
-#' @rdname euclid_extend
-#' @export
-distance_squared_impl <- function(x, y) {
-  UseMethod("distance_squared_impl")
-}
-#' @export
-distance_squared_impl.default <- function(x, y) {
-  cli_abort("{.fn distance_squared} can only be calculated between two {.cls euclid_geometry} vectors")
-}
-
 #' @rdname distance_squared
 #' @export
-approx_distance_matrix <- function(x, y) {
-  if (!is_base_geometry(x) || !is_base_geometry(y)) {
-    return(approx_distance_matrix_impl(x, y))
+approx_distance_matrix <- function(x, y, ...) {
+  UseMethod("approx_distance_matrix")
+}
+#' @export
+approx_distance_matrix.default <- function(x, y, ...) {
+  cli_abort("No method available to calculate distances between the given input")
+}
+#' @export
+approx_distance_matrix.euclid_geometry <- function(x, y, ...) {
+  if (!is_base_geometry(y)) {
+    return(approx_distance_matrix(y, x, ...))
   }
   if (is_weighted_point(x)) {
     x <- as_point(x)
@@ -146,15 +153,6 @@ approx_distance_matrix <- function(x, y) {
     y <- as_point(y)
   }
   geometry_distance_matrix(get_ptr(x), get_ptr(y))
-}
-#' @rdname euclid_extend
-#' @export
-approx_distance_matrix_impl <- function(x, y) {
-  UseMethod("approx_distance_matrix_impl")
-}
-#' @export
-approx_distance_matrix_impl.default <- function(x, y) {
-  cli_abort("{.fn approx_distance_matrix} can only be calculated between two {.cls euclid_geometry} vectors")
 }
 
 #' Calculate angle between geometries

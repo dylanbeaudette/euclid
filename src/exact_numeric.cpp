@@ -92,6 +92,11 @@ exact_numeric_p exact_numeric_combine(exact_numeric_p ex_n, cpp11::list_of<exact
   if (ex_n.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
+  for (R_xlen_t i = 0; i < extra.size(); ++i) {
+    if (extra[i].get() == nullptr) {
+      cpp11::stop("Data structure pointer cleared from memory");
+    }
+  }
   exact_numeric* new_ex(new exact_numeric(ex_n->combine(extra)));
   return {new_ex};
 }
@@ -163,7 +168,7 @@ cpp11::writable::logicals exact_numeric::operator==(const exact_numeric& x) cons
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
+    if (_storage[i % size()].is_na() || x[i % x.size()].is_na()) {
       result[i] = NA_LOGICAL;
       continue;
     }
@@ -189,7 +194,7 @@ cpp11::writable::logicals exact_numeric::operator<(const exact_numeric& x) const
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
+    if (_storage[i % size()].is_na() || x[i % x.size()].is_na()) {
       result[i] = NA_LOGICAL;
       continue;
     }
@@ -216,7 +221,7 @@ cpp11::writable::logicals exact_numeric::operator>(const exact_numeric& x) const
   cpp11::writable::logicals result(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
+    if (_storage[i % size()].is_na() || x[i % x.size()].is_na()) {
       result[i] = NA_LOGICAL;
       continue;
     }
@@ -238,7 +243,7 @@ exact_numeric exact_numeric::unique() const {
   std::set<Exact_number> uniques;
   bool NA_seen = false;
   for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-    if (!iter->is_valid()) {
+    if (iter->is_na()) {
       if (!NA_seen) {
         new_storage.push_back(Exact_number::NA_value());
         NA_seen = true;
@@ -268,7 +273,7 @@ cpp11::writable::logicals exact_numeric::duplicated() const {
   dupes.reserve(size());
   bool NA_seen = false;
   for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-    if (!iter->is_valid()) {
+    if (iter->is_na()) {
       if (!NA_seen) {
         dupes.push_back(TRUE);
         NA_seen = true;
@@ -300,7 +305,7 @@ int exact_numeric::any_duplicated() const {
   bool NA_seen = false;
 
   for (size_t i = 0; i < _storage.size(); ++i) {
-    if (!_storage[i].is_valid()) {
+    if (_storage[i].is_na()) {
       if (NA_seen) {
         anyone = i;
         break;
@@ -378,7 +383,7 @@ exact_numeric exact_numeric::operator+(const exact_numeric& x) const {
   result.reserve(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
+    if (_storage[i % size()].is_na() || x[i % x.size()].is_na()) {
       result.push_back(Exact_number::NA_value());
       continue;
     }
@@ -406,7 +411,7 @@ exact_numeric exact_numeric::operator-(const exact_numeric& x) const {
   result.reserve(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
+    if (_storage[i % size()].is_na() || x[i % x.size()].is_na()) {
       result.push_back(Exact_number::NA_value());
       continue;
     }
@@ -429,7 +434,7 @@ exact_numeric exact_numeric::operator-() const {
   result.reserve(size());
 
   for (size_t i = 0; i < size(); ++i) {
-    if (!_storage[i]) {
+    if (_storage[i].is_na()) {
       result.push_back(Exact_number::NA_value());
       continue;
     }
@@ -457,7 +462,7 @@ exact_numeric exact_numeric::operator*(const exact_numeric& x) const {
   result.reserve(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()]) {
+    if (_storage[i % size()].is_na() || x[i % x.size()].is_na()) {
       result.push_back(Exact_number::NA_value());
       continue;
     }
@@ -485,7 +490,7 @@ exact_numeric exact_numeric::operator/(const exact_numeric& x) const {
   result.reserve(output_length);
 
   for (size_t i = 0; i < output_length; ++i) {
-    if (!_storage[i % size()] || !x[i % x.size()] || x[i % x.size()] == 0.0) {
+    if (_storage[i % size()].is_na() || x[i % x.size()].is_na() || x[i % x.size()] == 0.0) {
       result.push_back(Exact_number::NA_value());
       continue;
     }
@@ -508,7 +513,7 @@ exact_numeric exact_numeric::abs() const {
   result.reserve(size());
 
   for (size_t i = 0; i < size(); ++i) {
-    if (!_storage[i]) {
+    if (_storage[i].is_na()) {
       result.push_back(Exact_number::NA_value());
       continue;
     }
@@ -530,7 +535,7 @@ cpp11::writable::integers exact_numeric::sign() const {
   cpp11::writable::integers result(size());
 
   for (size_t i = 0; i < size(); ++i) {
-    if (!_storage[i]) {
+    if (_storage[i].is_na()) {
       result[i] = R_NaInt;
       continue;
     }
@@ -561,7 +566,7 @@ exact_numeric exact_numeric::cumsum() const {
   bool is_na = false;
 
   for (size_t i = 0; i < size(); ++i) {
-    if (!is_na && !_storage[i]) {
+    if (!is_na && _storage[i].is_na()) {
       is_na = true;
       cum_sum = Exact_number::NA_value();
     }
@@ -590,7 +595,7 @@ exact_numeric exact_numeric::cumprod() const {
   bool is_na = false;
 
   for (size_t i = 0; i < size(); ++i) {
-    if (!is_na && !_storage[i]) {
+    if (!is_na && _storage[i].is_na()) {
       is_na = true;
       cum_prod = Exact_number::NA_value();
     }
@@ -619,7 +624,7 @@ exact_numeric exact_numeric::cummax() const {
     bool is_na = !cum_max;
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_max = Exact_number::NA_value();
       }
@@ -649,7 +654,7 @@ exact_numeric exact_numeric::cummin() const {
     bool is_na = !cum_min;
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_min = Exact_number::NA_value();
       }
@@ -677,7 +682,7 @@ exact_numeric exact_numeric::diff(int lag) const {
     result.reserve(size() - lag);
 
     for (size_t i = 0; i < size() - lag; ++i) {
-      if (!_storage[i + lag] || !_storage[i]) {
+      if (_storage[i + lag].is_na() || _storage[i].is_na()) {
         result.push_back(Exact_number::NA_value());
       } else {
         result.push_back(_storage[i + lag] - _storage[i]);
@@ -699,7 +704,7 @@ exact_numeric_p exact_numeric_diff(exact_numeric_p ex_n, int lag) {
 exact_numeric exact_numeric::sort(bool decreasing, cpp11::logicals na_last) const {
   exact_numeric result = *this;
 
-  auto end = std::remove_if(result._storage.begin(), result._storage.end(), [](const Exact_number& x) { return !x.is_valid(); });
+  auto end = std::remove_if(result._storage.begin(), result._storage.end(), [](const Exact_number& x) { return x.is_na(); });
   int n_na = result._storage.end() - end;
   result._storage.resize(end - result._storage.begin());
 
@@ -733,7 +738,7 @@ exact_numeric exact_numeric::sum(bool na_rm) const {
   Exact_number total = 0.0;
 
   for (size_t i = 0; i < size(); ++i) {
-    if (!_storage[i]) {
+    if (_storage[i].is_na()) {
       if (!na_rm) {
         total = Exact_number::NA_value();
         break;
@@ -760,7 +765,7 @@ exact_numeric exact_numeric::prod(bool na_rm) const {
   Exact_number total = 1.0;
 
   for (size_t i = 0; i < size(); ++i) {
-    if (!_storage[i]) {
+    if (_storage[i].is_na()) {
       if (!na_rm) {
         total = Exact_number::NA_value();
         break;
@@ -791,7 +796,7 @@ exact_numeric exact_numeric::min(bool na_rm) const {
   } else {
     minimum = _storage[0];
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           minimum = Exact_number::NA_value();
           break;
@@ -823,7 +828,7 @@ exact_numeric exact_numeric::max(bool na_rm) const {
     maximum = Exact_number::NA_value();
   } else {
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           maximum = Exact_number::NA_value();
           break;

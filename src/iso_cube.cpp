@@ -12,6 +12,9 @@ iso_cube_p create_iso_cube_empty() {
 
 [[cpp11::register]]
 iso_cube_p create_iso_cube_pq(point3_p p, point3_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Iso_cuboid> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -28,6 +31,9 @@ iso_cube_p create_iso_cube_pq(point3_p p, point3_p q) {
 
 [[cpp11::register]]
 iso_cube_p create_iso_cube_minmax(exact_numeric_p minx, exact_numeric_p miny, exact_numeric_p minz, exact_numeric_p maxx, exact_numeric_p maxy, exact_numeric_p maxz) {
+  if (minx.get() == nullptr || miny.get() == nullptr || minz.get() == nullptr || maxx.get() == nullptr || maxy.get() == nullptr || maxz.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Iso_cuboid> vec;
   vec.reserve(minx->size());
   for (size_t i = 0; i < minx->size(); ++i) {
@@ -44,6 +50,9 @@ iso_cube_p create_iso_cube_minmax(exact_numeric_p minx, exact_numeric_p miny, ex
 
 [[cpp11::register]]
 iso_cube_p create_iso_cube_bbox(bbox3_p bbox) {
+  if (bbox.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Iso_cuboid> vec;
   vec.reserve(bbox->size());
   for (size_t i = 0; i < bbox->size(); ++i) {

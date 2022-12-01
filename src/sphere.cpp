@@ -11,6 +11,9 @@ sphere_p create_sphere_empty() {
 
 [[cpp11::register]]
 sphere_p create_sphere_center_radius(point3_p center, exact_numeric_p r2) {
+  if (center.get() == nullptr || r2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Sphere> vec;
   vec.reserve(center->size());
   for (size_t i = 0; i < center->size(); ++i) {
@@ -27,6 +30,9 @@ sphere_p create_sphere_center_radius(point3_p center, exact_numeric_p r2) {
 
 [[cpp11::register]]
 sphere_p create_sphere_4_point(point3_p p, point3_p q, point3_p r, point3_p s) {
+  if (p.get() == nullptr || q.get() == nullptr || r.get() == nullptr || s.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Sphere> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -48,6 +54,9 @@ sphere_p create_sphere_4_point(point3_p p, point3_p q, point3_p r, point3_p s) {
 
 [[cpp11::register]]
 sphere_p create_sphere_3_point(point3_p p, point3_p q, point3_p r) {
+  if (p.get() == nullptr || q.get() == nullptr || r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Sphere> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -64,6 +73,9 @@ sphere_p create_sphere_3_point(point3_p p, point3_p q, point3_p r) {
 
 [[cpp11::register]]
 sphere_p create_sphere_2_point(point3_p p, point3_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Sphere> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -80,6 +92,9 @@ sphere_p create_sphere_2_point(point3_p p, point3_p q) {
 
 [[cpp11::register]]
 sphere_p create_sphere_circle(circle3_p circ) {
+  if (circ.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Sphere> vec;
   vec.reserve(circ->size());
   for (size_t i = 0; i < circ->size(); ++i) {

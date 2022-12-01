@@ -15,6 +15,9 @@ ray2_p create_ray_2_empty() {
 
 [[cpp11::register]]
 ray2_p create_ray_2_p_q(point2_p p, point2_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -31,6 +34,9 @@ ray2_p create_ray_2_p_q(point2_p p, point2_p q) {
 
 [[cpp11::register]]
 ray2_p create_ray_2_p_d(point2_p p, direction2_p d) {
+  if (p.get() == nullptr || d.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -47,6 +53,9 @@ ray2_p create_ray_2_p_d(point2_p p, direction2_p d) {
 
 [[cpp11::register]]
 ray2_p create_ray_2_p_v(point2_p p, vector2_p v) {
+  if (p.get() == nullptr || v.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -63,6 +72,9 @@ ray2_p create_ray_2_p_v(point2_p p, vector2_p v) {
 
 [[cpp11::register]]
 ray2_p create_ray_2_p_l(point2_p p, line2_p l) {
+  if (p.get() == nullptr || l.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -79,6 +91,9 @@ ray2_p create_ray_2_p_l(point2_p p, line2_p l) {
 
 [[cpp11::register]]
 ray2_p ray_2_negate(ray2_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_2> vec = -(*x);
   ray2 *result(new ray2(vec));
 
@@ -94,6 +109,9 @@ ray3_p create_ray_3_empty() {
 
 [[cpp11::register]]
 ray3_p create_ray_3_p_q(point3_p p, point3_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -110,6 +128,9 @@ ray3_p create_ray_3_p_q(point3_p p, point3_p q) {
 
 [[cpp11::register]]
 ray3_p create_ray_3_p_d(point3_p p, direction3_p d) {
+  if (p.get() == nullptr || d.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -126,6 +147,9 @@ ray3_p create_ray_3_p_d(point3_p p, direction3_p d) {
 
 [[cpp11::register]]
 ray3_p create_ray_3_p_v(point3_p p, vector3_p v) {
+  if (p.get() == nullptr || v.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -142,6 +166,9 @@ ray3_p create_ray_3_p_v(point3_p p, vector3_p v) {
 
 [[cpp11::register]]
 ray3_p create_ray_3_p_l(point3_p p, line3_p l) {
+  if (p.get() == nullptr || l.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -158,6 +185,9 @@ ray3_p create_ray_3_p_l(point3_p p, line3_p l) {
 
 [[cpp11::register]]
 ray3_p ray_3_negate(ray3_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Ray_3> vec = -(*x);
   ray3 *result(new ray3(vec));
 

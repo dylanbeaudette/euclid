@@ -133,7 +133,7 @@ public:
     result.reserve(ncols * ncols * size());
 
     for (size_t k = 0; k < size(); ++k) {
-      bool is_na = !_storage[k];
+      bool is_na = _storage[k].is_na();
       for (size_t i = 0; i < ncols; ++i) {
         for (size_t j = 0; j < ncols; ++j) {
           if (is_na) {
@@ -153,7 +153,7 @@ public:
     size_t ncols = dim + 1;
 
     for (size_t k = 0; k < size(); ++k) {
-      if (!_storage[k]) {
+      if (_storage[k].is_na()) {
         result[k] = "<NA>";
         continue;
       }
@@ -223,7 +223,7 @@ public:
     const transform_vector<T, dim>* other_recast = dynamic_cast< const transform_vector<T, dim>* >(&other);
 
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
+      if (_storage[i % size()].is_na() || (*other_recast)[i % other_recast->size()].is_na()) {
         result[i] = NA_LOGICAL;
         continue;
       }
@@ -249,7 +249,7 @@ public:
     const transform_vector<T, dim>* other_recast = dynamic_cast< const transform_vector<T, dim>* >(&other);
 
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*other_recast)[i % other_recast->size()]) {
+      if (_storage[i % size()].is_na() || (*other_recast)[i % other_recast->size()].is_na()) {
         result.push_back(T::NA_value());
         continue;
       }
@@ -263,7 +263,7 @@ public:
     result.reserve(size());
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result[i] = T::NA_value();
         continue;
       }
@@ -346,7 +346,7 @@ public:
     std::vector<T> new_storage;
     bool NA_seen = false;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-      if (!iter->is_valid()) {
+      if (iter->is_na()) {
         if (!NA_seen) {
           new_storage.push_back(T::NA_value());
           NA_seen = true;
@@ -366,7 +366,7 @@ public:
     dupes.reserve(size());
     bool NA_seen = false;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-      if (!iter->is_valid()) {
+      if (iter->is_na()) {
         if (!NA_seen) {
           dupes.push_back(TRUE);
           NA_seen = true;
@@ -388,7 +388,7 @@ public:
     bool NA_seen = false;;
     int i = 0;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-      if (!_storage[i].is_valid()) {
+      if (_storage[i].is_na()) {
         if (NA_seen) {
           anyone = i;
           break;
@@ -442,7 +442,7 @@ public:
     result.reserve(size());
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result[i] = NA_LOGICAL;
         continue;
       }
@@ -455,7 +455,7 @@ public:
     T total(CGAL::IDENTITY);
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           total = T::NA_value();
           break;
@@ -477,7 +477,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_prod = T::NA_value();
       }

@@ -16,6 +16,9 @@ point2_p create_point_2_empty() {
 
 [[cpp11::register]]
 point2_p create_point_2_x_y(exact_numeric_p x, exact_numeric_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec;
   vec.reserve(x->size());
   for (size_t i = 0; i < x->size(); ++i) {
@@ -32,6 +35,9 @@ point2_p create_point_2_x_y(exact_numeric_p x, exact_numeric_p y) {
 
 [[cpp11::register]]
 point2_p create_point_2_vec(vector2_p p) {
+  if (p.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -48,6 +54,9 @@ point2_p create_point_2_vec(vector2_p p) {
 
 [[cpp11::register]]
 point2_p create_point_2_wp(point_w2_p p) {
+  if (p.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -64,6 +73,9 @@ point2_p create_point_2_wp(point_w2_p p) {
 
 [[cpp11::register]]
 point2_p point_2_add_vector(point2_p x, vector2_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec = (*x) + y->get_storage();
   point2 *result(new point2(vec));
 
@@ -72,6 +84,9 @@ point2_p point_2_add_vector(point2_p x, vector2_p y) {
 
 [[cpp11::register]]
 point2_p point_2_sub_vector(point2_p x, vector2_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec = (*x) - y->get_storage();
   point2 *result(new point2(vec));
 
@@ -80,6 +95,9 @@ point2_p point_2_sub_vector(point2_p x, vector2_p y) {
 
 [[cpp11::register]]
 vector2_p point_2_sub_point(point2_p x, point2_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_2> vec = (*x) - y->get_storage();
   vector2 *result(new vector2(vec));
 
@@ -88,16 +106,25 @@ vector2_p point_2_sub_point(point2_p x, point2_p y) {
 
 [[cpp11::register]]
 cpp11::writable::logicals point_2_less(point2_p x, point2_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*x) < y->get_storage();
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals point_2_greater(point2_p x, point2_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*x) > y->get_storage();
 }
 
 [[cpp11::register]]
 point2_p point_2_sort(point2_p x, bool decreasing, cpp11::logicals na_last) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec = x->sort(decreasing, na_last);
   point2 *result(new point2(vec));
   return {result};
@@ -105,11 +132,17 @@ point2_p point_2_sort(point2_p x, bool decreasing, cpp11::logicals na_last) {
 
 [[cpp11::register]]
 cpp11::writable::integers point_2_rank(point2_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return x->rank();
 }
 
 [[cpp11::register]]
 point2_p point_2_min(point2_p x, bool na_rm) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec = x->min(na_rm);
   point2 *result(new point2(vec));
   return {result};
@@ -117,6 +150,9 @@ point2_p point_2_min(point2_p x, bool na_rm) {
 
 [[cpp11::register]]
 point2_p point_2_max(point2_p x, bool na_rm) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec = x->max(na_rm);
   point2 *result(new point2(vec));
   return {result};
@@ -124,6 +160,9 @@ point2_p point_2_max(point2_p x, bool na_rm) {
 
 [[cpp11::register]]
 point2_p point_2_cummin(point2_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec = x->cummin();
   point2 *result(new point2(vec));
   return {result};
@@ -131,6 +170,9 @@ point2_p point_2_cummin(point2_p x) {
 
 [[cpp11::register]]
 point2_p point_2_cummax(point2_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_2> vec = x->cummax();
   point2 *result(new point2(vec));
   return {result};
@@ -145,6 +187,9 @@ point3_p create_point_3_empty() {
 
 [[cpp11::register]]
 point3_p create_point_3_x_y_z(exact_numeric_p x, exact_numeric_p y, exact_numeric_p z) {
+  if (x.get() == nullptr || y.get() == nullptr || z.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec;
   vec.reserve(x->size());
   for (size_t i = 0; i < x->size(); ++i) {
@@ -161,6 +206,9 @@ point3_p create_point_3_x_y_z(exact_numeric_p x, exact_numeric_p y, exact_numeri
 
 [[cpp11::register]]
 point3_p create_point_3_vec(vector3_p p) {
+  if (p.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -177,6 +225,9 @@ point3_p create_point_3_vec(vector3_p p) {
 
 [[cpp11::register]]
 point3_p create_point_3_wp(point_w3_p p) {
+  if (p.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -193,6 +244,9 @@ point3_p create_point_3_wp(point_w3_p p) {
 
 [[cpp11::register]]
 point3_p point_3_add_vector(point3_p x, vector3_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec = (*x) + y->get_storage();
   point3 *result(new point3(vec));
 
@@ -201,6 +255,9 @@ point3_p point_3_add_vector(point3_p x, vector3_p y) {
 
 [[cpp11::register]]
 point3_p point_3_sub_vector(point3_p x, vector3_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec = (*x) - y->get_storage();
   point3 *result(new point3(vec));
 
@@ -209,6 +266,9 @@ point3_p point_3_sub_vector(point3_p x, vector3_p y) {
 
 [[cpp11::register]]
 vector3_p point_3_sub_point(point3_p x, point3_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Vector_3> vec = (*x) - y->get_storage();
   vector3 *result(new vector3(vec));
 
@@ -217,16 +277,25 @@ vector3_p point_3_sub_point(point3_p x, point3_p y) {
 
 [[cpp11::register]]
 cpp11::writable::logicals point_3_less(point3_p x, point3_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*x) < y->get_storage();
 }
 
 [[cpp11::register]]
 cpp11::writable::logicals point_3_greater(point3_p x, point3_p y) {
+  if (x.get() == nullptr || y.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return (*x) > y->get_storage();
 }
 
 [[cpp11::register]]
 point3_p point_3_sort(point3_p x, bool decreasing, cpp11::logicals na_last) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec = x->sort(decreasing, na_last);
   point3 *result(new point3(vec));
   return {result};
@@ -234,11 +303,17 @@ point3_p point_3_sort(point3_p x, bool decreasing, cpp11::logicals na_last) {
 
 [[cpp11::register]]
 cpp11::writable::integers point_3_rank(point3_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return x->rank();
 }
 
 [[cpp11::register]]
 point3_p point_3_min(point3_p x, bool na_rm) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec = x->min(na_rm);
   point3 *result(new point3(vec));
   return {result};
@@ -246,6 +321,9 @@ point3_p point_3_min(point3_p x, bool na_rm) {
 
 [[cpp11::register]]
 point3_p point_3_max(point3_p x, bool na_rm) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec = x->max(na_rm);
   point3 *result(new point3(vec));
   return {result};
@@ -253,6 +331,9 @@ point3_p point_3_max(point3_p x, bool na_rm) {
 
 [[cpp11::register]]
 point3_p point_3_cummin(point3_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec = x->cummin();
   point3 *result(new point3(vec));
   return {result};
@@ -260,6 +341,9 @@ point3_p point_3_cummin(point3_p x) {
 
 [[cpp11::register]]
 point3_p point_3_cummax(point3_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Point_3> vec = x->cummax();
   point3 *result(new point3(vec));
   return {result};
@@ -267,6 +351,9 @@ point3_p point_3_cummax(point3_p x) {
 
 [[cpp11::register]]
 cpp11::writable::logicals point_collinear(geometry_vector_base_p x, geometry_vector_base_p y, geometry_vector_base_p z) {
+  if (x.get() == nullptr || y.get() == nullptr || z.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (x->size() == 0 || y->size() == 0 || z->size() == 0) {
     return {};
   }
@@ -301,6 +388,9 @@ cpp11::writable::logicals point_collinear(geometry_vector_base_p x, geometry_vec
 
 [[cpp11::register]]
 cpp11::writable::logicals point_coplanar(point3_p x, point3_p y, point3_p z, point3_p t) {
+  if (x.get() == nullptr || y.get() == nullptr || z.get() == nullptr || t.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (x->size() == 0 || y->size() == 0 || z->size() == 0 || t->size() == 0) {
     return {};
   }
@@ -319,6 +409,9 @@ cpp11::writable::logicals point_coplanar(point3_p x, point3_p y, point3_p z, poi
 
 [[cpp11::register]]
 cpp11::writable::logicals point_ordered(geometry_vector_base_p x, geometry_vector_base_p y, geometry_vector_base_p z) {
+  if (x.get() == nullptr || y.get() == nullptr || z.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (x->size() == 0 || y->size() == 0 || z->size() == 0) {
     return {};
   }
@@ -353,6 +446,9 @@ cpp11::writable::logicals point_ordered(geometry_vector_base_p x, geometry_vecto
 
 [[cpp11::register]]
 cpp11::writable::logicals point_ordered_along(geometry_vector_base_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (x->size() < 3) {
     return {};
   }
@@ -388,6 +484,9 @@ cpp11::writable::logicals point_ordered_along(geometry_vector_base_p x) {
 
 [[cpp11::register]]
 cpp11::writable::logicals point_turns_left(point2_p x, point2_p y, point2_p z) {
+  if (x.get() == nullptr || y.get() == nullptr || z.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (x->size() == 0 || y->size() == 0 || z->size() == 0) {
     return {};
   }
@@ -406,6 +505,9 @@ cpp11::writable::logicals point_turns_left(point2_p x, point2_p y, point2_p z) {
 
 [[cpp11::register]]
 cpp11::writable::logicals point_turns_right(point2_p x, point2_p y, point2_p z) {
+  if (x.get() == nullptr || y.get() == nullptr || z.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (x->size() == 0 || y->size() == 0 || z->size() == 0) {
     return {};
   }
@@ -424,6 +526,9 @@ cpp11::writable::logicals point_turns_right(point2_p x, point2_p y, point2_p z) 
 
 [[cpp11::register]]
 cpp11::writable::integers point_turns(point2_p x) {
+  if (x.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (x->size() < 3) {
     return {};
   }

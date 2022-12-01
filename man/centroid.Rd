@@ -4,11 +4,13 @@
 \alias{centroid}
 \title{Calculate the centroid of a geometry or a set of points}
 \usage{
-centroid(x, y = NULL, z = NULL, t = NULL)
+centroid(x, ...)
 }
 \arguments{
 \item{x}{A vector of triangles or tetrahedrons, or points if \code{y}, \code{z}, or \code{t}
 are provided}
+
+\item{...}{arguments passed on to methods}
 
 \item{y, z, t}{Vector of points}
 }

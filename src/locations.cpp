@@ -4,6 +4,9 @@
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_barycenter_2(geometry_vector_base_p p1, geometry_vector_base_p p2) {
+  if (p1.get() == nullptr || p2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (p1->dimensions() == 2) {
     auto vec1 = get_vector_of_geo<Weighted_point_2>(*p1);
     auto vec2 = get_vector_of_geo<Weighted_point_2>(*p2);
@@ -47,6 +50,9 @@ geometry_vector_base_p geometry_barycenter_2(geometry_vector_base_p p1, geometry
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_barycenter_3(geometry_vector_base_p p1, geometry_vector_base_p p2, geometry_vector_base_p p3) {
+  if (p1.get() == nullptr || p2.get() == nullptr || p3.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (p1->dimensions() == 2) {
     auto vec1 = get_vector_of_geo<Weighted_point_2>(*p1);
     auto vec2 = get_vector_of_geo<Weighted_point_2>(*p2);
@@ -94,6 +100,9 @@ geometry_vector_base_p geometry_barycenter_3(geometry_vector_base_p p1, geometry
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_barycenter_4(geometry_vector_base_p p1, geometry_vector_base_p p2, geometry_vector_base_p p3, geometry_vector_base_p p4) {
+  if (p1.get() == nullptr || p2.get() == nullptr || p3.get() == nullptr || p4.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (p1->dimensions() == 2) {
     auto vec1 = get_vector_of_geo<Weighted_point_2>(*p1);
     auto vec2 = get_vector_of_geo<Weighted_point_2>(*p2);
@@ -145,6 +154,9 @@ geometry_vector_base_p geometry_barycenter_4(geometry_vector_base_p p1, geometry
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
+  if (geo1.get() == nullptr || geo2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   size_t output_size = std::max(geo1->size(), geo2->size());
   if (geo1->dimensions() == 2) {
     std::vector<Line_2> result;
@@ -217,6 +229,9 @@ geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_v
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_centroid_1(geometry_vector_base_p geo) {
+  if (geo.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   switch (geo->geometry_type()) {
   case TRIANGLE: {
     if (geo->dimensions() == 2) {
@@ -264,6 +279,9 @@ geometry_vector_base_p geometry_centroid_1(geometry_vector_base_p geo) {
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_centroid_3(geometry_vector_base_p p1, geometry_vector_base_p p2, geometry_vector_base_p p3) {
+  if (p1.get() == nullptr || p2.get() == nullptr || p3.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (p1->dimensions() == 2) {
     auto vec1 = get_vector_of_geo<Point_2>(*p1);
     auto vec2 = get_vector_of_geo<Point_2>(*p2);
@@ -311,6 +329,9 @@ geometry_vector_base_p geometry_centroid_3(geometry_vector_base_p p1, geometry_v
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_centroid_4(geometry_vector_base_p p1, geometry_vector_base_p p2, geometry_vector_base_p p3, geometry_vector_base_p p4) {
+  if (p1.get() == nullptr || p2.get() == nullptr || p3.get() == nullptr ||p4.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   if (p1->dimensions() == 2) {
     auto vec1 = get_vector_of_geo<Point_2>(*p1);
     auto vec2 = get_vector_of_geo<Point_2>(*p2);
@@ -362,6 +383,9 @@ geometry_vector_base_p geometry_centroid_4(geometry_vector_base_p p1, geometry_v
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_equidistant_line(point3_p p1, point3_p p2, point3_p p3) {
+  if (p1.get() == nullptr || p2.get() == nullptr || p3.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   size_t output_size = std::max(std::max(p1->size(), p2->size()), p3->size());
   std::vector<Line_3> result;
   if (p1->size() == 0 || p2->size() == 0 || p3->size() == 0) {
@@ -381,6 +405,9 @@ geometry_vector_base_p geometry_equidistant_line(point3_p p1, point3_p p2, point
 
 [[cpp11::register]]
 geometry_vector_base_p geometry_radical_geometry(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
+  if (geo1.get() == nullptr || geo2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   size_t output_size = std::max(geo1->size(), geo2->size());
   if (geo1->geometry_type() == SPHERE) {
     auto s1 = get_vector_of_geo<Sphere>(*geo1);

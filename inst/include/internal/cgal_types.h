@@ -31,6 +31,8 @@
 #include <CGAL/Bbox_2.h>
 #include <CGAL/Bbox_3.h>
 
+#include <bitset>
+
 template<class T>
 class with_NA : public T {
 public:
@@ -40,7 +42,10 @@ public:
   with_NA(const T& copy) : T(copy), _valid(true) {}
 
   operator bool() const { return _valid; }
-  bool is_valid() const { return _valid; }
+  bool is_na() const { return !_valid; }
+
+  bool get_flag(size_t i) const { return _info[i % 5]; }
+  void set_flag(size_t i, bool val) { _info[i % 5] = val; }
 
   T base() const { return {*this}; }
 
@@ -52,6 +57,7 @@ public:
 
 private:
   bool _valid = true;
+  std::bitset<5> _info = 0b00000;
 };
 
 typedef CGAL::Exact_predicates_exact_constructions_kernel Kernel;

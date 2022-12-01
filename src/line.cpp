@@ -18,6 +18,9 @@ line2_p create_line_2_empty() {
 
 [[cpp11::register]]
 line2_p create_line_2_a_b_c(exact_numeric_p a, exact_numeric_p b, exact_numeric_p c) {
+  if (a.get() == nullptr || b.get() == nullptr || c.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_2> vec;
   vec.reserve(a->size());
   for (size_t i = 0; i < a->size(); ++i) {
@@ -34,6 +37,9 @@ line2_p create_line_2_a_b_c(exact_numeric_p a, exact_numeric_p b, exact_numeric_
 
 [[cpp11::register]]
 line2_p create_line_2_p_q(point2_p p, point2_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -50,6 +56,9 @@ line2_p create_line_2_p_q(point2_p p, point2_p q) {
 
 [[cpp11::register]]
 line2_p create_line_2_p_d(point2_p p, direction2_p d) {
+  if (p.get() == nullptr || d.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -66,6 +75,9 @@ line2_p create_line_2_p_d(point2_p p, direction2_p d) {
 
 [[cpp11::register]]
 line2_p create_line_2_p_v(point2_p p, vector2_p v) {
+  if (p.get() == nullptr || v.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -82,6 +94,9 @@ line2_p create_line_2_p_v(point2_p p, vector2_p v) {
 
 [[cpp11::register]]
 line2_p create_line_2_seg(segment2_p s) {
+  if (s.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_2> vec;
   vec.reserve(s->size());
   for (size_t i = 0; i < s->size(); ++i) {
@@ -98,6 +113,9 @@ line2_p create_line_2_seg(segment2_p s) {
 
 [[cpp11::register]]
 line2_p create_line_2_ray(ray2_p r) {
+  if (r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_2> vec;
   vec.reserve(r->size());
   for (size_t i = 0; i < r->size(); ++i) {
@@ -121,6 +139,9 @@ line3_p create_line_3_empty() {
 
 [[cpp11::register]]
 line3_p create_line_3_p_q(point3_p p, point3_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -137,6 +158,9 @@ line3_p create_line_3_p_q(point3_p p, point3_p q) {
 
 [[cpp11::register]]
 line3_p create_line_3_p_d(point3_p p, direction3_p d) {
+  if (p.get() == nullptr || d.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -153,6 +177,9 @@ line3_p create_line_3_p_d(point3_p p, direction3_p d) {
 
 [[cpp11::register]]
 line3_p create_line_3_p_v(point3_p p, vector3_p v) {
+  if (p.get() == nullptr || v.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -169,6 +196,9 @@ line3_p create_line_3_p_v(point3_p p, vector3_p v) {
 
 [[cpp11::register]]
 line3_p create_line_3_seg(segment3_p s) {
+  if (s.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_3> vec;
   vec.reserve(s->size());
   for (size_t i = 0; i < s->size(); ++i) {
@@ -185,6 +215,9 @@ line3_p create_line_3_seg(segment3_p s) {
 
 [[cpp11::register]]
 line3_p create_line_3_ray(ray3_p r) {
+  if (r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Line_3> vec;
   vec.reserve(r->size());
   for (size_t i = 0; i < r->size(); ++i) {

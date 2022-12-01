@@ -18,6 +18,7 @@
 #' determine if an intersection occurs using these functions.
 #'
 #' @param x,y Geometry vectors or bounding boxes
+#' @param ... arguments passed on to methods
 #'
 #' @return a list of scalar geometry vectors and `NULL`s depending on the result
 #' of the intersection query, or a vector of geometries as requested.
@@ -25,6 +26,7 @@
 #' @export
 #'
 #' @family Intersections
+#' @family Boolean operations
 #'
 #' @examples
 #' # Example of the difference in output
@@ -45,7 +47,18 @@
 #' # Request only segment intersections
 #' intersection_segment(l, t)
 #'
-intersection <- function(x, y) {
+intersection <- function(x, y, ...) {
+  UseMethod("intersection")
+}
+#' @export
+intersection.default <- function(x, y, ...) {
+  cli_abort("No method available for calculating intersection of these geometry types")
+}
+#' @export
+intersection.euclid_geometry <- function(x, y, ...) {
+  if (!is_base_geometry(y)) {
+    return(intersection(y, x, ...))
+  }
   if (is_bbox(x)) {
     if (dim(x) == 2) {
       x <- as_iso_rect(x)
@@ -59,9 +72,6 @@ intersection <- function(x, y) {
     } else {
       y <- as_iso_cube(y)
     }
-  }
-  if (!is_base_geometry(x) || !is_base_geometry(y)) {
-    return(intersection_impl(x, y))
   }
   lapply(geometry_intersection(get_ptr(x), get_ptr(y)), function(g) {
     if (is.null(g)) return(g)
@@ -154,7 +164,18 @@ intersection_triangle <- function(x, y) {
 #' # 2 dimensional circles are better supported
 #' l %is_intersecting% circle(point(7, 4), 9)
 #'
-has_intersection <- function(x, y) {
+has_intersection <- function(x, y, ...) {
+  UseMethod("has_intersection")
+}
+#' @export
+has_intersection.default <- function(x, y, ...) {
+  !vapply(intersection(x, y), logical(1L), is.null)
+}
+#' @export
+has_intersection.euclid_geometry <- function(x, y, ...) {
+  if (!is_base_geometry(y)) {
+    return(has_intersection(y, x))
+  }
   if (is_bbox(x)) {
     if (is_bbox(y)) {
       return(bbox_overlaps(get_ptr(x), get_ptr(y)))
@@ -172,9 +193,6 @@ has_intersection <- function(x, y) {
       y <- as_iso_cube(y)
     }
   }
-  if (!is_base_geometry(x) || !is_base_geometry(y)) {
-    return(has_intersection_impl(x, y))
-  }
   if (is_weighted_point(x)) {
     x <- as_point(x)
   }
@@ -187,24 +205,4 @@ has_intersection <- function(x, y) {
 #' @export
 `%is_intersecting%` <- function(x, y) {
   has_intersection(x, y)
-}
-
-#' @rdname euclid_extend
-#' @export
-intersection_impl <- function(x, y) {
-  UseMethod("intersection_impl")
-}
-#' @export
-intersection_impl.default <- function(x, y) {
-  cli_abort("intersection can only be calculated between two geometries")
-}
-
-#' @rdname euclid_extend
-#' @export
-has_intersection_impl <- function(x, y) {
-  UseMethod("has_intersection_impl")
-}
-#' @export
-has_intersection_impl.default <- function(x, y) {
-  !vapply(intersection_impl(x, y), logical(1L), is.null)
 }

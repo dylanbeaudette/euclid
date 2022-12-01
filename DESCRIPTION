@@ -29,7 +29,8 @@ Imports:
     grid,
     graphics,
     grDevices,
-    cli
+    cli,
+    generics
 URL: https://r-euclid.com, https://github.com/thomasp85/euclid
 BugReports: https://github.com/thomasp85/euclid/issues
 Suggests: 
@@ -38,5 +39,5 @@ Suggests:
     testthat,
     rmarkdown
 VignetteBuilder: knitr
-Remotes:  
+Remotes: 
     dickoa/cgalh

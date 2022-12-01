@@ -15,6 +15,9 @@ circle2_p create_circle_2_empty() {
 
 [[cpp11::register]]
 circle2_p create_circle_2_center_radius(point2_p center, exact_numeric_p r2) {
+  if (center.get() == nullptr || r2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Circle_2> vec;
   vec.reserve(center->size());
   for (size_t i = 0; i < center->size(); ++i) {
@@ -30,6 +33,9 @@ circle2_p create_circle_2_center_radius(point2_p center, exact_numeric_p r2) {
 }
 [[cpp11::register]]
 circle2_p create_circle_2_3_point(point2_p p, point2_p q, point2_p r) {
+  if (p.get() == nullptr || q.get() == nullptr || r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Circle_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -50,6 +56,9 @@ circle2_p create_circle_2_3_point(point2_p p, point2_p q, point2_p r) {
 }
 [[cpp11::register]]
 circle2_p create_circle_2_2_point(point2_p p, point2_p q) {
+  if (p.get() == nullptr || q.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Circle_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -73,6 +82,9 @@ circle3_p create_circle_3_empty() {
 
 [[cpp11::register]]
 cpp11::external_pointer<circle3> create_circle_3_center_radius_plane(point3_p center, exact_numeric_p r2, plane_p p) {
+  if (center.get() == nullptr || r2.get() == nullptr || p.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Circle_3> vec;
   vec.reserve(center->size());
   for (size_t i = 0; i < center->size(); ++i) {
@@ -94,6 +106,9 @@ cpp11::external_pointer<circle3> create_circle_3_center_radius_plane(point3_p ce
 
 [[cpp11::register]]
 cpp11::external_pointer<circle3> create_circle_3_center_radius_vec(point3_p center, exact_numeric_p r2, vector3_p v) {
+  if (center.get() == nullptr || r2.get() == nullptr || v.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Circle_3> vec;
   vec.reserve(center->size());
   for (size_t i = 0; i < center->size(); ++i) {
@@ -110,6 +125,9 @@ cpp11::external_pointer<circle3> create_circle_3_center_radius_vec(point3_p cent
 
 [[cpp11::register]]
 cpp11::external_pointer<circle3> create_circle_3_3_point(point3_p p, point3_p q, point3_p r) {
+  if (p.get() == nullptr || q.get() == nullptr || r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Circle_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -131,6 +149,9 @@ cpp11::external_pointer<circle3> create_circle_3_3_point(point3_p p, point3_p q,
 
 [[cpp11::register]]
 cpp11::external_pointer<circle3> create_circle_3_sphere_sphere(sphere_p s1, sphere_p s2) {
+  if (s1.get() == nullptr || s2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Circle_3> vec;
   vec.reserve(s1->size());
   for (size_t i = 0; i < s1->size(); ++i) {
@@ -152,6 +173,9 @@ cpp11::external_pointer<circle3> create_circle_3_sphere_sphere(sphere_p s1, sphe
 
 [[cpp11::register]]
 cpp11::external_pointer<circle3> create_circle_3_sphere_plane(sphere_p s, plane_p p) {
+  if (s.get() == nullptr || p.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Circle_3> vec;
   vec.reserve(s->size());
   for (size_t i = 0; i < s->size(); ++i) {

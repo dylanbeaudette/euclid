@@ -154,6 +154,11 @@ geometry_vector_base_p geometry_combine(geometry_vector_base_p geometries, cpp11
   if (geometries.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
+  for (R_xlen_t i = 0; i < extra.size(); ++i) {
+    if (extra[i].get() == nullptr) {
+      cpp11::stop("Data structure pointer cleared from memory");
+    }
+  }
   return geometries->combine(extra);
 }
 

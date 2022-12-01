@@ -70,7 +70,7 @@ public:
     std::vector<Direction_2> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result.push_back(Direction_2::NA_value());
         continue;
       }
@@ -87,7 +87,7 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -103,7 +103,7 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -114,7 +114,7 @@ public:
   std::vector<Direction_2> sort(bool decreasing, cpp11::logicals na_last) const {
     std::vector<Direction_2> result(_storage.begin(), _storage.end());
 
-    auto end = std::remove_if(result.begin(), result.end(), [](const Direction_2& x) { return !x.is_valid(); });
+    auto end = std::remove_if(result.begin(), result.end(), [](const Direction_2& x) { return x.is_na(); });
     int n_na = result.end() - end;
     result.resize(end - result.begin());
 
@@ -167,7 +167,7 @@ public:
     Direction_2 minimum = _storage[0];
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           minimum = Direction_2::NA_value();
           break;
@@ -186,7 +186,7 @@ public:
     Direction_2 maximum = _storage[0];
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           maximum = Direction_2::NA_value();
           break;
@@ -211,7 +211,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_min = Direction_2::NA_value();
       }
@@ -236,7 +236,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_max = Direction_2::NA_value();
       }
@@ -256,7 +256,7 @@ public:
     cpp11::writable::logicals result;
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !d1[i % d1.size()] || !d2[i % d2.size()]) {
+      if (_storage[i % size()].is_na() || d1[i % d1.size()].is_na() || d2[i % d2.size()].is_na()) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -332,7 +332,7 @@ public:
     std::vector<Direction_3> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result[i] = Direction_3::NA_value();
         continue;
       }

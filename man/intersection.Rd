@@ -13,7 +13,7 @@
 \alias{intersection_triangle}
 \title{Calculate intersections between geometries}
 \usage{
-intersection(x, y)
+intersection(x, y, ...)
 
 intersection_circle(x, y)
 
@@ -35,6 +35,8 @@ intersection_triangle(x, y)
 }
 \arguments{
 \item{x, y}{Geometry vectors or bounding boxes}
+
+\item{...}{arguments passed on to methods}
 }
 \value{
 a list of scalar geometry vectors and \code{NULL}s depending on the result
@@ -81,5 +83,9 @@ intersection_segment(l, t)
 \seealso{
 Other Intersections: 
 \code{\link{has_intersection}()}
+
+Other Boolean operations: 
+\code{\link{boolean_operations}}
 }
+\concept{Boolean operations}
 \concept{Intersections}

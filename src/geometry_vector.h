@@ -267,7 +267,7 @@ public:
 
     size_t ii = 0;
     for (size_t i = 0; i < size(); ++i) {
-      bool is_na = !_storage[i];
+      bool is_na = _storage[i].is_na();
       for (size_t j = 0; j < cardinality(i); ++j) {
         std::vector<double> row = get_row(i, j);
         for (size_t k = 0; k < ncols; ++k) {
@@ -286,7 +286,7 @@ public:
     size_t ndims = defnames.size();
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result[i] = "<NA>";
         continue;
       }
@@ -342,7 +342,7 @@ public:
 
     int k = 0;
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result.push_back(T::NA_value());
         continue;
       }
@@ -394,7 +394,7 @@ public:
 
     int k = 0;
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result.push_back(T::NA_value());
         continue;
       }
@@ -424,13 +424,13 @@ public:
     for (size_t i = 0; i < size(); ++i) {
       if (get_all) {
         for (size_t j = 0; j < n_edges(i); ++j) {
-          if (!_storage[i]) {
+          if (_storage[i].is_na()) {
             segments.push_back(Segment::NA_value());
           }
           segments.push_back(get_edge_impl<T, Segment>(_storage[i], j));
         }
       } else {
-        if (!_storage[i]) {
+        if (_storage[i].is_na()) {
           segments.push_back(Segment::NA_value());
         }
         segments.push_back(get_edge_impl<T, Segment>(_storage[i], which[i % which.size()]));
@@ -458,7 +458,7 @@ public:
     auto other_vec = get_vector_of_geo<T>(other);
 
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !other_vec[i % other_vec.size()]) {
+      if (_storage[i % size()].is_na() || other_vec[i % other_vec.size()].is_na()) {
         result[i] = NA_LOGICAL;
         continue;
       }
@@ -544,7 +544,7 @@ public:
     std::vector<T> new_storage;
     bool NA_seen = false;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-      if (!iter->is_valid()) {
+      if (iter->is_na()) {
         if (!NA_seen) {
           new_storage.push_back(T::NA_value());
           NA_seen = true;
@@ -564,7 +564,7 @@ public:
     dupes.reserve(size());
     bool NA_seen = false;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-      if (!iter->is_valid()) {
+      if (iter->is_na()) {
         if (!NA_seen) {
           dupes.push_back(TRUE);
           NA_seen = true;
@@ -586,7 +586,7 @@ public:
     bool NA_seen = false;;
     int i = 0;
     for (auto iter = _storage.begin(); iter != _storage.end(); ++iter) {
-      if (!_storage[i].is_valid()) {
+      if (_storage[i].is_na()) {
         if (NA_seen) {
           anyone = i;
           break;
@@ -639,7 +639,7 @@ public:
     cpp11::writable::logicals result;
     result.reserve(_storage.size());
     for (size_t i = 0; i < _storage.size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -825,7 +825,7 @@ public:
 
     const transform_vector<Aff, dim>* affine_recast = dynamic_cast< const transform_vector<Aff, dim>* >(&affine);
     for (size_t i = 0; i < output_length; ++i) {
-      if (!_storage[i % size()] || !(*affine_recast)[i % affine_recast->size()]) {
+      if (_storage[i % size()].is_na() || (*affine_recast)[i % affine_recast->size()].is_na()) {
         result.push_back(T::NA_value());
         continue;
       }
@@ -840,7 +840,7 @@ public:
     result.reserve(size());
 
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result.push_back(Bbox::NA_value());
         continue;
       }
@@ -932,7 +932,7 @@ public:
     std::vector<Direction> result;
     result.reserve(size());
     for (size_t i = 0; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         result.push_back(Direction::NA_value());
         continue;
       }

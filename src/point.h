@@ -103,7 +103,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(Point_2::NA_value());
         continue;
       }
@@ -119,7 +119,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(Point_2::NA_value());
         continue;
       }
@@ -135,7 +135,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(Vector_2::NA_value());
         continue;
       }
@@ -151,7 +151,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -167,7 +167,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -178,7 +178,7 @@ public:
   std::vector<Point_2> sort(bool decreasing, cpp11::logicals na_last) const {
     std::vector<Point_2> result(_storage.begin(), _storage.end());
 
-    auto end = std::remove_if(result.begin(), result.end(), [](const Point_2& x) { return !x.is_valid(); });
+    auto end = std::remove_if(result.begin(), result.end(), [](const Point_2& x) { return x.is_na(); });
     int n_na = result.end() - end;
     result.resize(end - result.begin());
 
@@ -231,7 +231,7 @@ public:
     Point_2 minimum = _storage[0];
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           minimum = Point_2::NA_value();
           break;
@@ -250,7 +250,7 @@ public:
     Point_2 maximum = _storage[0];
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           maximum = Point_2::NA_value();
           break;
@@ -275,7 +275,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_min = Point_2::NA_value();
       }
@@ -300,7 +300,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_max = Point_2::NA_value();
       }
@@ -421,7 +421,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(Point_3::NA_value());
         continue;
       }
@@ -437,7 +437,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(Point_3::NA_value());
         continue;
       }
@@ -453,7 +453,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(Vector_3::NA_value());
         continue;
       }
@@ -469,7 +469,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -485,7 +485,7 @@ public:
     }
     result.reserve(final_size);
     for (size_t i = 0; i < final_size; ++i) {
-      if (!_storage[i % size()] || !other[i % other.size()]) {
+      if (_storage[i % size()].is_na() || other[i % other.size()].is_na()) {
         result.push_back(NA_LOGICAL);
         continue;
       }
@@ -496,7 +496,7 @@ public:
   std::vector<Point_3> sort(bool decreasing, cpp11::logicals na_last) const {
     std::vector<Point_3> result(_storage.begin(), _storage.end());
 
-    auto end = std::remove_if(result.begin(), result.end(), [](const Point_3& x) { return !x.is_valid(); });
+    auto end = std::remove_if(result.begin(), result.end(), [](const Point_3& x) { return x.is_na(); });
     int n_na = result.end() - end;
     result.resize(end - result.begin());
 
@@ -549,7 +549,7 @@ public:
     Point_3 minimum = _storage[0];
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           minimum = Point_3::NA_value();
           break;
@@ -568,7 +568,7 @@ public:
     Point_3 maximum = _storage[0];
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!_storage[i]) {
+      if (_storage[i].is_na()) {
         if (!na_rm) {
           maximum = Point_3::NA_value();
           break;
@@ -593,7 +593,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_min = Point_3::NA_value();
       }
@@ -618,7 +618,7 @@ public:
     bool is_na = false;
 
     for (size_t i = 1; i < size(); ++i) {
-      if (!is_na && !_storage[i]) {
+      if (!is_na && _storage[i].is_na()) {
         is_na = true;
         cum_max = Point_3::NA_value();
       }

@@ -5,6 +5,9 @@
 
 [[cpp11::register]]
 exact_numeric_p geometry_squared_distance(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
+  if (geo1.get() == nullptr || geo2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Exact_number> res = geo1->squared_distance(*geo2);
   exact_numeric* vec(new exact_numeric(res));
   return {vec};
@@ -12,5 +15,8 @@ exact_numeric_p geometry_squared_distance(geometry_vector_base_p geo1, geometry_
 
 [[cpp11::register]]
 cpp11::writable::doubles_matrix<> geometry_distance_matrix(geometry_vector_base_p geo1, geometry_vector_base_p geo2) {
+  if (geo1.get() == nullptr || geo2.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return geo1->distance_matrix(*geo2);
 }

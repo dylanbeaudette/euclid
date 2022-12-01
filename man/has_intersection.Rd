@@ -5,7 +5,7 @@
 \alias{\%is_intersecting\%}
 \title{Query whether geometries intersect}
 \usage{
-has_intersection(x, y)
+has_intersection(x, y, ...)
 
 x \%is_intersecting\% y
 }

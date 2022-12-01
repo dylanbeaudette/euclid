@@ -73,6 +73,9 @@ transform2_p create_transform_2_matrix(cpp11::list_of< cpp11::doubles_matrix<> >
 
 [[cpp11::register]]
 transform2_p create_transform_2_translate(vector2_p trans) {
+  if (trans.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_2> vec;
   vec.reserve(trans->size());
   for (int i = 0; i < trans->size(); ++i) {
@@ -90,6 +93,9 @@ transform2_p create_transform_2_translate(vector2_p trans) {
 
 [[cpp11::register]]
 transform2_p create_transform_2_rotate(exact_numeric_p rho) {
+  if (rho.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_2> vec;
   vec.reserve(rho->size());
   for (int i = 0; i < rho->size(); ++i) {
@@ -108,6 +114,9 @@ transform2_p create_transform_2_rotate(exact_numeric_p rho) {
 
 [[cpp11::register]]
 transform2_p create_transform_2_scale(exact_numeric_p fac) {
+  if (fac.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_2> vec;
   vec.reserve(fac->size());
   for (int i = 0; i < fac->size(); ++i) {
@@ -125,6 +134,9 @@ transform2_p create_transform_2_scale(exact_numeric_p fac) {
 
 [[cpp11::register]]
 transform2_p create_transform_2_scale2(exact_numeric_p x_fac, exact_numeric_p y_fac) {
+  if (x_fac.get() == nullptr || y_fac.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_2> vec;
   size_t output_size = std::max(x_fac->size(), y_fac->size());
   vec.reserve(output_size);
@@ -143,6 +155,9 @@ transform2_p create_transform_2_scale2(exact_numeric_p x_fac, exact_numeric_p y_
 
 [[cpp11::register]]
 transform2_p create_transform_2_shear(exact_numeric_p x_fac, exact_numeric_p y_fac) {
+  if (x_fac.get() == nullptr || y_fac.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_2> vec;
   size_t output_size = std::max(x_fac->size(), y_fac->size());
   vec.reserve(output_size);
@@ -194,6 +209,9 @@ transform3_p create_transform_3_matrix(cpp11::list_of< cpp11::doubles_matrix<> >
 
 [[cpp11::register]]
 transform3_p create_transform_3_translate(vector3_p trans) {
+  if (trans.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_3> vec;
   vec.reserve(trans->size());
   for (int i = 0; i < trans->size(); ++i) {
@@ -211,6 +229,9 @@ transform3_p create_transform_3_translate(vector3_p trans) {
 
 [[cpp11::register]]
 transform3_p create_transform_3_scale(exact_numeric_p fac) {
+  if (fac.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_3> vec;
   vec.reserve(fac->size());
   for (int i = 0; i < fac->size(); ++i) {
@@ -228,6 +249,9 @@ transform3_p create_transform_3_scale(exact_numeric_p fac) {
 
 [[cpp11::register]]
 transform3_p create_transform_3_scale2(exact_numeric_p x_fac, exact_numeric_p y_fac, exact_numeric_p z_fac) {
+  if (x_fac.get() == nullptr || y_fac.get() == nullptr || z_fac.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_3> vec;
   size_t output_size = std::max(std::max(x_fac->size(), y_fac->size()), z_fac->size());
   vec.reserve(output_size);
@@ -250,6 +274,9 @@ transform3_p create_transform_3_scale2(exact_numeric_p x_fac, exact_numeric_p y_
 transform3_p create_transform_3_shear(exact_numeric_p xy_fac, exact_numeric_p xz_fac,
                                       exact_numeric_p yx_fac, exact_numeric_p yz_fac,
                                       exact_numeric_p zx_fac, exact_numeric_p zy_fac) {
+  if (xy_fac.get() == nullptr || xz_fac.get() == nullptr || yx_fac.get() == nullptr || yz_fac.get() == nullptr || zx_fac.get() == nullptr || zy_fac.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Aff_transformation_3> vec;
   size_t output_size = std::max(xy_fac->size(), xz_fac->size());
   output_size = std::max(output_size, std::max(yx_fac->size(), yz_fac->size()));
@@ -335,6 +362,11 @@ transform_vector_base_p transform_combine(transform_vector_base_p transforms, cp
   if (transforms.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
+  for (R_xlen_t i = 0; i < extra.size(); ++i) {
+    if (extra[i].get() == nullptr) {
+      cpp11::stop("Data structure pointer cleared from memory");
+    }
+  }
   return transforms->combine(extra);
 }
 
@@ -356,6 +388,9 @@ cpp11::writable::logicals transform_duplicated(transform_vector_base_p transform
 
 [[cpp11::register]]
 cpp11::writable::integers transform_any_duplicated(transform_vector_base_p transforms) {
+  if (transforms.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   return {transforms->any_duplicated() + 1};
 }
 

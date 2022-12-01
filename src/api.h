@@ -14,7 +14,7 @@ cpp11::external_pointer<T> get_ext_pointer(SEXP val) {
   }
   cpp11::external_pointer<T> ex_p(pointer);
   if (ex_p.get() == nullptr) {
-    cpp11::stop("Provided object is not of the correct class");
+    cpp11::stop("Provided object is not of the correct class or has been cleared from memory");
   }
   return ex_p;
 }

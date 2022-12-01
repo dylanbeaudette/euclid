@@ -10,6 +10,9 @@ triangle2_p create_triangle_2_empty() {
 
 [[cpp11::register]]
 triangle2_p create_triangle_2_3points(point2_p p, point2_p q, point2_p r) {
+  if (p.get() == nullptr || q.get() == nullptr || r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Triangle_2> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {
@@ -33,6 +36,9 @@ triangle3_p create_triangle_3_empty() {
 
 [[cpp11::register]]
 triangle3_p create_triangle_3_3points(point3_p p, point3_p q, point3_p r) {
+  if (p.get() == nullptr || q.get() == nullptr || r.get() == nullptr) {
+    cpp11::stop("Data structure pointer cleared from memory");
+  }
   std::vector<Triangle_3> vec;
   vec.reserve(p->size());
   for (size_t i = 0; i < p->size(); ++i) {

@@ -106,6 +106,11 @@ bbox_vector_base_p bbox_combine(bbox_vector_base_p bboxes, cpp11::list_of< bbox_
   if (bboxes.get() == nullptr) {
     cpp11::stop("Data structure pointer cleared from memory");
   }
+  for (R_xlen_t i = 0; i < extra.size(); ++i) {
+    if (extra[i].get() == nullptr) {
+      cpp11::stop("Data structure pointer cleared from memory");
+    }
+  }
   return bboxes->combine(extra);
 }
 
