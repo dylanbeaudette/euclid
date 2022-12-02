@@ -69,7 +69,7 @@ euclid_plot.default <- function(x, ..., mapping_plane = "z") {
 #' @export
 #' @importFrom grid gpar
 euclid_grob <- function(x, ..., unit = "native", name = NULL, gp = gpar(), vp = NULL, mapping_plane = "z") {
-  UseMethod("euclid_plot")
+  UseMethod("euclid_grob")
 }
 #' @export
 euclid_grob.default <- function(x, ..., unit = "native", name = NULL, gp = gpar(), vp = NULL, mapping_plane = "z") {
