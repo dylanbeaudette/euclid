@@ -190,7 +190,7 @@ centroid.default <- function(x, ...) {
 #' @export
 centroid.euclid_geometry <- function(x, y = NULL, z = NULL, t = NULL, ...) {
   if (is.null(y)) {
-    centroid_impl(x, y, z, t)
+    new_geometry_vector(geometry_centroid_1(get_ptr(x)))
   } else if (is.null(z)) {
     if (!is_point(x) || !is_point(y)) {
       cli_abort("{.arg x} and {.arg y} must be {.cls euclid_point} vectors")
