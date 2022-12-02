@@ -10,9 +10,10 @@ centroid(x, ...)
 \item{x}{A vector of triangles or tetrahedrons, or points if \code{y}, \code{z}, or \code{t}
 are provided}
 
-\item{...}{arguments passed on to methods}
-
-\item{y, z, t}{Vector of points}
+\item{...}{arguments passed on to methods. Specifically the method for
+\code{euclid_geometry} vectors accept up to three additional vectors of
+\code{euclid_point} (\code{y}, \code{z}, and \code{t} arguments) if \code{x} is a \code{euclid_point}
+vector}
 }
 \value{
 a vector of points

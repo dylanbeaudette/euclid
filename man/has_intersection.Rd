@@ -11,6 +11,8 @@ x \%is_intersecting\% y
 }
 \arguments{
 \item{x, y}{Geometry vectors or bounding boxes}
+
+\item{...}{Arguments passed on to methods}
 }
 \value{
 a logical vector

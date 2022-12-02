@@ -144,6 +144,7 @@ intersection_triangle <- function(x, y) {
 #' rather than an error
 #'
 #' @param x,y Geometry vectors or bounding boxes
+#' @param ... Arguments passed on to methods
 #'
 #' @return a logical vector
 #'

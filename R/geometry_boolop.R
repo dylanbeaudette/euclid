@@ -15,12 +15,14 @@
 #'
 #' @family Boolean operations
 #'
+#' @importFrom generics union
+#' @rawNamespace export(union)
+#' @aliases union
+#' @usage union(x, y, ...)
+#'
+#'
 NULL
 
-#' @rdname boolean_operations
-#' @importFrom generics union
-#' @export
-generics::union
 #' @rdname boolean_operations
 #' @export
 difference <- function(x, y, ...) {

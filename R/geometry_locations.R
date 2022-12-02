@@ -159,8 +159,10 @@ bisector <- function(x, y) {
 #'
 #' @param x A vector of triangles or tetrahedrons, or points if `y`, `z`, or `t`
 #' are provided
-#' @param y,z,t Vector of points
-#' @param ... arguments passed on to methods
+#' @param ... arguments passed on to methods. Specifically the method for
+#' `euclid_geometry` vectors accept up to three additional vectors of
+#' `euclid_point` (`y`, `z`, and `t` arguments) if `x` is a `euclid_point`
+#' vector
 #'
 #' @return a vector of points
 #'

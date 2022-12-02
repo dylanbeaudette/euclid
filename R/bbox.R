@@ -241,6 +241,14 @@ match_bbox <- function(x, table) {
   bbox_match(get_ptr(x), get_ptr(table))
 }
 
+# Misc --------------------------------------------------------------------
+
+#' @export
+has_intersection.euclid_bbox <- function(x, y) {
+  y <- as_bbox(y)
+  bbox_overlaps(get_ptr(x), get_ptr(y))
+}
+
 # Group generics ----------------------------------------------------------
 
 #' @export
