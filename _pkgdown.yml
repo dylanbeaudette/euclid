@@ -100,6 +100,14 @@ reference:
   contents:
   - intersection
   - has_intersection
+- title: Boolean operations
+  desc: >
+    While euclid only provides intersection methods for its data types it
+    provides generics that can be used by extension packages to add onto it. See
+    e.g. the polyclid package that provides the full set of 2D boolean set
+    operations for polygons and polylines.
+  contents:
+  - difference
 - title: Measures
   desc: >
     Measures on geometries such as area, length, and volume, cannot always be
