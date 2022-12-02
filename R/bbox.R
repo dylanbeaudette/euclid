@@ -244,7 +244,7 @@ match_bbox <- function(x, table) {
 # Misc --------------------------------------------------------------------
 
 #' @export
-has_intersection.euclid_bbox <- function(x, y) {
+has_intersection.euclid_bbox <- function(x, y, ...) {
   y <- as_bbox(y)
   bbox_overlaps(get_ptr(x), get_ptr(y))
 }
