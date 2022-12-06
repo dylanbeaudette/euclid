@@ -14,8 +14,15 @@ home:
     dimensional linear geometry kernel from CGAL.
 
 template:
-  params:
-    bootswatch: cosmo
+  bootstrap: 5
+  theme: a11y-light
+  bslib:
+    bg: "#F7FAF4"
+    fg: "#0B0B0B"
+    primary: "#C54514"
+    base_font: {google: "Gelasio"}
+    heading_font: {google: "Montserrat"}
+    code_font: {google: "Fira Code"}
   opengraph:
     image:
       src: man/figures/card.png
@@ -24,6 +31,36 @@ template:
       creator: "@thomasp85"
       site: "@rstudio"
       card: summary_large_image
+
+navbar:
+  bg: primary
+  type: dark
+  structure:
+    left:
+    - intro
+    - reference
+    - articles
+    - tutorials
+    - news
+    right:
+    - euclid
+    - github
+  components:
+    reference:
+      text: Reference
+      href: reference/index.html
+    euclid:
+      text: Euclid ecosystem
+      menu:
+      - text: Foundation
+      - text: Euclid
+        href: https://r-euclid.com
+      - text: Polyclid
+        href: https://polyclid.r-euclid.com
+    github:
+      icon: fab fa-github fa-lg
+      href: https://github.com/thomasp85/euclid/
+      aria-label: github
 
 reference:
 - title: Geometry types
