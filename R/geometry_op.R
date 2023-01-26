@@ -17,6 +17,7 @@ geometry_op_multiply <- function(e1, e2) {
 }
 #' @export
 geometry_op_multiply.default <- function(e1, e2) {
+  if (!is_geometry(e1) && is_geometry(e2)) return(geometry_op_multiply(e2, e1))
   cli_abort("The provided geometries ({.cls {class(e1)[1]}} and {.cls {class(e2)[1]}}) does not define a {.code *} operation")
 }
 geometry_op_divide <- function(e1, e2) {
