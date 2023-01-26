@@ -1,7 +1,7 @@
 
 <!-- README.md is generated from README.Rmd. Please edit that file -->
 
-# euclid <a href='https://euclid.data-imaginist.com'><img src="man/figures/logo.png" align="right" height="138.5"/></a>
+# euclid <a href='https://r-euclid.com'><img src="man/figures/logo.png" align="right" height="138.5"/></a>
 
 <!-- badges: start -->
 
