@@ -17,7 +17,7 @@ knitr::opts_chunk$set(
 set.seed(2021)
 ```
 
-Euclid is a package for computation geometry in R. Not just that, it is also the
+Euclid is a package for computational geometry in R. Not just that, it is also the
 foundation for a whole universe of packages devoted to specific subsets of
 computational geometry. In order to understand this universe, you must at least
 have a passing understanding of euclid. Fear not, the purpose of the euclid API
@@ -107,7 +107,7 @@ circ
 
 Another type of information that can be extracted are the points that make up
 the geometry. For circles, that would be the center, for segments it would be
-either the start or end, etc. This can be accessed with the `vertex()` function:
+either the start or end, etc. This can be accessed with the `vert()` function:
 
 ```{r}
 vert(circ)
