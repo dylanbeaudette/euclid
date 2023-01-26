@@ -187,6 +187,7 @@ geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_v
         }
         result.push_back(CGAL::bisector(p1[i % p1.size()], p2[i % p2.size()]));
       }
+      break;
     }
     default: cpp11::stop("Don't know how to calculate bisector of given geometries");
     }
@@ -220,6 +221,7 @@ geometry_vector_base_p geometry_bisector(geometry_vector_base_p geo1, geometry_v
         }
         result.push_back(CGAL::bisector(p1[i % p1.size()], p2[i % p2.size()]));
       }
+      break;
     }
     default: cpp11::stop("Don't know how to calculate bisector of given geometries");
     }
