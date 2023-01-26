@@ -158,10 +158,10 @@ approx_distance_matrix.euclid_geometry <- function(x, y, ...) {
 #' Calculate angle between geometries
 #'
 #' Angles cannot be given exactly since vector angle relies on the vector length
-#' as well as [acos]. This function calculate the angle between two geometries.
-#' This is defined for surfaces, curves, and arrows. If a surface is supplied
-#' the angle will be calculated based on the surface normal and modified to
-#' match the original geometry.
+#' as well as [atan]. This function calculate the inner angle between two
+#' geometries. This is defined for surfaces, curves, and arrows. If a surface is
+#' supplied the angle will be calculated based on the surface normal and
+#' modified to match the original geometry.
 #'
 #' @param x,y Geometry vectors. Only surfaces, curves, and arrows are allowed
 #'
@@ -199,5 +199,7 @@ approx_angle <- function(x, y) {
   }
   x <- as_vec(x)
   y <- as_vec(y)
-  acos(as.numeric(x * y / (approx_length(x) * approx_length(y))))
+  x_len_y <- approx_length(x) * y
+  y_len_x <- approx_length(y) * x
+  2 * atan2(approx_length(y_len_x - x_len_y), approx_length(y_len_x + x_len_y))
 }
