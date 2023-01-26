@@ -302,15 +302,17 @@ seq.euclid_exact_numeric <- function(from, to, by = 1, length.out = NULL, along.
     if (is.null(length.out)) {
       cli_abort("Either {.arg to}, or {.arg length.out}/{.arg along.with} must be given")
     }
-    to <- from + by * (length.out - 1)
+    to <- from + by * (length.out - 1L)
   }
   if (is.na(to)) {
     cli_abort("{.arg to} must be a finite number")
   }
   dif <- to - from
   if (!is.null(length.out)) {
-    by <- dif / (length.out - 1)
+    by <- dif / (length.out - 1L)
+    n <- length.out - 1L
+  } else {
+    n <- floor(as.numeric(dif / by))
   }
-  n <- floor(as.numeric(dif / by))
-  from + (seq_len(n + 1) - 1) * by
+  from + (seq_len(n + 1L) - 1L) * by
 }
