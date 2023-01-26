@@ -266,7 +266,7 @@ public:
     return create_bbox_vector(new_storage);
   }
   bbox_vector_base_p assign(cpp11::integers index, const bbox_vector_base& value) const {
-    if (index.size() != value.size()) {
+    if (size_t(index.size()) != value.size()) {
       cpp11::stop("Incompatible vector sizes");
     }
     if (typeid(*this) != typeid(value)) {
@@ -276,7 +276,7 @@ public:
     const bbox_vector<T, dim>* value_recast = dynamic_cast< const bbox_vector<T, dim>* >(&value);
 
     std::vector<T> new_storage(_storage);
-    int max_size = *std::max_element(index.begin(), index.end());
+    size_t max_size = *std::max_element(index.begin(), index.end());
     if (max_size > new_storage.size()) {
       new_storage.reserve(max_size);
       for (int j = new_storage.size(); j < max_size; ++j) {

@@ -500,7 +500,7 @@ public:
     return create_geometry_vector(new_storage);
   }
   geometry_vector_base_p assign(cpp11::integers index, const geometry_vector_base& value) const {
-    if (index.size() != value.size()) {
+    if (size_t(index.size()) != value.size()) {
       cpp11::stop("Incompatible vector sizes");
     }
     if (typeid(*this) != typeid(value)) {
@@ -510,7 +510,7 @@ public:
     auto value_vec = get_vector_of_geo<T>(value);
 
     std::vector<T> new_storage(_storage);
-    int max_size = *std::max_element(index.begin(), index.end());
+    size_t max_size = *std::max_element(index.begin(), index.end());
     if (max_size > new_storage.size()) {
       new_storage.reserve(max_size);
       for (int j = new_storage.size(); j < max_size; ++j) {

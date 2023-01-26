@@ -29,7 +29,7 @@ inline std::vector<Point_2> base_set_def_all_2(const T& geometry, int which, con
 }
 
 template<typename T>
-inline std::vector<Point_2> base_set_def_one_2(const T& geometry, size_t length, int which, int element, const Exact_number& value) {
+inline std::vector<Point_2> base_set_def_one_2(const T& geometry, size_t length, int which, size_t element, const Exact_number& value) {
   std::vector<Point_2> current;
   for (size_t i = 0; i < length; ++i) {
     if (i != element) {
@@ -68,7 +68,7 @@ inline std::vector<Point_3> base_set_def_all_3(const T& geometry, int which, con
 }
 
 template<typename T>
-inline std::vector<Point_3> base_set_def_one_3(const T& geometry, size_t length, int which, int element, const Exact_number& value) {
+inline std::vector<Point_3> base_set_def_one_3(const T& geometry, size_t length, int which, size_t element, const Exact_number& value) {
   std::vector<Point_3> current;
   for (size_t i = 0; i < length; ++i) {
     if (i != element) {

@@ -30,7 +30,7 @@ inline std::vector<Exact_number> squared_distance_impl(const std::vector<T>& geo
 inline std::vector<Exact_number> unknown_squared_distance_impl(size_t size) {
   std::vector<Exact_number> res;
   res.reserve(size);
-  for (R_xlen_t i = 0; i < size; ++i) {
+  for (size_t i = 0; i < size; ++i) {
     res.push_back(Exact_number::NA_value());
   }
   return res;
