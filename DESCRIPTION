@@ -17,7 +17,6 @@ Roxygen: list(markdown = TRUE)
 RoxygenNote: 7.2.1
 LinkingTo: 
     cpp11 (>= 0.2.3),
-    cgalh,
     BH
 SystemRequirements: 
     C++14,
@@ -39,5 +38,3 @@ Suggests:
     testthat,
     rmarkdown
 VignetteBuilder: knitr
-Remotes: 
-    dickoa/cgalh
